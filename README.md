@@ -84,6 +84,17 @@ you can verify the claims yourself):
 - **Self-verification ("proofed edits")** — auto-runs lint / typecheck / tests
   after edits, with AI-planned commands.
   → [`renderer/verification/`](renderer/verification)
+- **Learning mode (AI tutor)** — turns each run into a lesson: after the agent
+  works, it explains *what* it changed, the approach and trade-offs it made, and
+  the actual concepts behind it (algorithms, data structures, design patterns,
+  architecture, best practices) plus code worth studying — so you level up
+  instead of just accepting diffs. Optional auto-learn after every run.
+  → [`renderer/learning/`](renderer/learning)
+- **Docs mode (auto-docs)** — after each run, generates a structured Markdown
+  doc entry (overview, user workflow, usage, configuration, files touched,
+  notes) ready to merge into your project docs, so documentation keeps up with
+  the agent instead of rotting. Optional auto-doc after every run.
+  → [`renderer/docs/`](renderer/docs)
 - **Per-turn git checkpoints** — snapshot + safe rollback so any agent turn can
   be undone across the whole workspace.
   → [`renderer/git/`](renderer/git)
