@@ -13,6 +13,8 @@ receipts, and one-click git rollback.
 > thought it was funny too. It's also genuinely useful: pick the brain that's
 > best (or cheapest) for the task without relearning your tools.
 
+![Codeon editor — Monaco editor, file tree, integrated terminal, and the AI assistant building a site with the anti-slop design engine](docs/assets/codeon-editor.png)
+
 ---
 
 ## Why this exists
@@ -88,6 +90,21 @@ you can verify the claims yourself):
 - **Full IDE shell** — Monaco editor + diff, an integrated `node-pty` terminal,
   a file explorer, an MCP server manager, skills/agents/plugins panels, and a
   permission model with plan / accept-edits / bypass modes.
+
+---
+
+## A look inside
+
+**Auditable execution receipts (AET).** Every run folds into a deterministic
+node/edge timeline with status, duration, edited-file diffs, and a git
+checkpoint you can roll back to:
+
+![Codeon AET — Agent Execution Timeline showing a successful run graph with checkpoint, per-file diffs, and tool-call nodes](docs/assets/codeon-aet-timeline.png)
+
+**Extensible by design.** Skills, agents, MCP servers, and plugins are
+first-class — bring your own tools and conventions:
+
+![Codeon Agents & Skills panel listing user skills like Accessibility, Security, Performance, and Testing](docs/assets/codeon-agents-skills.png)
 
 ---
 
