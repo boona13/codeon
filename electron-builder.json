@@ -1,0 +1,70 @@
+{
+  "appId": "com.codeon.app",
+  "productName": "Codeon",
+  "asar": true,
+  "asarUnpack": [
+    "node_modules/node-pty/**/*",
+    "node_modules/sql.js/**/*"
+  ],
+  "afterPack": "scripts/afterPack.js",
+  "afterSign": "scripts/afterSignNotarize.js",
+  "directories": {
+    "output": "dist",
+    "buildResources": "assets"
+  },
+  "files": [
+    "main.js",
+    "main/**/*",
+    "preload.js",
+    "claude-sdk-service.js",
+    "renderer/**/*",
+    "!renderer/_backups/**",
+    "assets/**/*",
+    "node_modules/**/*",
+    "!debug-logs/**"
+  ],
+  "mac": {
+    "category": "public.app-category.developer-tools",
+    "icon": "assets/icon.icns",
+    "target": [
+      {
+        "target": "dmg",
+        "arch": ["x64", "arm64"]
+      },
+      {
+        "target": "zip",
+        "arch": ["x64", "arm64"]
+      }
+    ],
+    "darkModeSupport": true
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "assets/icon.png"
+  },
+  "linux": {
+    "target": [
+      "AppImage",
+      "deb"
+    ],
+    "icon": "assets/icon.png",
+    "category": "Development",
+    "maintainer": "Ibrahim Boona"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true
+  }
+}
+

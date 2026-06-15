@@ -1,0 +1,398 @@
+/**
+ * Sticky Prompts Chat Demo
+ * Demonstrates Cursor-style sticky user messages
+ */
+
+class StickyPromptsChat {
+  constructor() {
+    this.chatContainer = document.getElementById('chatContainer');
+    this.messagesList = document.getElementById('messagesList');
+    this.userInput = document.getElementById('userInput');
+    this.sendBtn = document.getElementById('sendBtn');
+    
+    // Track the current turn element for grouping messages
+    this.currentTurnEl = null;
+    
+    // Track message count for demo purposes
+    this.messageCount = 0;
+    
+    this.init();
+  }
+  
+  init() {
+    // Set up event listeners
+    this.sendBtn.addEventListener('click', () => this.handleSend());
+    
+    this.userInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        this.handleSend();
+      }
+    });
+    
+    // Auto-resize textarea
+    this.userInput.addEventListener('input', () => {
+      this.autoResizeTextarea();
+    });
+    
+    // Monitor scroll to toggle "scrolled" class
+    this.chatContainer.addEventListener('scroll', () => {
+      this.updateScrollState();
+    });
+    
+    // Initial scroll state
+    this.updateScrollState();
+    
+    // Focus input on load
+    this.userInput.focus();
+  }
+  
+  /**
+   * Update the "scrolled" class based on scroll position
+   * This removes top padding when scrolling starts
+   */
+  updateScrollState() {
+    const isScrolled = this.chatContainer.scrollTop > 0;
+    this.chatContainer.classList.toggle('scrolled', isScrolled);
+  }
+  
+  /**
+   * Auto-resize textarea based on content
+   */
+  autoResizeTextarea() {
+    this.userInput.style.height = 'auto';
+    this.userInput.style.height = Math.min(this.userInput.scrollHeight, 200) + 'px';
+  }
+  
+  /**
+   * Handle send button click
+   */
+  async handleSend() {
+    const text = this.userInput.value.trim();
+    if (!text) return;
+    
+    // Remove demo hint on first message
+    if (this.messageCount === 0) {
+      const hint = this.messagesList.querySelector('.demo-hint');
+      if (hint) {
+        hint.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => hint.remove(), 300);
+      }
+    }
+    
+    this.messageCount++;
+    
+    // Add user message
+    this.addUserMessage(text);
+    
+    // Clear input and reset height
+    this.userInput.value = '';
+    this.userInput.style.height = 'auto';
+    
+    // Disable input during response
+    this.setInputState(false);
+    
+    // Scroll to bottom
+    this.scrollToBottom();
+    
+    // Show typing indicator
+    this.showTypingIndicator();
+    
+    // Simulate AI response
+    await this.simulateAssistantResponse(text);
+    
+    // Re-enable input
+    this.setInputState(true);
+    this.userInput.focus();
+  }
+  
+  /**
+   * Enable/disable input and button
+   */
+  setInputState(enabled) {
+    this.userInput.disabled = !enabled;
+    this.sendBtn.disabled = !enabled;
+  }
+  
+  /**
+   * Add a user message to the chat
+   * Creates a new "turn" for grouping user→assistant messages
+   */
+  addUserMessage(text) {
+    // Create a new turn container
+    this.currentTurnEl = document.createElement('div');
+    this.currentTurnEl.className = 'turn';
+    this.messagesList.appendChild(this.currentTurnEl);
+    
+    // Create the user message element
+    const messageEl = document.createElement('div');
+    messageEl.className = 'message user-message sticky-message';
+    messageEl.setAttribute('data-role', 'user');
+    
+    const bubble = document.createElement('div');
+    bubble.className = 'message-bubble';
+    
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    content.textContent = text;
+    
+    bubble.appendChild(content);
+    messageEl.appendChild(bubble);
+    
+    // Add to the current turn
+    this.currentTurnEl.appendChild(messageEl);
+  }
+  
+  /**
+   * Add an assistant message to the chat
+   * Appends to the current turn (same user→assistant grouping)
+   */
+  addAssistantMessage(text) {
+    // Use the current turn (or create one if missing)
+    const parent = this.currentTurnEl || this.messagesList;
+    
+    const messageEl = document.createElement('div');
+    messageEl.className = 'message assistant-message';
+    messageEl.setAttribute('data-role', 'assistant');
+    
+    const header = document.createElement('div');
+    header.className = 'message-header';
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = '🤖';
+    
+    const username = document.createElement('div');
+    username.className = 'username';
+    username.textContent = 'Assistant';
+    
+    header.appendChild(avatar);
+    header.appendChild(username);
+    
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    content.textContent = text;
+    
+    messageEl.appendChild(header);
+    messageEl.appendChild(content);
+    
+    parent.appendChild(messageEl);
+    
+    return messageEl;
+  }
+  
+  /**
+   * Show typing indicator
+   */
+  showTypingIndicator() {
+    const parent = this.currentTurnEl || this.messagesList;
+    
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator';
+    indicator.id = 'typingIndicator';
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = '🤖';
+    
+    const dots = document.createElement('div');
+    dots.className = 'dots';
+    
+    for (let i = 0; i < 3; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dots.appendChild(dot);
+    }
+    
+    indicator.appendChild(avatar);
+    indicator.appendChild(dots);
+    parent.appendChild(indicator);
+    
+    this.scrollToBottom();
+  }
+  
+  /**
+   * Hide typing indicator
+   */
+  hideTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) {
+      indicator.style.animation = 'fadeOut 0.2s ease';
+      setTimeout(() => indicator.remove(), 200);
+    }
+  }
+  
+  /**
+   * Simulate an AI response with varied content
+   */
+  async simulateAssistantResponse(userText) {
+    // Simulate thinking delay (500ms - 1500ms)
+    await this.sleep(500 + Math.random() * 1000);
+    
+    this.hideTypingIndicator();
+    
+    // Generate response based on message count and content
+    let response = this.generateResponse(userText);
+    
+    // Add message with streaming effect
+    await this.addAssistantMessageStreaming(response);
+    
+    this.scrollToBottom();
+  }
+  
+  /**
+   * Generate contextual response
+   */
+  generateResponse(userText) {
+    const responses = [
+      // Short response
+      `Got it! You said: "${userText}"\n\nThis is a relatively short response to show the basic sticky behavior.`,
+      
+      // Medium response
+      `That's an interesting point about "${userText}".\n\nLet me break this down:\n\n1. First, notice how your question stays visible at the top as you scroll through this response.\n\n2. This is achieved using CSS position: sticky with a turn-based container structure.\n\n3. Try scrolling up and down to see how smoothly it works!\n\nPretty neat, right?`,
+      
+      // Long response to really show the sticky behavior
+      `Great question about "${userText}"! Let me give you a comprehensive answer.\n\n` +
+      `## The Magic of Sticky Prompts\n\n` +
+      `As you scroll through this longer response, you'll notice your question remains pinned at the top. This creates excellent UX for several reasons:\n\n` +
+      `**1. Context Preservation**\n` +
+      `You never lose track of what you asked. The question stays visible as you read through potentially long responses.\n\n` +
+      `**2. Smooth Transitions**\n` +
+      `When you send a new message, the previous prompt smoothly scrolls up and out of view. No jarring jumps or overlaps.\n\n` +
+      `**3. Natural Reading Flow**\n` +
+      `Your eyes naturally stay near the top of the screen where the sticky prompt anchors your attention.\n\n` +
+      `## Implementation Details\n\n` +
+      `The key is using "turn containers" that group each user→assistant exchange. This constrains the sticky positioning to each conversation pair.\n\n` +
+      `**CSS Magic:**\n` +
+      `- position: sticky\n` +
+      `- top: 0\n` +
+      `- z-index: 1000\n` +
+      `- Parent with position: relative\n\n` +
+      `**JavaScript Logic:**\n` +
+      `- Create new turn on each user message\n` +
+      `- Append assistant response to current turn\n` +
+      `- Monitor scroll to adjust padding\n\n` +
+      `Try sending a few more messages to see how multiple sticky prompts interact. Each one smoothly pushes the previous one off screen!\n\n` +
+      `Pretty cool, huh? 🚀`,
+      
+      // Response that explains what to look for
+      `Excellent! You're testing the sticky prompts. Here's what to observe:\n\n` +
+      `📍 **Scroll Up Now**\n` +
+      `Your question "${userText}" should stay pinned at the top of the screen.\n\n` +
+      `📍 **Send Another Message**\n` +
+      `Watch how this prompt smoothly exits upward when a new one appears.\n\n` +
+      `📍 **Notice the Padding**\n` +
+      `When you're at the top (not scrolled), there's breathing room. Once you scroll, the prompt sits flush against the top.\n\n` +
+      `This mimics Cursor Composer's behavior exactly. The implementation uses CSS sticky positioning with turn-based containment to achieve this smooth, non-overlapping effect.\n\n` +
+      `The beauty is that it's purely CSS-driven with minimal JavaScript. No complex scroll calculations or positioning math required!`
+    ];
+    
+    // Pick a random response
+    return responses[Math.floor(Math.random() * responses.length)];
+  }
+  
+  /**
+   * Add assistant message with streaming effect
+   */
+  async addAssistantMessageStreaming(text) {
+    const parent = this.currentTurnEl || this.messagesList;
+    
+    const messageEl = document.createElement('div');
+    messageEl.className = 'message assistant-message';
+    messageEl.setAttribute('data-role', 'assistant');
+    
+    const header = document.createElement('div');
+    header.className = 'message-header';
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = '🤖';
+    
+    const username = document.createElement('div');
+    username.className = 'username';
+    username.textContent = 'Assistant';
+    
+    header.appendChild(avatar);
+    header.appendChild(username);
+    
+    const content = document.createElement('div');
+    content.className = 'message-content';
+    
+    messageEl.appendChild(header);
+    messageEl.appendChild(content);
+    parent.appendChild(messageEl);
+    
+    // Stream characters with natural timing
+    let displayedText = '';
+    const words = text.split(' ');
+    
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      displayedText += (i > 0 ? ' ' : '') + word;
+      content.textContent = displayedText;
+      
+      // Auto-scroll if near bottom
+      if (this.isNearBottom(150)) {
+        this.scrollToBottom(false);
+      }
+      
+      // Variable delay for more natural typing
+      const delay = 20 + Math.random() * 30;
+      await this.sleep(delay);
+    }
+    
+    return messageEl;
+  }
+  
+  /**
+   * Scroll chat to bottom
+   */
+  scrollToBottom(smooth = true) {
+    this.chatContainer.scrollTo({
+      top: this.chatContainer.scrollHeight,
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+  }
+  
+  /**
+   * Check if user is near the bottom of chat
+   */
+  isNearBottom(threshold = 100) {
+    const { scrollTop, scrollHeight, clientHeight } = this.chatContainer;
+    return scrollHeight - scrollTop - clientHeight < threshold;
+  }
+  
+  /**
+   * Helper to simulate async delay
+   */
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+}
+
+// Add fade out animation for demo hint
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+`;
+document.head.appendChild(style);
+
+// Initialize the chat when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  window.chat = new StickyPromptsChat();
+  
+  // Log to console for developers
+  console.log('%c✨ Sticky Prompts Demo', 'font-size: 20px; font-weight: bold; color: #007acc;');
+  console.log('%cTry sending messages and scrolling to see the sticky behavior!', 'font-size: 14px; color: #999;');
+  console.log('%cAccess the chat instance via: window.chat', 'font-size: 12px; color: #666; font-style: italic;');
+});
+

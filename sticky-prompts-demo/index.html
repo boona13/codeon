@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Prompts Demo - Cursor Style</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="chat-app">
+    <!-- Main scrollable chat area -->
+    <div class="chat-container" id="chatContainer">
+      <div class="messages-blur-wrapper">
+        <div class="messages-list" id="messagesList">
+          <!-- Initial demo message -->
+          <div class="demo-hint">
+            👋 Welcome! Try sending messages and scrolling to see the sticky prompt behavior.
+            <br><br>
+            <strong>Tip:</strong> Scroll up through long responses to see how the user's question stays visible at the top!
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Input area (fixed at bottom) -->
+    <div class="chat-input-area">
+      <textarea 
+        id="userInput" 
+        placeholder="Type your message... (Press Enter to send, Shift+Enter for new line)"
+        rows="1"
+      ></textarea>
+      <button id="sendBtn" title="Send message">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

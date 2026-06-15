@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Codeon</title>
+  <!-- Load marked before Monaco AMD loader to avoid interception -->
+  <script src="learning/marked.min.js"></script>
+  <script>
+    if (typeof marked !== 'undefined') {
+      marked.setOptions({ breaks: true, gfm: true, headerIds: false, mangle: false });
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css?v=20251128b">
+  <link rel="stylesheet" href="custom-dropdown.css">
+  <link rel="stylesheet" href="aet/map/map-view.css?v=20260102a">
+  <link rel="stylesheet" href="../node_modules/xterm/css/xterm.css">
+  <link rel="stylesheet" href="terminal/terminal-panel.css?v=20260102a">
+  <link rel="stylesheet" href="learning/learning.css?v=20260113a">
+  <link rel="stylesheet" href="docs/docs.css?v=20260121a">
+  <link rel="stylesheet" href="verification/proofed-edits.css?v=20260125a">
+  <link rel="stylesheet" href="verification/verification.css?v=20260125a">
+  <!-- MCP UI removed (migrated to Claude SDK wrapper) -->
+  <!-- (Removed) legacy checkpoints timeline UI -->
+</head>
+<body>
+  <!-- Model Loading Splash Screen (Critical - loads BEFORE anything else) -->
+  <div id="modelLoadingScreen" class="model-loading-screen">
+    <div class="model-loading-content">
+      <div class="model-loading-spinner">
+        <svg class="spinner-icon" viewBox="0 0 50 50">
+          <circle class="spinner-path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+        </svg>
+      </div>
+      <h2 class="model-loading-title">Initializing AI Model</h2>
+      <p class="model-loading-subtitle">Loading neural embeddings... This happens once, then cached.</p>
+      <div class="model-loading-progress">
+        <div class="progress-bar-indeterminate"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indexing Loading Overlay -->
+  <div id="indexingOverlay" class="indexing-overlay" style="display: none;">
+    <div class="indexing-content">
+      <div class="indexing-spinner">
+        <svg class="spinner-icon" viewBox="0 0 50 50">
+          <circle class="spinner-path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+        </svg>
+      </div>
+      <h2 class="indexing-title">Indexing Your Codebase</h2>
+      <p class="indexing-subtitle">Building AI-powered intelligence...</p>
+      <div class="indexing-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" id="indexingProgressFill"></div>
+        </div>
+        <div class="progress-text" id="indexingProgressText">0%</div>
+      </div>
+      <div class="indexing-stats">
+        <div class="stat-item">
+          <span class="stat-label">Files:</span>
+          <span class="stat-value" id="indexingFiles">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Symbols:</span>
+          <span class="stat-value" id="indexingSymbols">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Status:</span>
+          <span class="stat-value" id="indexingStatus">Scanning...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox -->
+  <div id="imageLightbox" class="lightbox" style="display: none;">
+    <div class="lightbox-content">
+      <img id="lightboxImage" src="" alt="Preview">
+      <button class="lightbox-close" id="lightboxClose">×</button>
+    </div>
+  </div>
+
+  <!-- Welcome Screen -->
+  <div id="welcomeScreen" class="welcome-screen">
+
+    <div class="welcome-container">
+      <div class="welcome-header">
+        <div class="welcome-logo">
+          <img class="welcome-logo-image" src="../assets/icon.png" alt="Codeon">
+        </div>
+        <h1 class="welcome-title">Codeon</h1>
+        <p class="welcome-subtitle">Your intelligent coding companion powered by AI</p>
+      </div>
+
+      <div class="welcome-content">
+        <div class="welcome-section">
+          <button class="open-project-btn" id="welcomeOpenFolder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>Open Project</span>
+          </button>
+        </div>
+
+        <div class="welcome-section recent-projects-section" id="recentProjectsSection" style="display: none;">
+          <h2 class="section-title">Recent Projects</h2>
+          <div class="recent-projects-list" id="recentProjectsList">
+            <!-- Recent projects will be dynamically added here -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="welcome-footer">
+        <p>Powered by Claude Code (Agent SDK)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div id="app" class="app-container" style="display: none;">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <div class="logo">
+          <img class="logo-image" src="../assets/icon.png" alt="Codeon">
+          <span class="logo-text">Codeon</span>
+        </div>
+      </div>
+      <div class="top-bar-center">
+        <div class="file-path" id="currentFilePath">No file open</div>
+      </div>
+      <div class="top-bar-right">
+        <button class="icon-button" id="settingsButton" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-content">
+      <div class="main-layout">
+
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="icon-button" id="openFolderButton" title="Open Folder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </button>
+            <span class="sidebar-title" id="sidebarTitle">No folder</span>
+          </div>
+          <button class="icon-button" id="sidebarToggle" title="Toggle Sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Keep this element for backward compatibility, but we show the project name in the header now -->
+        <div class="project-name" id="projectName" style="display: none;"></div>
+        <div class="file-tree" id="fileTree">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="empty-icon">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+            <p>No folder open</p>
+            <button class="btn-primary" onclick="document.getElementById('openFolderButton').click()">
+              Open Folder
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resize Handle -->
+      <div class="resize-handle" id="sidebarResize"></div>
+
+      <!-- Editor Container -->
+      <div class="editor-container">
+        <div class="editor-tabs" id="editorTabs" style="display: none;"></div>
+        <div class="editor-wrapper">
+          <div id="editor"></div>
+          <div id="diffEditor" style="display: none; width: 100%; height: 100%;"></div>
+          
+          <!-- Execution Timeline (Graph View) - uses the main editor canvas area -->
+          <div id="executionTimelineEditorOverlay" class="execution-timeline-editor-overlay" style="display: none;">
+            <div class="execution-timeline-editor-header">
+              <!-- Row 1: Title + View Toggle -->
+              <div class="execution-timeline-editor-header-row codeon-panel-topbar">
+                <div class="codeon-panel-titlewrap">
+                  <div class="execution-timeline-editor-title codeon-panel-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                      <circle cx="12" cy="12" r="9"></circle>
+                      <path d="M12 7v6l4 2"></path>
+                    </svg>
+                    <span>Execution Timeline</span>
+                    <span class="codeon-panel-title-pill">AET</span>
+                  </div>
+                  <div class="codeon-panel-subtitle">Review run feed, graph, and mindmap for the current session</div>
+                </div>
+                <div class="codeon-panel-actions">
+                  <div class="execution-timeline-view-toggle" role="tablist" aria-label="Execution Timeline view">
+                    <button class="execution-toggle-btn" id="executionTimelineEditorFeedBtn" type="button" role="tab" aria-selected="false">Feed</button>
+                    <button class="execution-toggle-btn" id="executionTimelineEditorGraphBtn" type="button" role="tab" aria-selected="true">Graph</button>
+                    <button class="execution-toggle-btn" id="executionTimelineEditorMapBtn" type="button" role="tab" aria-selected="false">Mindmap</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="execution-timeline-editor-summary" id="executionTimelineEditorRunSummary"></div>
+            <div class="execution-timeline-editor-changes" id="executionTimelineEditorChanges"></div>
+            <div class="execution-timeline-editor-filters" id="executionTimelineEditorFilters"></div>
+            <div class="aet-meta-toggle-row" id="executionTimelineEditorMetaToggleRow">
+              <button class="aet-meta-toggle-btn" id="executionTimelineEditorMetaToggleBtn" type="button" aria-label="Collapse timeline details" title="Collapse details">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
+                  <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+              </button>
+            </div>
+            <div class="execution-timeline-editor-body" id="executionTimelineEditorGraphHost">
+              <div class="execution-timeline-editor-canvas-host" id="executionTimelineEditorCanvasHost"></div>
+              <div class="execution-timeline-editor-canvas-controls" id="executionTimelineEditorCanvasControls">
+                <button class="aet-mini-icon-btn" id="executionTimelineEditorCanvasControlsToggleBtn" type="button" title="Toggle controls" aria-label="Toggle controls">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <!-- Collapsed: points LEFT (expand). Expanded (on hover): rotates to point RIGHT (collapse). -->
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <select class="form-input" id="executionTimelineEditorRunSelect" aria-label="Select run"></select>
+                <button class="btn-secondary" id="executionTimelineEditorFitBtn" type="button" title="Fit graph to view">Fit</button>
+                <div class="execution-timeline-map-rewind" id="executionTimelineMapRewindControls" style="display:none;">
+                  <button class="aet-mini-icon-btn" id="executionTimelineMapPlayBtn" type="button" title="Play rewind" aria-label="Play rewind">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                      <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                  </button>
+                  <input class="execution-timeline-playback-scrub" id="executionTimelineMapScrub" type="range" min="0" max="0" value="0" step="1" aria-label="Map rewind scrub" />
+                  <span class="execution-timeline-playback-label" id="executionTimelineMapLabel">0/0</span>
+                  <button class="aet-mini-icon-btn" id="executionTimelineMapPinboardBtn" type="button" title="Pinboard" aria-label="Pinboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M12 17v5"></path>
+                      <path d="M9 3h6l1 2h4v4l-2 2v4H6v-4L4 9V5h4l1-2z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="execution-timeline-playback" id="executionTimelinePlaybackControls" style="display:none;">
+                  <button class="aet-mini-icon-btn" id="executionTimelinePlaybackPrevBtn" type="button" title="Previous node" aria-label="Previous node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  <button class="aet-mini-icon-btn" id="executionTimelinePlaybackPlayBtn" type="button" title="Play" aria-label="Play">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                      <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                  </button>
+                  <button class="aet-mini-icon-btn" id="executionTimelinePlaybackNextBtn" type="button" title="Next node" aria-label="Next node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                  <input class="execution-timeline-playback-scrub" id="executionTimelinePlaybackScrub" type="range" min="0" max="0" value="0" step="1" aria-label="Playback scrub" />
+                  <span class="execution-timeline-playback-label" id="executionTimelinePlaybackLabel">0/0</span>
+                </div>
+                <button class="aet-mini-icon-btn" id="executionTimelineEditorExportBtn" type="button" title="Export this run (AET bundle)" aria-label="Export run">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Node Details Drawer (v2.0) -->
+            <div id="executionTimelineNodeDrawerBackdrop" class="execution-node-drawer-backdrop" style="display: none;"></div>
+            <aside id="executionTimelineNodeDrawer" class="execution-node-drawer" style="display: none;" aria-label="Execution node details">
+              <div class="execution-node-drawer-header">
+                <div class="execution-node-drawer-title">Node Details</div>
+                <button class="icon-button" id="executionTimelineNodeDrawerCloseBtn" title="Close">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+              <div class="execution-node-drawer-body" id="executionTimelineNodeDrawerBody"></div>
+            </aside>
+          </div>
+
+          <div class="editor-empty-state" id="editorEmptyState">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="empty-icon">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            <p>Open a file to start editing</p>
+          </div>
+
+          <!-- MCP Manager Panel (embedded in editor wrapper) -->
+          <div id="mcpManagerPanel" class="mcp-manager-panel" style="display: none;"></div>
+
+          <!-- Plugins Manager Panel (embedded in editor wrapper; switched via middle tabs) -->
+          <div id="pluginsManagerPanel" class="mcp-manager-panel" style="display: none;"></div>
+
+          <!-- Agents & Skills Manager Panel (embedded in editor wrapper; switched via middle tabs) -->
+          <div id="agentsSkillsManagerPanel" class="mcp-manager-panel" style="display: none;"></div>
+
+          <!-- Learning Panel (embedded in editor wrapper; switched via middle tabs) -->
+          <div id="learningManagerPanel" class="mcp-manager-panel" style="display: none;"></div>
+
+          <!-- Docs Panel (embedded in editor wrapper; switched via middle tabs) -->
+          <div id="docsManagerPanel" class="mcp-manager-panel" style="display: none;"></div>
+
+          <!-- Verification Panel (embedded in editor wrapper; switched via middle tabs) -->
+          <div id="verificationManagerPanel" class="mcp-manager-panel" style="display: none;"></div>
+        </div>
+      </div>
+
+      <!-- Chat Resize Handle -->
+      <div class="resize-handle" id="chatResize"></div>
+
+      <!-- Chat Panel -->
+      <div class="chat-panel" id="chatPanel">
+        <div class="chat-header">
+          <div class="chat-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="chat-icon">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>AI Assistant</span>
+          </div>
+          <div class="chat-actions">
+            <!-- Chat history (sessions popover) moved into header for quicker access -->
+            <div class="chat-sessions-switcher" id="chatSessionsSwitcher">
+              <button class="icon-button chat-sessions-trigger" id="chatSessionsTrigger" type="button" title="Chat history">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+                <span class="chat-sessions-trigger-caret" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </span>
+              </button>
+
+              <div class="chat-sessions-popover" id="chatSessionsPopover" style="display: none;">
+                <div class="chat-sessions-popover-search">
+                  <input id="chatSessionsSearchInput" class="chat-sessions-search-input" type="text" placeholder="Search..." autocomplete="off" />
+                </div>
+                <div class="chat-sessions-popover-list" id="chatSessionsList"></div>
+              </div>
+            </div>
+            <button class="icon-button" id="contextInspectorButton" type="button" title="Context Inspector" aria-label="Context Inspector">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+            <button class="icon-button" id="executionTimelinePauseBtn" type="button" disabled title="Pause before next tool" aria-label="Pause before next tool">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+                <path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"></path>
+              </svg>
+            </button>
+            <button class="icon-button" id="newChatButton" title="New Chat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+            <button class="icon-button" id="toggleChatButton" title="Toggle Chat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Agent Execution Timeline (AET) overlay (inside chat panel) -->
+        <div class="execution-timeline-panel" id="executionTimelinePanel" style="display: none;">
+          <div class="execution-timeline-header codeon-panel-topbar codeon-panel-topbar--stack">
+            <div class="execution-timeline-panel-toprow">
+              <div class="codeon-panel-titlewrap">
+                <div class="execution-timeline-title codeon-panel-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 7v6l4 2"></path>
+                  </svg>
+                  <span>Execution Timeline</span>
+                  <span class="codeon-panel-title-pill">AET</span>
+                </div>
+                <div class="codeon-panel-subtitle">Review run feed, graph, and mindmap for the current session</div>
+              </div>
+
+              <div class="codeon-panel-actions">
+                <div class="execution-timeline-view-toggle" role="tablist" aria-label="Execution Timeline view">
+                  <button class="execution-toggle-btn" id="executionTimelineFeedViewBtn" type="button" role="tab" aria-selected="true">Feed</button>
+                  <button class="execution-toggle-btn" id="executionTimelineGraphViewBtn" type="button" role="tab" aria-selected="false">Graph</button>
+                  <button class="execution-toggle-btn" id="executionTimelineMapViewBtn" type="button" role="tab" aria-selected="false">Mindmap</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="execution-timeline-toolbar">
+            <div class="execution-timeline-toolbar-row" id="executionTimelineToolbarRow">
+              <button class="btn-secondary" id="executionTimelineFitBtn" type="button" title="Fit graph to view" style="display:none;">Fit</button>
+            </div>
+            <div class="execution-timeline-run-summary" id="executionTimelineRunSummary"></div>
+            <div class="execution-timeline-changes" id="executionTimelineChanges"></div>
+            <div class="execution-timeline-filters" id="executionTimelineFilters"></div>
+            <div class="aet-meta-toggle-row" id="executionTimelineMetaToggleRow">
+              <button class="aet-meta-toggle-btn" id="executionTimelineMetaToggleBtn" type="button" aria-label="Collapse timeline details" title="Collapse details">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
+                  <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+              </button>
+            </div>
+            <div class="execution-timeline-run-row">
+              <select class="form-input" id="executionTimelineRunSelect" aria-label="Select run"></select>
+              <button class="aet-mini-icon-btn" id="executionTimelineExportBtn" type="button" title="Export this run (AET bundle)" aria-label="Export run" style="display:none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="execution-timeline-body">
+            <div class="execution-timeline-list" id="executionTimelineList"></div>
+            <div class="execution-timeline-graph" id="executionTimelineGraph" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Agent/Skills Tools Popover (NOT in the sessions bar; opened from header button) -->
+        <div class="assistant-tools-popover" id="assistantToolsPopover" style="display: none;">
+          <div class="assistant-tools-section">
+            <div class="assistant-tools-section-title">Agent</div>
+            <div class="assistant-tools-row">
+              <select class="form-input" id="agentSelect">
+                <option value="">Default agent</option>
+              </select>
+            </div>
+            <div class="assistant-tools-actions">
+              <button class="btn-secondary" id="agentImportButton" type="button" disabled>Import from ~/.claude</button>
+              <button class="btn-secondary" id="agentExportButton" type="button" disabled>Export to ~/.claude</button>
+            </div>
+          </div>
+          <div class="assistant-tools-divider"></div>
+          <div class="assistant-tools-section">
+            <div class="assistant-tools-section-title">Skill (next message only)</div>
+            <div class="assistant-tools-row">
+              <select class="form-input" id="skillSelect">
+                <option value="">No skill</option>
+              </select>
+            </div>
+            <div class="assistant-tools-actions">
+              <button class="btn-secondary" id="skillImportButton" type="button" disabled>Import from ~/.claude</button>
+              <button class="btn-secondary" id="skillExportButton" type="button" disabled>Export to ~/.claude</button>
+            </div>
+          </div>
+          <div class="assistant-tools-divider"></div>
+          <div class="assistant-tools-section">
+            <div class="assistant-tools-section-title">Skill scripts (run in workspace)</div>
+            <div class="assistant-tools-row">
+              <select class="form-input" id="skillScriptSelect" disabled>
+                <option value="">No scripts</option>
+              </select>
+              <button class="btn-secondary" id="runSkillScriptButton" type="button" disabled>Run</button>
+            </div>
+          </div>
+          <div class="assistant-tools-divider"></div>
+          <div class="assistant-tools-footer">
+            <button class="btn-secondary" id="openAgentSkillLibraryButton" type="button">Manage agents & skills…</button>
+          </div>
+        </div>
+
+        <!-- Chat Session Selector & Tabs -->
+        <div class="chat-sessions-bar">
+          <!-- Legacy select (kept for back-compat, but hidden in favor of Cursor-style popover) -->
+          <select class="chat-session-dropdown" id="chatSessionDropdown" style="display: none;">
+            <option value="">Select Chat Session...</option>
+          </select>
+
+          <div class="chat-tabs" id="chatTabs">
+            <!-- Tabs will be dynamically added here -->
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="welcome-message">
+            <h3>Welcome to Codeon</h3>
+            <p>I'm your AI coding assistant. I can help you:</p>
+            <ul>
+              <li>Write and refactor code</li>
+              <li>Debug and fix issues</li>
+              <li>Explain complex concepts</li>
+              <li>Optimize performance</li>
+              <li>Suggest improvements</li>
+            </ul>
+            <p>Ask me anything about your code!</p>
+          </div>
+        </div>
+
+        <!-- Message Queue (queued follow-up messages while AI is running) -->
+        <div class="message-queue-container" id="messageQueueContainer" style="display: none;"></div>
+
+        <div class="chat-input-container">
+
+          <!-- Skill Suggestions -->
+          <div class="skill-suggestions" id="skillSuggestions" style="display: none;"></div>
+
+          <!-- Selected Agent Pill (shows when an agent is active for this session) -->
+          <div class="agent-pill-area" id="agentPillArea" style="display: none;"></div>
+
+          <!-- Selected Skill Pill (shows when a skill is selected for next message) -->
+          <div class="skill-pill-area" id="skillPillArea" style="display: none;"></div>
+
+          <!-- Attachment Preview Area -->
+          <div class="attachment-preview-area" id="attachmentPreview" style="display: none;">
+            <!-- Attachments will be shown here before sending -->
+          </div>
+
+          <!-- AI Status Banner (appears above composer when AI is thinking) -->
+          <div class="chat-status-banner" id="chatStatusBanner" style="display: none;">
+            <div class="status-banner-content">
+              <span class="status-banner-icon">🤖</span>
+              <span class="status-banner-text">AI is thinking</span>
+              <div class="status-banner-chips" id="chatStatusChips"></div>
+              <div class="status-banner-dots">
+                <div class="status-dot"></div>
+                <div class="status-dot"></div>
+                <div class="status-dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-wrapper">
+            <div class="chat-composer-top">
+              <div class="composer-input-shell">
+                <div class="composer-inline-chips" id="composerInlineChips" style="display: none;"></div>
+                <textarea
+                  id="chatInput"
+                  class="chat-input"
+                  placeholder="Ask me anything about your code..."
+                  rows="1"
+                ></textarea>
+              </div>
+              <button class="send-button" id="sendButton">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="chat-composer-bottom">
+              <div class="chat-composer-left">
+                <div class="composer-select-group" title="Agent mode (controls autonomy)">
+                  <svg class="composer-select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/>
+                    <circle cx="12" cy="9" r="2"/>
+                  </svg>
+                  <select id="permissionModeComposerInput" class="composer-select" aria-label="Agent mode">
+                    <option value="plan">Plan</option>
+                    <option value="default">Default</option>
+                    <option value="acceptEdits" selected>Accept edits</option>
+                    <option value="bypassPermissions">Bypass</option>
+                  </select>
+                </div>
+                <div class="composer-select-group" title="Claude model">
+                  <svg class="composer-select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M4 7h16"/>
+                    <path d="M7 4v16"/>
+                    <path d="M20 17H4"/>
+                    <path d="M17 20V4"/>
+                  </svg>
+                  <select id="claudeModelComposerInput" class="composer-select" aria-label="Claude model">
+                    <option value="" selected>Default model</option>
+                  </select>
+                </div>
+              </div>
+              <div class="chat-composer-right">
+                <button class="attachment-button composer-at-button" id="composerAtButton" title="Add context (@)">
+                  <span class="at-symbol" aria-hidden="true">@</span>
+                </button>
+                <button class="attachment-button" id="attachmentButton" title="Attach file (images, PDFs, text files)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <path d="M21 15l-5-5L5 21"/>
+                  </svg>
+                </button>
+                <input type="file" id="fileInput" accept="image/*,.pdf,.txt,.md,.json,.xml,.csv" multiple style="display: none;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Composer @ context popover (anchored above the @ button) -->
+          <div class="composer-context-popover" id="composerContextPopover" style="display: none;">
+            <div class="composer-context-header">
+              <button class="composer-context-back" id="composerContextBack" style="display: none;" title="Back to categories">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <div class="composer-context-header-text">
+                <div class="composer-context-title" id="composerContextTitle">Add Context</div>
+                <div class="composer-context-subtitle" id="composerContextSubtitle">Select a category</div>
+              </div>
+            </div>
+            <!-- Category selection view -->
+            <div class="composer-context-categories" id="composerContextCategories">
+              <div class="composer-context-category-item" data-category="files">
+                <svg class="composer-context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                <div class="composer-context-category-text">
+                  <div class="composer-context-category-name">Files &amp; Folders</div>
+                  <div class="composer-context-category-desc">Attach project files as context</div>
+                </div>
+              </div>
+              <div class="composer-context-category-item" data-category="agents">
+                <svg class="composer-context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg>
+                <div class="composer-context-category-text">
+                  <div class="composer-context-category-name">Agents</div>
+                  <div class="composer-context-category-desc">Select an AI persona for this session</div>
+                </div>
+              </div>
+              <div class="composer-context-category-item" data-category="skills">
+                <svg class="composer-context-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <div class="composer-context-category-text">
+                  <div class="composer-context-category-name">Skills</div>
+                  <div class="composer-context-category-desc">Apply a skill to your next message</div>
+                </div>
+              </div>
+            </div>
+            <!-- List view (files, agents, or skills) -->
+            <div class="composer-context-list" id="composerContextList" style="display: none;"></div>
+          </div>
+
+          <div class="api-key-warning" id="apiKeyWarning" style="display: none;">
+            <div class="warning-content">
+              <svg class="warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>Claude API key not configured.</span>
+            </div>
+            <button class="link-button" id="configureApiKey">Configure</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Console Panel -->
+    <div class="bottom-console-resize-handle" id="consoleResize"></div>
+    
+    <div id="consolePanel" class="console-panel bottom-console">
+      <div class="console-header">
+        <div class="console-tabs-container">
+          <div class="console-tab active" data-tab="log">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+              <polyline points="4 17 10 11 4 5"/>
+              <polyline points="12 19 20 19"/>
+            </svg>
+            <span>Console</span>
+          </div>
+          <div class="console-tab" data-tab="tasks">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+            <span>Tasks</span>
+            <span class="todo-badge" style="display: none;">0</span>
+          </div>
+          <div class="console-tab" data-tab="receipts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+              <path d="M9 3h6l1 2h5v16H3V5h5l1-2z"/>
+              <path d="M9 9h6"/>
+              <path d="M9 13h6"/>
+              <path d="M9 17h6"/>
+            </svg>
+            <span>Receipts</span>
+          </div>
+          <div class="console-tab" data-tab="terminal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+              <polyline points="4 17 10 11 4 5"/>
+              <line x1="12" y1="19" x2="20" y2="19"/>
+            </svg>
+            <span>Terminal</span>
+          </div>
+          <div class="console-tab" data-tab="problems" id="problemsTab" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <span>Problems</span>
+            <span class="problems-badge" style="display: none;">0</span>
+          </div>
+        </div>
+        <div class="console-controls">
+          <div class="console-indicator"></div>
+          <button class="icon-button" id="consoleCopy" title="Copy Console">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+          <button class="icon-button" id="consoleClear" title="Clear Console">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </button>
+          <button class="console-toggle icon-button" id="consoleToggle" title="Toggle Console">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="console-body">
+        <div class="console-content active" id="consoleContent"></div>
+        <div class="console-content" id="tasksContent">
+          <div class="tasks-container">
+            <div class="tasks-header">
+              <div class="tasks-stats">
+                <span class="stat-item">
+                  <span class="stat-value" id="tasksPending">0</span>
+                  <span class="stat-label">Pending</span>
+                </span>
+                <span class="stat-item">
+                  <span class="stat-value" id="tasksInProgress">0</span>
+                  <span class="stat-label">In Progress</span>
+                </span>
+                <span class="stat-item">
+                  <span class="stat-value" id="tasksCompleted">0</span>
+                  <span class="stat-label">Completed</span>
+                </span>
+              </div>
+              <button class="icon-button" id="tasksClear" title="Clear all tasks">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </button>
+            </div>
+            <div class="tasks-list" id="tasksList">
+              <div class="tasks-empty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 48px; height: 48px; opacity: 0.3;">
+                  <path d="M9 11l3 3L22 4"/>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+                <p>No tasks yet</p>
+                <span>Tasks will appear here when the AI agent is working on complex multi-step operations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="console-content" id="receiptsContent">
+          <div class="receipts-container">
+            <div class="receipts-header">
+              <input id="receiptsSearchInput" class="form-input receipts-search" type="text" placeholder="Search receipts (tool, cwd, host)..." autocomplete="off" />
+              <select id="receiptsToolFilter" class="form-input receipts-filter">
+                <option value="">All tools</option>
+              </select>
+              <button class="icon-button" id="receiptsClear" title="Clear receipts for this chat session">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </button>
+            </div>
+            <div class="receipts-list" id="receiptsList"></div>
+          </div>
+        </div>
+        <div class="console-content" id="terminalContent">
+          <div class="terminal-panel">
+            <div class="terminal-toolbar">
+              <div class="terminal-toolbar-left">
+                <button class="btn-secondary terminal-btn" id="terminalNewBtn" type="button" title="Start a new terminal session">New</button>
+                <button class="btn-secondary terminal-btn" id="terminalClearBtn" type="button" title="Clear terminal output">Clear</button>
+                <button class="btn-secondary terminal-btn" id="terminalKillBtn" type="button" title="Stop this terminal session" disabled>Kill</button>
+                <div class="terminal-tabs" id="terminalTabs" aria-label="Terminal sessions"></div>
+              </div>
+              <div class="terminal-toolbar-right">
+                <select class="terminal-theme-select" id="terminalThemeSelect" title="Terminal theme" aria-label="Terminal theme">
+                  <option value="codeonDark" selected>Codeon Dark</option>
+                  <option value="vscodeDark">VS Code Dark+</option>
+                  <option value="oneDark">One Dark</option>
+                  <option value="dracula">Dracula</option>
+                  <option value="gruvboxDark">Gruvbox Dark</option>
+                </select>
+                <div class="terminal-status" id="terminalStatus">Not started</div>
+              </div>
+            </div>
+            <div class="terminal-xterm-host" id="terminalXtermHost">
+              <div class="terminal-xterm-inner" id="terminalXtermInner"></div>
+              <div class="terminal-overlay" id="terminalOverlay" style="display:none;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="console-content" id="problemsContent" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu" style="display: none;">
+      <div class="context-menu-item" id="ctxNewFile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        New File
+      </div>
+      <div class="context-menu-item" id="ctxNewFolder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        New Folder
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="ctxOpenDiffHead">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8"/><path d="M8 17h6"/></svg>
+        Open Diff (HEAD)
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="ctxCut">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+        Cut
+      </div>
+      <div class="context-menu-item" id="ctxCopy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </div>
+      <div class="context-menu-item" id="ctxPaste">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21H9a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h7l5 5v9a2 2 0 0 1-2 2z"/><path d="M14 5V3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v2"/><path d="M14 5H10"/></svg>
+        Paste
+      </div>
+      <div class="context-menu-item" id="ctxDuplicate">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="8" y="8" width="13" height="13" rx="2"/><rect x="3" y="3" width="13" height="13" rx="2"/></svg>
+        Duplicate
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="ctxRename">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Rename
+      </div>
+      <div class="context-menu-item danger" id="ctxDelete">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        Delete
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="ctxRevealInFinder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Reveal in Finder
+      </div>
+    </div>
+
+    <!-- Chat Tab Context Menu -->
+    <div class="context-menu" id="chatTabContextMenu" style="display: none;">
+      <div class="context-menu-item" id="chatCtxRename">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Rename Chat
+      </div>
+      <div class="context-menu-item" id="chatCtxOpenAsEditor">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20"/><path d="M6.5 2H20v20l-6-4-6 4V2z"/></svg>
+        Open as Editor
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="chatCtxClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Close Chat
+      </div>
+      <div class="context-menu-item" id="chatCtxCloseOthers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M8 6v14"/><path d="M16 6v14"/><path d="M6 6l1-3h10l1 3"/></svg>
+        Close Other Chats
+      </div>
+    </div>
+
+    <!-- Terminal Tab Context Menu -->
+    <div class="context-menu" id="terminalTabContextMenu" style="display: none;">
+      <div class="context-menu-item" id="terminalCtxClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Close Terminal
+      </div>
+      <div class="context-menu-item" id="terminalCtxCloseOthers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M8 6v14"/><path d="M16 6v14"/><path d="M6 6l1-3h10l1 3"/></svg>
+        Close Other Terminals
+      </div>
+    </div>
+
+    <!-- Editor Tab Context Menu -->
+    <div class="context-menu" id="editorTabContextMenu" style="display: none;">
+      <div class="context-menu-item" id="editorTabCtxClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span class="context-menu-label">Close</span>
+        <span class="context-menu-shortcut" id="editorTabCtxCloseShortcut"></span>
+      </div>
+      <div class="context-menu-item" id="editorTabCtxCloseOthers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M8 6v14"/><path d="M16 6v14"/><path d="M6 6l1-3h10l1 3"/></svg>
+        <span class="context-menu-label">Close Others</span>
+      </div>
+      <div class="context-menu-item" id="editorTabCtxCloseRight">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 6h10"/><path d="M7 12h10"/><path d="M7 18h10"/><path d="M20 6v12"/></svg>
+        <span class="context-menu-label">Close to the Right</span>
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="editorTabCtxCloseSaved">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+        <span class="context-menu-label">Close Saved</span>
+      </div>
+      <div class="context-menu-item" id="editorTabCtxCloseAll">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"/><path d="M7 6v14"/><path d="M17 6v14"/><path d="M6 6l1-3h10l1 3"/></svg>
+        <span class="context-menu-label">Close All</span>
+      </div>
+      <div class="context-menu-divider"></div>
+      <div class="context-menu-item" id="editorTabCtxCopyPath">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 13a5 5 0 0 0 7.07 0l1.83-1.83a5 5 0 0 0-7.07-7.07L10.5 4.43"/><path d="M14 11a5 5 0 0 0-7.07 0L5.1 12.83a5 5 0 0 0 7.07 7.07l1.33-1.33"/></svg>
+        <span class="context-menu-label">Copy Path</span>
+      </div>
+      <div class="context-menu-item" id="editorTabCtxCopyRelPath">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16v16H4z"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+        <span class="context-menu-label">Copy Relative Path</span>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Settings</h2>
+          <button class="icon-button" id="closeSettingsButton">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- LLM Provider Selection -->
+          <div class="form-group">
+            <label>LLM Provider</label>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- Option 1: Claude.ai Login -->
+              <label style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: rgba(100, 116, 139, 0.05); border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s;" id="providerClaudeAiLabel">
+                <input type="radio" name="llmProvider" value="claude_ai" id="providerClaudeAiRadio" style="margin-top: 2px; accent-color: #14b8a6;">
+                <div style="flex: 1;">
+                  <div style="font-weight: 600; color: #f1f5f9; margin-bottom: 4px;">Claude.ai Login</div>
+                  <div style="font-size: 13px; color: #94a3b8;">Use your Claude.ai subscription — no API billing</div>
+                </div>
+              </label>
+
+              <!-- Option 2: Anthropic API Key -->
+              <label style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: rgba(100, 116, 139, 0.05); border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s;" id="providerAnthropicLabel">
+                <input type="radio" name="llmProvider" value="anthropic_api" id="providerAnthropicRadio" style="margin-top: 2px; accent-color: #14b8a6;">
+                <div style="flex: 1;">
+                  <div style="font-weight: 600; color: #f1f5f9; margin-bottom: 4px;">Anthropic API Key</div>
+                  <div style="font-size: 13px; color: #94a3b8;">Direct API access — pay per token</div>
+                </div>
+              </label>
+
+              <!-- Option 3: OpenRouter -->
+              <label style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: rgba(100, 116, 139, 0.05); border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s;" id="providerOpenRouterLabel">
+                <input type="radio" name="llmProvider" value="openrouter" id="providerOpenRouterRadio" style="margin-top: 2px; accent-color: #14b8a6;">
+                <div style="flex: 1;">
+                  <div style="font-weight: 600; color: #f1f5f9; margin-bottom: 4px;">OpenRouter</div>
+                  <div style="font-size: 13px; color: #94a3b8;">Access to multiple LLM providers with reasoning models</div>
+                </div>
+              </label>
+
+              <!-- Option 4: Codex (ChatGPT) -->
+              <label style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: rgba(100, 116, 139, 0.05); border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s;" id="providerCodexLabel">
+                <input type="radio" name="llmProvider" value="codex" id="providerCodexRadio" style="margin-top: 2px; accent-color: #14b8a6;">
+                <div style="flex: 1;">
+                  <div style="font-weight: 600; color: #f1f5f9; margin-bottom: 4px;">ChatGPT Codex</div>
+                  <div style="font-size: 13px; color: #94a3b8;">Use your ChatGPT subscription (GPT-5.x) — no API billing</div>
+                </div>
+              </label>
+            </div>
+            <small class="form-help" style="margin-top: 8px;">
+              Select your preferred LLM provider. Only one can be active at a time.
+            </small>
+          </div>
+
+          <!-- Claude.ai Login Section -->
+          <div id="claudeAiLoginSection" style="display: none;">
+            <div class="form-group">
+              <div class="auth-status">
+                <div class="auth-status-label">Login status</div>
+                <div class="auth-status-value" id="claudeAuthStatusValue">Not checked</div>
+              </div>
+              <div class="settings-inline-actions" id="claudeLoginActions">
+                <button class="btn-secondary" id="claudeLoginButton" type="button">Sign in with Claude.ai</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Anthropic API Key Section -->
+          <div class="form-group" id="anthropicApiKeySection" style="display: none;">
+            <label for="apiKeyInput">Anthropic API Key</label>
+            <input
+              type="password"
+              id="apiKeyInput"
+              class="form-input"
+              placeholder="sk-ant-..."
+            />
+            <small class="form-help">Get your API key from <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a>. Stored locally.</small>
+          </div>
+
+          <!-- OpenRouter Section -->
+          <div id="openrouterSection" style="display: none;">
+            <div class="form-group">
+              <label for="openrouterApiKeyInput">OpenRouter API Key</label>
+              <input
+                type="password"
+                id="openrouterApiKeyInput"
+                class="form-input"
+                placeholder="sk-or-v1-..."
+              />
+              <small class="form-help">Get your API key from <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a>. Stored locally.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="openrouterModelInput">Model (Settings)</label>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                  <select id="openrouterModelInput" class="form-input" style="flex: 1;">
+                  <option value="">Select a reasoning model...</option>
+                  <!-- Anthropic Claude (Stable) -->
+                  <optgroup label="Anthropic Claude">
+                    <option value="anthropic/claude-opus-4.8">Opus 4.8 📷</option>
+                    <option value="anthropic/claude-opus-4.8-fast">Opus 4.8 Fast 📷</option>
+                    <option value="anthropic/claude-opus-4.7">Opus 4.7 📷</option>
+                    <option value="anthropic/claude-sonnet-4.6">Sonnet 4.6 📷</option>
+                    <option value="anthropic/claude-opus-4.6">Opus 4.6 📷</option>
+                    <option value="anthropic/claude-opus-4.5">Opus 4.5 📷</option>
+                    <option value="anthropic/claude-sonnet-4.5">Sonnet 4.5 📷</option>
+                    <option value="anthropic/claude-haiku-4.5">Haiku 4.5 📷</option>
+                  </optgroup>
+                  <!-- OpenAI (Stable) -->
+                  <optgroup label="OpenAI">
+                    <option value="openai/gpt-5.5-pro">GPT-5.5 Pro 📷</option>
+                    <option value="openai/gpt-5.5">GPT-5.5 📷</option>
+                    <option value="openai/gpt-5.4">GPT-5.4 📷</option>
+                    <option value="openai/gpt-5.4-mini">GPT-5.4 Mini 📷</option>
+                    <option value="openai/gpt-5.3-codex">GPT-5.3 Codex 📷</option>
+                    <option value="openai/gpt-5.2-codex">GPT-5.2 Codex 📷</option>
+                    <option value="openai/gpt-5.2">GPT-5.2 📷</option>
+                  </optgroup>
+                  <!-- Google Gemini (Stable) -->
+                  <optgroup label="Google Gemini">
+                    <option value="google/gemini-3.5-flash">Gemini 3.5 Flash 📷</option>
+                    <option value="google/gemini-3.1-pro-preview">Gemini 3.1 Pro 📷</option>
+                    <option value="google/gemini-3.1-flash-lite">Gemini 3.1 Flash Lite 📷</option>
+                    <option value="google/gemini-3-pro-preview">Gemini 3 Pro 📷</option>
+                  </optgroup>
+                  <!-- xAI (Stable) -->
+                  <optgroup label="xAI Grok">
+                    <option value="x-ai/grok-4.3">Grok 4.3 📷</option>
+                    <option value="x-ai/grok-4.20">Grok 4.20 📷</option>
+                    <option value="x-ai/grok-code-fast-1">Grok Code Fast</option>
+                  </optgroup>
+                </select>
+                <button class="btn-secondary" id="refreshOpenRouterModelsButton" type="button" title="Refresh model list from OpenRouter">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 16px; height: 16px;">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                  </svg>
+                </button>
+              </div>
+              <small class="form-help">
+                Stable, production-ready models with tool calling support.<br>
+                <span style="color: #5eead4; font-weight: 500;">📷 = Vision support (can analyze images)</span>
+              </small>
+            </div>
+          </div>
+
+          <!-- Codex (ChatGPT) Section -->
+          <div id="codexSection" style="display: none;">
+            <div class="form-group">
+              <div class="auth-status">
+                <div class="auth-status-label">ChatGPT connection</div>
+                <div class="auth-status-value" id="codexStatusValue">Not connected</div>
+              </div>
+              <div class="settings-inline-actions" id="codexLoginActions">
+                <button class="btn-secondary" id="codexLoginButton" type="button">Sign in with ChatGPT</button>
+                <button class="btn-secondary" id="codexLogoutButton" type="button" style="display: none;">Sign out</button>
+              </div>
+              <small class="form-help">Signs in with your ChatGPT (Plus/Pro/Team) account via OpenAI. Runs through CODEON's full agent loop. Stored locally.</small>
+            </div>
+            <div class="form-group">
+              <label for="codexModelInput">Codex Model</label>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <select id="codexModelInput" class="form-input" style="flex: 1;">
+                  <option value="codex/gpt-5.5">GPT-5.5</option>
+                  <option value="codex/gpt-5.5:high">GPT-5.5 (high reasoning)</option>
+                  <option value="codex/gpt-5.4">GPT-5.4</option>
+                  <option value="codex/gpt-5.4:high">GPT-5.4 (high reasoning)</option>
+                </select>
+                <button class="btn-secondary" id="refreshCodexModelsButton" type="button" title="Refresh model list from ChatGPT">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 16px; height: 16px;">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                  </svg>
+                </button>
+              </div>
+              <small class="form-help">Models your ChatGPT account can run. Refresh after signing in.</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="permissionModeInput">Agent mode</label>
+            <select id="permissionModeInput" class="form-input">
+              <option value="plan">Plan (read-only: no edits, no commands, no network)</option>
+              <option value="default">Default (ask before edits, commands, and network)</option>
+              <option value="acceptEdits" selected>Accept edits (no prompts)</option>
+              <option value="bypassPermissions">Bypass permissions (no prompts; use with care)</option>
+            </select>
+            <small class="form-help">Controls how much autonomy the agent has when using tools. “Bypass permissions” still enforces workspace isolation.</small>
+          </div>
+          <div class="form-group">
+            <label for="maxBudgetUsdInput">Max budget (USD)</label>
+            <input
+              type="number"
+              id="maxBudgetUsdInput"
+              class="form-input"
+              min="0"
+              step="0.1"
+              placeholder="0"
+            />
+            <small class="form-help">Optional. If set (&gt; 0), the Agent SDK will stop the run after it reaches the budget.</small>
+          </div>
+          <div class="form-group">
+            <label for="networkPolicyModeInput">Network policy (WebFetch + Bash)</label>
+            <select id="networkPolicyModeInput" class="form-input">
+              <option value="allow_all">Allow all (still prompts in Default/Accept Edits)</option>
+              <option value="deny_all">Deny all WebFetch</option>
+              <option value="allowlist">Allowlist only</option>
+            </select>
+            <small class="form-help">Controls outbound network requests made via WebFetch and blocks common network-like Bash commands when restricted.</small>
+          </div>
+          <div class="form-group" id="networkAllowlistGroup">
+            <label for="networkAllowlistInput">Allowed domains (one per line)</label>
+            <textarea id="networkAllowlistInput" class="form-input" rows="4" placeholder="example.com&#10;api.example.com"></textarea>
+            <small class="form-help">Used only when “Allowlist only” is selected. Subdomains of an allowed domain are allowed.</small>
+          </div>
+          <div class="form-group">
+            <label>AI automations</label>
+            <div class="auth-toggle-row" id="proofedEditsFixDocsRow">
+              <div class="auth-toggle-text">
+                <div class="auth-toggle-title">Docs/Learning for Fix runs</div>
+                <div class="auth-toggle-sub">Generate Docs/Learning after verification Fix runs (off by default).</div>
+              </div>
+              <label class="switch" title="Allow Docs/Learning generation after Fix runs">
+                <input type="checkbox" id="enableDocsLearningOnFixToggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <small class="form-help">Verification results appear in the Verification tab. Docs updates appear in the Docs tab.</small>
+          </div>
+          <div class="form-group">
+            <label>Editor enhancements</label>
+            <div class="auth-toggle-row">
+              <div class="auth-toggle-text">
+                <div class="auth-toggle-title">Problems panel</div>
+                <div class="auth-toggle-sub">Show a Problems tab in the bottom panel (diagnostics from Monaco).</div>
+              </div>
+              <label class="switch" title="Show Problems tab in the bottom panel">
+                <input type="checkbox" id="enableProblemsToggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="auth-toggle-row" id="aiQuickFixRow">
+              <div class="auth-toggle-text">
+                <div class="auth-toggle-title">AI quick fixes</div>
+                <div class="auth-toggle-sub">Adds “Fix with AI” actions for diagnostics (prefills chat; no auto-run).</div>
+              </div>
+              <label class="switch" title="Enable AI quick fixes for diagnostics">
+                <input type="checkbox" id="enableAiQuickFixesToggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="auth-toggle-row" id="tsJsLanguageServiceRow">
+              <div class="auth-toggle-text">
+                <div class="auth-toggle-title">TS/JS language intelligence</div>
+                <div class="auth-toggle-sub">Enable Monaco’s built-in TypeScript/JavaScript analysis (more diagnostics + better completions).</div>
+              </div>
+              <label class="switch" title="Enable Monaco’s built-in TS/JS language service">
+                <input type="checkbox" id="enableTsJsLanguageServiceToggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="auth-toggle-row" id="webLanguageServicesRow">
+              <div class="auth-toggle-text">
+                <div class="auth-toggle-title">HTML/CSS/JSON intelligence</div>
+                <div class="auth-toggle-sub">Enable Monaco’s built-in language services for web files (diagnostics + completions).</div>
+              </div>
+              <label class="switch" title="Enable Monaco’s built-in HTML/CSS/JSON language services">
+                <input type="checkbox" id="enableWebLanguageServicesToggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <small class="form-help">All are optional and disabled by default to keep risk low.</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="cancelSettingsButton">Cancel</button>
+          <button class="btn-primary" id="saveSettingsButton">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Claude Login Gate Modal (shown when a project opens and Claude.ai auth isn't ready) -->
+    <div class="modal" id="authGateModal" style="display: none;">
+      <div class="modal-content auth-gate-modal">
+        <div class="modal-header">
+          <h2>Sign in to Claude</h2>
+          <button class="icon-button" id="closeAuthGateButton" title="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="auth-gate-hero">
+            <img class="auth-gate-logo" src="../assets/icon.png" alt="Codeon">
+            <div class="auth-gate-hero-text">
+              <div class="auth-gate-title">Connect your Claude.ai account</div>
+              <div class="auth-gate-subtitle" id="authGateSubtitle">To use Codeon’s AI assistant, you need to sign in once.</div>
+            </div>
+          </div>
+          <div class="auth-gate-status" id="authGateStatus">Not signed in</div>
+        </div>
+        <div class="modal-footer auth-gate-footer">
+          <button class="btn-secondary" id="authGateUseApiKeyButton" type="button">Use API key instead</button>
+          <button class="btn-secondary" id="authGateNotNowButton" type="button">Not now</button>
+          <button class="btn-primary" id="authGateSignInButton" type="button">Sign in with Claude.ai</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context Inspector (what did the agent see?) -->
+    <div class="modal" id="contextInspectorModal" style="display: none;">
+      <div class="modal-content context-inspector-modal">
+        <div class="modal-header">
+          <h2>Context Inspector</h2>
+          <button class="icon-button" id="closeContextInspectorButton" title="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="context-inspector-toprow">
+            <div class="context-inspector-toprow-left">
+              <div class="context-inspector-label">Recent runs</div>
+              <select id="contextInspectorSelect" class="context-inspector-select"></select>
+            </div>
+            <div class="context-inspector-toprow-right">
+              <button class="btn btn-secondary" id="contextInspectorCopyRequestIdBtn" title="Copy request id">Copy request id</button>
+              <button class="btn btn-secondary" id="contextInspectorCopyPromptBtn" title="Copy prompt">Copy prompt</button>
+              <button class="btn btn-primary" id="contextInspectorCopyBtn" title="Copy full redacted payload">Copy JSON</button>
+            </div>
+          </div>
+          <div id="contextInspectorBody"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent Create/Edit Modal (compact) -->
+    <div class="asl-modal" id="aslAgentModal" style="display: none;">
+      <div class="asl-modal-backdrop" data-action="asl-close"></div>
+      <div class="asl-modal-content">
+        <div class="asl-modal-header">
+          <h3 id="aslAgentModalTitle">Create Agent</h3>
+          <button class="asl-modal-close" data-action="asl-close" type="button">✕</button>
+        </div>
+        <div class="asl-modal-body">
+          <div class="asl-form-group">
+            <label for="aslAgentLocation">Location</label>
+            <select id="aslAgentLocation" class="asl-input">
+              <option value="project">Project</option>
+              <option value="user">User (~/.claude)</option>
+            </select>
+          </div>
+          <div class="asl-form-group">
+            <label for="aslAgentName">Name *</label>
+            <input id="aslAgentName" class="asl-input" placeholder="e.g., Security Reviewer" />
+          </div>
+          <div class="asl-form-group">
+            <label for="aslAgentDesc">Description</label>
+            <input id="aslAgentDesc" class="asl-input" placeholder="What this agent is for" />
+          </div>
+          <div class="asl-form-group">
+            <label for="aslAgentBody">Instructions</label>
+            <textarea id="aslAgentBody" class="asl-input asl-textarea" placeholder="Write the agent instructions here..."></textarea>
+          </div>
+        </div>
+        <div class="asl-modal-footer">
+          <button class="btn-secondary" data-action="asl-close" type="button">Cancel</button>
+          <button class="btn-primary" id="aslAgentSaveBtn" type="button">Create</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skill Create/Edit Modal (compact) -->
+    <div class="asl-modal" id="aslSkillModal" style="display: none;">
+      <div class="asl-modal-backdrop" data-action="asl-close"></div>
+      <div class="asl-modal-content">
+        <div class="asl-modal-header">
+          <h3 id="aslSkillModalTitle">Create Skill</h3>
+          <button class="asl-modal-close" data-action="asl-close" type="button">✕</button>
+        </div>
+        <div class="asl-modal-body">
+          <div class="asl-form-group">
+            <label for="aslSkillLocation">Location</label>
+            <select id="aslSkillLocation" class="asl-input">
+              <option value="project">Project</option>
+              <option value="user">User (~/.claude)</option>
+            </select>
+          </div>
+          <div class="asl-form-row">
+            <div class="asl-form-group">
+              <label for="aslSkillName">Name *</label>
+              <input id="aslSkillName" class="asl-input" placeholder="e.g., PR Summary" />
+            </div>
+            <div class="asl-form-group">
+              <label for="aslSkillDir">Folder</label>
+              <input id="aslSkillDir" class="asl-input" placeholder="Auto" />
+            </div>
+          </div>
+          <div class="asl-form-group">
+            <label for="aslSkillDesc">Description</label>
+            <input id="aslSkillDesc" class="asl-input" placeholder="What this skill is for" />
+          </div>
+          <div class="asl-form-group">
+            <label for="aslSkillBody">Instructions</label>
+            <textarea id="aslSkillBody" class="asl-input asl-textarea" placeholder="Write the skill instructions here..."></textarea>
+          </div>
+        </div>
+        <div class="asl-modal-footer">
+          <button class="btn-secondary" data-action="asl-close" type="button">Cancel</button>
+          <button class="btn-primary" id="aslSkillSaveBtn" type="button">Create</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Create Modal (compact) -->
+    <div class="asl-modal" id="aslScriptModal" style="display: none;">
+      <div class="asl-modal-backdrop" data-action="asl-close"></div>
+      <div class="asl-modal-content">
+        <div class="asl-modal-header">
+          <h3 id="aslScriptModalTitle">Create Script</h3>
+          <button class="asl-modal-close" data-action="asl-close" type="button">✕</button>
+        </div>
+        <div class="asl-modal-body">
+          <div class="asl-form-group">
+            <label for="aslScriptSkill">Skill</label>
+            <select id="aslScriptSkill" class="asl-input"></select>
+          </div>
+          <div class="asl-form-row">
+            <div class="asl-form-group">
+              <label for="aslScriptName">File name *</label>
+              <input id="aslScriptName" class="asl-input" placeholder="e.g., list-tree.sh" />
+            </div>
+            <div class="asl-form-group">
+              <label for="aslScriptType">Template</label>
+              <select id="aslScriptType" class="asl-input">
+                <option value="sh">Shell (.sh)</option>
+                <option value="js">Node (.js)</option>
+                <option value="py">Python (.py)</option>
+              </select>
+            </div>
+          </div>
+          <div class="asl-form-group">
+            <label for="aslScriptBody">Content</label>
+            <textarea id="aslScriptBody" class="asl-input asl-textarea asl-textarea-lg"></textarea>
+          </div>
+        </div>
+        <div class="asl-modal-footer">
+          <button class="btn-secondary" data-action="asl-close" type="button">Cancel</button>
+          <button class="btn-primary" id="aslScriptSaveBtn" type="button">Create</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MCP Server Editor Modal -->
+    <div class="mcp-editor-modal" id="mcpEditorModal" style="display: none;">
+      <div class="mcp-editor-content">
+        <div class="mcp-editor-header">
+          <h3 id="mcpEditorTitle">Add MCP Server</h3>
+          <button class="icon-button" id="mcpEditorCloseBtn" title="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="mcp-editor-body">
+          <div class="mcp-editor-mode-toggle" role="tablist" aria-label="MCP editor mode">
+            <button class="mcp-editor-mode-btn active" type="button" role="tab" aria-selected="true" data-mcp-editor-mode="form">Form</button>
+            <button class="mcp-editor-mode-btn" type="button" role="tab" aria-selected="false" data-mcp-editor-mode="json">JSON</button>
+          </div>
+
+          <div id="mcpEditorFormFields">
+            <div class="form-group">
+            <label for="mcpServerName">Server Name *</label>
+            <input type="text" id="mcpServerName" class="form-input" placeholder="e.g., GitHub, Slack, PostgreSQL" required />
+            <small class="form-help">Used as the Claude Code server key. Only letters, numbers, <code>_</code>, and <code>-</code> (spaces become <code>-</code>).</small>
+            </div>
+            <div class="form-group">
+              <label for="mcpServerType">Server Type</label>
+              <select id="mcpServerType" class="form-input">
+                <option value="stdio">Stdio (Local Process)</option>
+                <option value="sse">SSE (HTTP Server-Sent Events)</option>
+              </select>
+            </div>
+            <div id="mcpStdioFields">
+              <div class="form-group">
+                <label for="mcpServerCommand">Command *</label>
+                <input type="text" id="mcpServerCommand" class="form-input" placeholder="e.g., npx, node, python" required />
+                <small class="form-help">The command to start the MCP server</small>
+              </div>
+              <div class="form-group">
+                <label for="mcpServerArgs">Arguments (one per line)</label>
+                <textarea id="mcpServerArgs" class="form-input" rows="3" placeholder="e.g., @anthropic-ai/mcp-github"></textarea>
+                <small class="form-help">Command-line arguments for the server</small>
+              </div>
+              <div class="form-group">
+                <label for="mcpServerEnv">Environment Variables (JSON format)</label>
+                <textarea id="mcpServerEnv" class="form-input" rows="4" placeholder='{\n  "GITHUB_TOKEN": "your_token_here"\n}'></textarea>
+                <small class="form-help">Environment variables in JSON format</small>
+              </div>
+            </div>
+            <div id="mcpSseFields" style="display: none;">
+              <div class="form-group">
+                <label for="mcpServerUrl">Server URL *</label>
+                <input type="url" id="mcpServerUrl" class="form-input" placeholder="https://your-mcp-server.com" />
+                <small class="form-help">The HTTP endpoint for the MCP server</small>
+              </div>
+              <div class="form-group">
+                <label>Headers</label>
+                <div id="mcpServerHeadersEditor" class="mcp-headers-editor"></div>
+                <div class="mcp-headers-actions">
+                  <button class="btn-secondary btn-sm" id="mcpHeadersAddBtn" type="button">Add header</button>
+                </div>
+                <small class="form-help">Optional. Use this for servers that require auth (e.g. Supabase PAT).</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="mcpServerDescription">Description</label>
+              <textarea id="mcpServerDescription" class="form-input" rows="2" placeholder="What does this server provide?"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="mcpServerEnabled" checked />
+                <span>Enable server automatically</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="mcpEditorJsonFields" style="display: none;">
+            <div class="form-group">
+              <label for="mcpServerJson">Server JSON *</label>
+              <textarea id="mcpServerJson" class="form-input mcp-json-input" rows="10" placeholder='{\n  "name": "github",\n  "type": "stdio",\n  "command": "npx",\n  "args": ["@anthropic-ai/mcp-github"],\n  "env": {\n    "GITHUB_TOKEN": "your_token_here"\n  }\n}'></textarea>
+              <small class="form-help">Paste a single server config or a <code>.mcp.json</code> payload (mcpServers object/array). HTTP servers with <code>type: "http"</code> are supported.</small>
+            </div>
+          </div>
+        </div>
+        <div class="mcp-editor-footer">
+          <button class="btn-secondary" id="mcpEditorCancelBtn">Cancel</button>
+          <button class="btn-primary" id="mcpEditorSaveBtn">Save Server</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MCP Preset Import Modal -->
+    <div class="mcp-editor-modal" id="mcpPresetModal" style="display: none;">
+      <div class="mcp-editor-content">
+        <div class="mcp-editor-header">
+          <h3>Import MCP Preset</h3>
+          <button class="icon-button" id="mcpPresetCloseBtn" title="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="mcp-editor-body">
+          <div class="mcp-presets-grid" id="mcpPresetsGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Prompt/Confirm Dialog -->
+    <div class="modal" id="customDialog" style="display: none;">
+      <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+          <h2 id="dialogTitle">Confirm</h2>
+        </div>
+        <div class="modal-body">
+          <p id="dialogMessage"></p>
+          <input type="text" id="dialogInput" class="form-input" style="display: none;" />
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="dialogCancelButton">Cancel</button>
+          <button class="btn-primary" id="dialogConfirmButton">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ask User Question Dialog (Claude Code AskUserQuestion tool) -->
+    <div class="modal proofed-edits-modal" id="proofedEditsModal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Proofed Edits Certificate</h2>
+          <button class="icon-button" id="closeProofedEditsModal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body" id="proofedEditsModalBody"></div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="proofedEditsModalCloseBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="askUserQuestionModal" style="display: none;">
+      <div class="modal-content ask-question-modal-content">
+        <div class="modal-header">
+          <h2 id="askUserQuestionTitle">Claude needs your input</h2>
+        </div>
+        <div class="modal-body">
+          <div id="askUserQuestionList" class="ask-question-list"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" id="askUserQuestionCancel">Cancel</button>
+          <button class="btn-primary" id="askUserQuestionConfirm">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- (Removed) model + mode selection modals (Claude SDK wrapper uses Claude Code defaults) -->
+
+  </div>
+
+  <!-- Xterm (Terminal UI) -->
+  <!-- IMPORTANT: Load xterm BEFORE Monaco's AMD loader (vs/loader.js).
+       Monaco defines a global `define()` (AMD). If xterm loads after that, it may attempt anonymous AMD defines and crash. -->
+  <script src="../node_modules/xterm/lib/xterm.js"></script>
+  <script src="../node_modules/@xterm/addon-fit/lib/addon-fit.js"></script>
+
+  <!-- Monaco Editor -->
+  <script src="../node_modules/monaco-editor/min/vs/loader.js"></script>
+
+  <!-- ============================================================================ -->
+  <!-- CORE SERVICES (Foundational) -->
+  <!-- ============================================================================ -->
+  <script src="console-utils.js"></script>
+  <script src="utils/logger.js"></script>
+    <script src="utils/claude-diagnostics.js"></script>
+    <!-- Custom Dropdown Component (cross-platform styled select replacement) -->
+    <script src="ui/custom-dropdown.js"></script>
+    <script src="state/session-titles.js"></script>
+    <script src="state/context-snapshots.js"></script>
+    <script src="state/pinboard.js"></script>
+    <script src="ui/modals/context-inspector-modal.js"></script>
+    <script src="ui/modals/ask-user-question-modal.js"></script>
+  <!-- (Removed) token counting / embeddings / indexing services (Claude SDK wrapper) -->
+  
+  <!-- ============================================================================ -->
+  <!-- Claude SDK wrapper integration (replaces custom agent loop/tools/prompts) -->
+  <!-- ============================================================================ -->
+  
+  <!-- (Removed) legacy agent runtime + todo tooling UI -->
+  
+  <!-- ============================================================================ -->
+  <!-- MAIN APP (Will be refactored to use new system) -->
+  <!-- ============================================================================ -->
+    <script src="utils/shell-quote.js"></script>
+  <!-- MAIN APP (split from monolith renderer/app.js; preserve order) -->
+  <script src="app/core/preamble.js"></script>
+  <script src="app/explorer/explorer-state.js"></script>
+  <script src="app/agents/agents-state.js"></script>
+  <script src="app/skills/skills-state.js"></script>
+  <script src="app/plugins/plugins-state.js"></script>
+  <script src="app/plugins/marketplaces-state.js"></script>
+  <script src="app/plugins/plugins-tab-ui.js"></script>
+  <script src="app/mcp/mcp-state.js"></script>
+  <script src="app/mcp/mcp-manager-ui.js"></script>
+  <!-- app/console/console-state.js (merged; order preserved) -->
+    <!-- app/console/console-state.js (hoist/runtime split; preserve behavior) -->
+  <script src="app/console/modules/console-state/hoisted.js"></script>
+  <script src="app/console/modules/console-state/runtime.js"></script>
+  <!-- Thin stub (kept at app/console/console-state.js) -->
+  <script src="app/console/console-state.js"></script>
+  <!-- app/problems/problems-panel.js (merged; order preserved) -->
+    <!-- app/problems/problems-panel.js (hoist/runtime split; preserve behavior) -->
+  <script src="app/problems/modules/problems-panel/hoisted.js"></script>
+  <script src="app/problems/modules/problems-panel/runtime.js"></script>
+  <!-- Thin stub (kept at app/problems/problems-panel.js) -->
+  <script src="app/problems/problems-panel.js"></script>
+  <!-- app/agents/agents-skills-library-ui.js (merged; order preserved) -->
+    <!-- app/agents/agents-skills-library-ui.js (hoist/runtime split; preserve behavior) -->
+  <script src="app/agents/modules/agents-skills-library-ui/hoisted.js"></script>
+  <script src="app/agents/modules/agents-skills-library-ui/runtime.js"></script>
+  <!-- Thin stub (kept at app/agents/agents-skills-library-ui.js) -->
+  <script src="app/agents/agents-skills-library-ui.js"></script>
+  <!-- New compact Agents & Skills panel UI (replaces modal-based library) -->
+  <script src="app/agents/agents-skills-panel-ui.js"></script>
+  <script src="state/chat-persistence.js"></script>
+  <script src="state/stream-journal.js"></script>
+  <script src="state/file-sync-controller.js"></script>
+  <!-- app/editor/editor-tabs.js (merged; order preserved) -->
+    <!-- app/editor/editor-tabs.js (hoist/runtime split; preserve behavior) -->
+  <script src="app/editor/modules/editor-tabs/hoisted.part1.js"></script>
+  <script src="app/editor/modules/editor-tabs/hoisted.part2.js"></script>
+  <script src="app/editor/modules/editor-tabs/hoisted.part3.js"></script>
+  <script src="app/editor/modules/editor-tabs/hoisted.part4.js"></script>
+  <script src="app/editor/modules/editor-tabs/hoisted.part5.js"></script>
+  <script src="app/editor/modules/editor-tabs/hoisted.part6.js"></script>
+  <script src="app/editor/modules/editor-tabs/hoisted.part7.js"></script>
+  <script src="app/editor/modules/editor-tabs/runtime.js"></script>
+  <!-- Thin stub (kept at app/editor/editor-tabs.js) -->
+  <script src="app/editor/editor-tabs.js"></script>
+  <!-- Code streaming for real-time AI code writing -->
+  <script src="app/editor/code-streaming.js"></script>
+  <script src="state/session-run-state.js"></script>
+  <script src="state/run-telemetry.js"></script>
+  <script src="state/run-needs-analysis.js"></script>
+  <script src="state/proofed-edits-state.js"></script>
+  <script src="ui/modals/claude-auth-gate.js"></script>
+  <script src="ui/modals/llm-provider-select-modal.js"></script>
+  <!-- renderer/utils/perf.js (small perf helpers; safe to load early) -->
+  <script src="utils/perf.js"></script>
+  <!-- git/git-operations.js (merged; order preserved) -->
+    <!-- git/git-operations.js (hoist/runtime split; preserve behavior) -->
+  <script src="git/modules/git-operations/hoisted.js"></script>
+  <script src="git/modules/git-operations/runtime.js"></script>
+  <!-- Thin stub (kept at git/git-operations.js) -->
+  <script src="git/git-operations.js"></script>
+  <!-- aet/aet-session-ui.js (merged; order preserved) -->
+    <!-- aet/aet-session-ui.js (hoist/runtime split; preserve behavior) -->
+  <script src="aet/modules/aet-session-ui/hoisted.js"></script>
+  <script src="aet/modules/aet-session-ui/runtime.js"></script>
+  <!-- Thin stub (kept at aet/aet-session-ui.js) -->
+  <script src="aet/aet-session-ui.js"></script>
+  <!-- app/chat/sticky-prompts.js (merged; order preserved) -->
+    <!-- app/chat/sticky-prompts.js (hoist/runtime split; preserve behavior) -->
+  <script src="app/chat/modules/sticky-prompts/hoisted.js"></script>
+  <script src="app/chat/modules/sticky-prompts/runtime.js"></script>
+  <!-- Thin stub (kept at app/chat/sticky-prompts.js) -->
+  <script src="app/chat/sticky-prompts.js"></script>
+  <!-- app/chat/attachments.js (merged; order preserved) -->
+    <!-- app/chat/attachments.js (hoist/runtime split; preserve behavior) -->
+  <script src="app/chat/modules/attachments/hoisted.js"></script>
+  <script src="app/chat/modules/attachments/runtime.js"></script>
+  <!-- Thin stub (kept at app/chat/attachments.js) -->
+  <script src="app/chat/attachments.js"></script>
+  <!-- Thinking formatter - human-readable styling for thinking/reasoning blocks -->
+  <script src="app/chat/thinking-formatter.js"></script>
+  <!-- StreamAssembler - Claude Code style message assembly (mirrors VS Code extension) -->
+  <script src="app/chat/stream-assembler.js"></script>
+  <!-- ContentBlockTimeline - Proper ordered event processing (replaces position-based rendering) -->
+  <script src="app/chat/content-block-timeline.js"></script>
+  <!-- TimelineIntegration - Bridges ContentBlockTimeline with existing systems -->
+  <script src="app/chat/timeline-integration.js"></script>
+  <!-- app/chat/chat-status-banner.js (merged; order preserved) -->
+    <!-- app/chat/chat-status-banner.js (hoist/runtime split; preserve behavior) -->
+  <script src="app/chat/modules/chat-status-banner/hoisted.part1.js"></script>
+  <script src="app/chat/modules/chat-status-banner/hoisted.part2.js"></script>
+  <script src="app/chat/modules/chat-status-banner/hoisted.part3.js"></script>
+  <script src="app/chat/modules/chat-status-banner/hoisted.part4.js"></script>
+  <script src="app/chat/modules/chat-status-banner/hoisted.part5.js"></script>
+  <script src="app/chat/modules/chat-status-banner/hoisted.part6.js"></script>
+  <script src="app/chat/modules/chat-status-banner/runtime.js"></script>
+  <!-- Thin stub (kept at app/chat/chat-status-banner.js) -->
+  <script src="app/chat/chat-status-banner.js"></script>
+  <script src="app/welcome/welcome-screen.js"></script>
+  <!-- Stable namespace exports (Codeon.*) -->
+  <script src="app/core/codeon-exports.js"></script>
+  <!-- Thin bootstrap (kept for compatibility; intentionally tiny) -->
+  <script src="app.js"></script>
+  <!-- Bottom terminal panel (xterm + node-pty via IPC) -->
+  <script src="terminal/terminal-panel.js?v=20260102a"></script>
+  <!-- AI Bash tool mirroring into terminal (log-only; does not execute commands) -->
+  <script src="terminal/ai-bash-bridge.js?v=20260102a"></script>
+  <!-- Learning Feature (AI tutor explanations after runs) -->
+  <script src="learning/modules/learning-state/hoisted.js?v=20260113a"></script>
+  <script src="learning/modules/learning-state/runtime.js?v=20260113a"></script>
+  <script src="learning/modules/learning-panel/hoisted.js?v=20260113a"></script>
+  <script src="learning/modules/learning-panel/runtime.js?v=20260113a"></script>
+  <script src="learning/modules/learning-generator/hoisted.js?v=20260113a"></script>
+  <script src="learning/modules/learning-generator/runtime.js?v=20260113a"></script>
+  <!-- Documentation Mode (auto docs after runs) -->
+  <script src="docs/modules/docs-state/hoisted.js?v=20260121a"></script>
+  <script src="docs/modules/docs-state/runtime.js?v=20260121a"></script>
+  <script src="docs/modules/docs-panel/hoisted.js?v=20260121a"></script>
+  <script src="docs/modules/docs-panel/runtime.js?v=20260121a"></script>
+  <script src="docs/modules/docs-generator/hoisted.js?v=20260121a"></script>
+  <script src="docs/modules/docs-generator/runtime.js?v=20260121a"></script>
+  <!-- Proofed Edits (Verified Safety Mode) -->
+  <script src="verification/proofed-edits.js?v=20260125a"></script>
+  <!-- Verification Panel (session-scoped) -->
+  <script src="verification/modules/verification-panel/hoisted.js?v=20260125a"></script>
+  <script src="verification/modules/verification-panel/runtime.js?v=20260125a"></script>
+  <!-- Middle panel top-level tabs (Code / Agents & Skills / AET / Learning / Docs) -->
+  <script src="ui/middle-tabs/middle-tabs.js"></script>
+  <!-- AET enhancements (playback + export) -->
+  <script src="aet/aet-enhancements.js"></script>
+  <!-- AET Run Map (Mindmap) -->
+  <script src="aet/map/map-events.js"></script>
+  <script src="aet/map/map-graph.js"></script>
+  <script src="aet/map/map-layout.js"></script>
+  <!-- aet/map/map-view.js (merged; order preserved) -->
+    <!-- aet/map/map-view.js (hoist/runtime split; preserve behavior) -->
+  <script src="aet/map/modules/map-view/hoisted.js"></script>
+  <script src="aet/map/modules/map-view/runtime.js"></script>
+  <!-- Thin stub (kept at aet/map/map-view.js) -->
+  <script src="aet/map/map-view.js"></script>
+</body>
+</html>
+

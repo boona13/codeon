@@ -1,0 +1,5888 @@
+{
+  "version": 1,
+  "generatedAt": "2026-01-02T19:05:00.102Z",
+  "inputFile": "renderer/app.js",
+  "sha256": "1b0a3717b8467371c20aaec14fe3b3f683d68fc1bf09cba7d77967453bfa97d1",
+  "parts": [
+    {
+      "id": "p1",
+      "type": "var_value",
+      "name": "editor",
+      "startLine": 5,
+      "startCol": 1,
+      "endLine": 5,
+      "endCol": 18,
+      "preview": "let editor = null;"
+    },
+    {
+      "id": "p2",
+      "type": "var_value",
+      "name": "diffEditor",
+      "startLine": 6,
+      "startCol": 1,
+      "endLine": 6,
+      "endCol": 22,
+      "preview": "let diffEditor = null;"
+    },
+    {
+      "id": "p3",
+      "type": "var_value",
+      "name": "currentFile",
+      "startLine": 7,
+      "startCol": 1,
+      "endLine": 7,
+      "endCol": 23,
+      "preview": "let currentFile = null;"
+    },
+    {
+      "id": "p4",
+      "type": "var_value",
+      "name": "currentFolder",
+      "startLine": 8,
+      "startCol": 1,
+      "endLine": 8,
+      "endCol": 25,
+      "preview": "let currentFolder = null;"
+    },
+    {
+      "id": "p5",
+      "type": "var_array_literal",
+      "name": "chatHistory",
+      "startLine": 9,
+      "startCol": 1,
+      "endLine": 9,
+      "endCol": 21,
+      "preview": "let chatHistory = [];"
+    },
+    {
+      "id": "p6",
+      "type": "var_object_literal",
+      "name": "uiMetadata",
+      "startLine": 12,
+      "startCol": 1,
+      "endLine": 12,
+      "endCol": 20,
+      "preview": "let uiMetadata = {};"
+    },
+    {
+      "id": "p7",
+      "type": "var_object_literal",
+      "name": "uiMetadataState",
+      "startLine": 15,
+      "startCol": 1,
+      "endLine": 15,
+      "endCol": 54,
+      "preview": "let uiMetadataState = { v: 2, updatedAt: 0, aet: {} };"
+    },
+    {
+      "id": "p8",
+      "type": "var_value",
+      "name": "uiMetadataSaveTimer",
+      "startLine": 16,
+      "startCol": 1,
+      "endLine": 16,
+      "endCol": 31,
+      "preview": "let uiMetadataSaveTimer = null;"
+    },
+    {
+      "id": "p9",
+      "type": "var_array_literal",
+      "name": "workspaceFileTreeSnapshot",
+      "startLine": 17,
+      "startCol": 1,
+      "endLine": 17,
+      "endCol": 35,
+      "preview": "let workspaceFileTreeSnapshot = [];"
+    },
+    {
+      "id": "p10",
+      "type": "function_decl",
+      "name": "aetDebugEnabled",
+      "startLine": 20,
+      "startCol": 1,
+      "endLine": 26,
+      "endCol": 1,
+      "preview": "function aetDebugEnabled() {"
+    },
+    {
+      "id": "p11",
+      "type": "function_decl",
+      "name": "syncAetDebugToMain",
+      "startLine": 28,
+      "startCol": 1,
+      "endLine": 35,
+      "endCol": 1,
+      "preview": "async function syncAetDebugToMain() {"
+    },
+    {
+      "id": "p12",
+      "type": "var_object_literal",
+      "name": "pendingAttachmentsBySession",
+      "startLine": 36,
+      "startCol": 1,
+      "endLine": 36,
+      "endCol": 37,
+      "preview": "let pendingAttachmentsBySession = {};"
+    },
+    {
+      "id": "p13",
+      "type": "var_object_literal",
+      "name": "settings",
+      "startLine": 37,
+      "startCol": 1,
+      "endLine": 70,
+      "endCol": 2,
+      "preview": "let settings = {"
+    },
+    {
+      "id": "p14",
+      "type": "var_value",
+      "name": "claudeSupportedModelsCache",
+      "startLine": 73,
+      "startCol": 1,
+      "endLine": 73,
+      "endCol": 38,
+      "preview": "let claudeSupportedModelsCache = null;"
+    },
+    {
+      "id": "p15",
+      "type": "var_value",
+      "name": "claudeSupportedModelsFetchedAt",
+      "startLine": 74,
+      "startCol": 1,
+      "endLine": 74,
+      "endCol": 39,
+      "preview": "let claudeSupportedModelsFetchedAt = 0;"
+    },
+    {
+      "id": "p16",
+      "type": "var_value",
+      "name": "claudeGlobalBackoffUntilMs",
+      "startLine": 77,
+      "startCol": 1,
+      "endLine": 77,
+      "endCol": 35,
+      "preview": "let claudeGlobalBackoffUntilMs = 0;"
+    },
+    {
+      "id": "p17",
+      "type": "var_value",
+      "name": "contextMenuTarget",
+      "startLine": 80,
+      "startCol": 1,
+      "endLine": 80,
+      "endCol": 29,
+      "preview": "let contextMenuTarget = null;"
+    },
+    {
+      "id": "p18",
+      "type": "var_value",
+      "name": "contextMenuPath",
+      "startLine": 81,
+      "startCol": 1,
+      "endLine": 81,
+      "endCol": 27,
+      "preview": "let contextMenuPath = null;"
+    },
+    {
+      "id": "p19",
+      "type": "var_value",
+      "name": "contextMenuIsFolder",
+      "startLine": 82,
+      "startCol": 1,
+      "endLine": 82,
+      "endCol": 32,
+      "preview": "let contextMenuIsFolder = false;"
+    },
+    {
+      "id": "p20",
+      "type": "var_value",
+      "name": "chatTabContextSessionId",
+      "startLine": 83,
+      "startCol": 1,
+      "endLine": 83,
+      "endCol": 35,
+      "preview": "let chatTabContextSessionId = null;"
+    },
+    {
+      "id": "p21",
+      "type": "var_value",
+      "name": "isChatEditorView",
+      "startLine": 84,
+      "startCol": 1,
+      "endLine": 84,
+      "endCol": 29,
+      "preview": "let isChatEditorView = false;"
+    },
+    {
+      "id": "p22",
+      "type": "var_value",
+      "name": "chatSessionsSearchQuery",
+      "startLine": 85,
+      "startCol": 1,
+      "endLine": 85,
+      "endCol": 33,
+      "preview": "let chatSessionsSearchQuery = '';"
+    },
+    {
+      "id": "p23",
+      "type": "var_value",
+      "name": "explorerSelectedAbsPaths",
+      "startLine": 90,
+      "startCol": 1,
+      "endLine": 90,
+      "endCol": 41,
+      "preview": "let explorerSelectedAbsPaths = new Set();"
+    },
+    {
+      "id": "p24",
+      "type": "var_value",
+      "name": "explorerAnchorAbsPath",
+      "startLine": 91,
+      "startCol": 1,
+      "endLine": 91,
+      "endCol": 33,
+      "preview": "let explorerAnchorAbsPath = null;"
+    },
+    {
+      "id": "p25",
+      "type": "var_value",
+      "name": "explorerFocusedAbsPath",
+      "startLine": 92,
+      "startCol": 1,
+      "endLine": 92,
+      "endCol": 34,
+      "preview": "let explorerFocusedAbsPath = null;"
+    },
+    {
+      "id": "p26",
+      "type": "var_value",
+      "name": "explorerClipboard",
+      "startLine": 93,
+      "startCol": 1,
+      "endLine": 93,
+      "endCol": 29,
+      "preview": "let explorerClipboard = null;"
+    },
+    {
+      "id": "p27",
+      "type": "var_value",
+      "name": "explorerHasFocus",
+      "startLine": 94,
+      "startCol": 1,
+      "endLine": 94,
+      "endCol": 29,
+      "preview": "let explorerHasFocus = false;"
+    },
+    {
+      "id": "p28",
+      "type": "var_value",
+      "name": "explorerExpandedAbsDirs",
+      "startLine": 95,
+      "startCol": 1,
+      "endLine": 95,
+      "endCol": 40,
+      "preview": "let explorerExpandedAbsDirs = new Set();"
+    },
+    {
+      "id": "p29",
+      "type": "var_array_literal",
+      "name": "availableAgents",
+      "startLine": 100,
+      "startCol": 1,
+      "endLine": 100,
+      "endCol": 25,
+      "preview": "let availableAgents = [];"
+    },
+    {
+      "id": "p30",
+      "type": "var_object_literal",
+      "name": "activeAgentIdBySession",
+      "startLine": 101,
+      "startCol": 1,
+      "endLine": 101,
+      "endCol": 32,
+      "preview": "let activeAgentIdBySession = {};"
+    },
+    {
+      "id": "p31",
+      "type": "var_array_literal",
+      "name": "availableSkills",
+      "startLine": 106,
+      "startCol": 1,
+      "endLine": 106,
+      "endCol": 25,
+      "preview": "let availableSkills = [];"
+    },
+    {
+      "id": "p32",
+      "type": "var_object_literal",
+      "name": "pendingSkillIdBySession",
+      "startLine": 107,
+      "startCol": 1,
+      "endLine": 107,
+      "endCol": 33,
+      "preview": "let pendingSkillIdBySession = {};"
+    },
+    {
+      "id": "p33",
+      "type": "var_object_literal",
+      "name": "availableSkillScriptsBySession",
+      "startLine": 108,
+      "startCol": 1,
+      "endLine": 108,
+      "endCol": 40,
+      "preview": "let availableSkillScriptsBySession = {};"
+    },
+    {
+      "id": "p34",
+      "type": "function_decl",
+      "name": "shellQuote",
+      "startLine": 110,
+      "startCol": 1,
+      "endLine": 115,
+      "endCol": 1,
+      "preview": "function shellQuote(s) {"
+    },
+    {
+      "id": "p35",
+      "type": "function_decl",
+      "name": "skillIdToProjectSkillDir",
+      "startLine": 117,
+      "startCol": 1,
+      "endLine": 123,
+      "endCol": 1,
+      "preview": "function skillIdToProjectSkillDir(skillId) {"
+    },
+    {
+      "id": "p36",
+      "type": "function_decl",
+      "name": "listSkillScriptsForSkill",
+      "startLine": 125,
+      "startCol": 1,
+      "endLine": 146,
+      "endCol": 1,
+      "preview": "async function listSkillScriptsForSkill(skill) {"
+    },
+    {
+      "id": "p37",
+      "type": "function_decl",
+      "name": "refreshSkillScriptsForSession",
+      "startLine": 148,
+      "startCol": 1,
+      "endLine": 179,
+      "endCol": 1,
+      "preview": "async function refreshSkillScriptsForSession(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p38",
+      "type": "var_array_literal",
+      "name": "currentTodoList",
+      "startLine": 185,
+      "startCol": 1,
+      "endLine": 185,
+      "endCol": 25,
+      "preview": "let currentTodoList = [];"
+    },
+    {
+      "id": "p39",
+      "type": "var_value",
+      "name": "MAX_CONSOLE_MESSAGES_PER_SESSION",
+      "startLine": 189,
+      "startCol": 1,
+      "endLine": 189,
+      "endCol": 45,
+      "preview": "const MAX_CONSOLE_MESSAGES_PER_SESSION = 400;"
+    },
+    {
+      "id": "p40",
+      "type": "var_object_literal",
+      "name": "consoleMessagesBySession",
+      "startLine": 190,
+      "startCol": 1,
+      "endLine": 190,
+      "endCol": 34,
+      "preview": "let consoleMessagesBySession = {};"
+    },
+    {
+      "id": "p41",
+      "type": "var_object_literal",
+      "name": "consoleIndicatorBySession",
+      "startLine": 191,
+      "startCol": 1,
+      "endLine": 191,
+      "endCol": 35,
+      "preview": "let consoleIndicatorBySession = {};"
+    },
+    {
+      "id": "p42",
+      "type": "function_decl",
+      "name": "getConsoleMessages",
+      "startLine": 193,
+      "startCol": 1,
+      "endLine": 198,
+      "endCol": 1,
+      "preview": "function getConsoleMessages(sessionId) {"
+    },
+    {
+      "id": "p43",
+      "type": "function_decl",
+      "name": "setConsoleMessages",
+      "startLine": 200,
+      "startCol": 1,
+      "endLine": 204,
+      "endCol": 1,
+      "preview": "function setConsoleMessages(sessionId, next) {"
+    },
+    {
+      "id": "p44",
+      "type": "function_decl",
+      "name": "setConsoleIndicatorState",
+      "startLine": 206,
+      "startCol": 1,
+      "endLine": 210,
+      "endCol": 1,
+      "preview": "function setConsoleIndicatorState(sessionId, { type = 'idle', title = '' } = {}) {"
+    },
+    {
+      "id": "p45",
+      "type": "function_decl",
+      "name": "getConsoleIndicatorState",
+      "startLine": 212,
+      "startCol": 1,
+      "endLine": 218,
+      "endCol": 1,
+      "preview": "function getConsoleIndicatorState(sessionId) {"
+    },
+    {
+      "id": "p46",
+      "type": "function_decl",
+      "name": "persistConsoleState",
+      "startLine": 220,
+      "startCol": 1,
+      "endLine": 238,
+      "endCol": 1,
+      "preview": "function persistConsoleState(sessionId) {"
+    },
+    {
+      "id": "p47",
+      "type": "function_decl",
+      "name": "restoreConsoleForSession",
+      "startLine": 240,
+      "startCol": 1,
+      "endLine": 251,
+      "endCol": 1,
+      "preview": "function restoreConsoleForSession(sessionId) {"
+    },
+    {
+      "id": "p48",
+      "type": "function_decl",
+      "name": "applyConsoleIndicatorForSession",
+      "startLine": 253,
+      "startCol": 1,
+      "endLine": 263,
+      "endCol": 1,
+      "preview": "function applyConsoleIndicatorForSession(sessionId) {"
+    },
+    {
+      "id": "p49",
+      "type": "function_decl",
+      "name": "renderConsoleForSession",
+      "startLine": 265,
+      "startCol": 1,
+      "endLine": 286,
+      "endCol": 1,
+      "preview": "function renderConsoleForSession(sessionId) {"
+    },
+    {
+      "id": "p50",
+      "type": "function_decl",
+      "name": "addConsoleMessageForSession",
+      "startLine": 288,
+      "startCol": 1,
+      "endLine": 318,
+      "endCol": 1,
+      "preview": "function addConsoleMessageForSession(message, type = 'info', sessionId = currentSessionId, { persist = true } = {}) {"
+    },
+    {
+      "id": "p51",
+      "type": "function_decl",
+      "name": "getPendingAttachments",
+      "startLine": 332,
+      "startCol": 1,
+      "endLine": 336,
+      "endCol": 1,
+      "preview": "function getPendingAttachments(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p52",
+      "type": "function_decl",
+      "name": "setPendingAttachments",
+      "startLine": 338,
+      "startCol": 1,
+      "endLine": 341,
+      "endCol": 1,
+      "preview": "function setPendingAttachments(sessionId, next) {"
+    },
+    {
+      "id": "p53",
+      "type": "function_decl",
+      "name": "normalizeTodoStatus",
+      "startLine": 343,
+      "startCol": 1,
+      "endLine": 349,
+      "endCol": 1,
+      "preview": "function normalizeTodoStatus(status) {"
+    },
+    {
+      "id": "p54",
+      "type": "function_decl",
+      "name": "setTodoList",
+      "startLine": 351,
+      "startCol": 1,
+      "endLine": 375,
+      "endCol": 1,
+      "preview": "function setTodoList(todos, { persist = true } = {}) {"
+    },
+    {
+      "id": "p55",
+      "type": "function_decl",
+      "name": "restoreTodosForSession",
+      "startLine": 377,
+      "startCol": 1,
+      "endLine": 384,
+      "endCol": 1,
+      "preview": "function restoreTodosForSession(sessionId) {"
+    },
+    {
+      "id": "p56",
+      "type": "function_decl",
+      "name": "parseSimpleFrontmatterMarkdown",
+      "startLine": 386,
+      "startCol": 1,
+      "endLine": 410,
+      "endCol": 1,
+      "preview": "function parseSimpleFrontmatterMarkdown(mdText) {"
+    },
+    {
+      "id": "p57",
+      "type": "function_decl",
+      "name": "flattenFileTreeEntries",
+      "startLine": 412,
+      "startCol": 1,
+      "endLine": 424,
+      "endCol": 1,
+      "preview": "function flattenFileTreeEntries(entries) {"
+    },
+    {
+      "id": "p58",
+      "type": "function_decl",
+      "name": "getActiveAgentId",
+      "startLine": 426,
+      "startCol": 1,
+      "endLine": 431,
+      "endCol": 1,
+      "preview": "function getActiveAgentId(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p59",
+      "type": "function_decl",
+      "name": "getActiveAgent",
+      "startLine": 433,
+      "startCol": 1,
+      "endLine": 438,
+      "endCol": 1,
+      "preview": "function getActiveAgent(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p60",
+      "type": "function_decl",
+      "name": "isUserAgentId",
+      "startLine": 440,
+      "startCol": 1,
+      "endLine": 442,
+      "endCol": 1,
+      "preview": "function isUserAgentId(agentId) {"
+    },
+    {
+      "id": "p61",
+      "type": "function_decl",
+      "name": "isProjectAgentId",
+      "startLine": 444,
+      "startCol": 1,
+      "endLine": 446,
+      "endCol": 1,
+      "preview": "function isProjectAgentId(agentId) {"
+    },
+    {
+      "id": "p62",
+      "type": "function_decl",
+      "name": "userAgentRelPath",
+      "startLine": 448,
+      "startCol": 1,
+      "endLine": 450,
+      "endCol": 1,
+      "preview": "function userAgentRelPath(agentId) {"
+    },
+    {
+      "id": "p63",
+      "type": "function_decl",
+      "name": "isUserSkillId",
+      "startLine": 452,
+      "startCol": 1,
+      "endLine": 454,
+      "endCol": 1,
+      "preview": "function isUserSkillId(skillId) {"
+    },
+    {
+      "id": "p64",
+      "type": "function_decl",
+      "name": "isProjectSkillId",
+      "startLine": 456,
+      "startCol": 1,
+      "endLine": 458,
+      "endCol": 1,
+      "preview": "function isProjectSkillId(skillId) {"
+    },
+    {
+      "id": "p65",
+      "type": "function_decl",
+      "name": "updateImportExportButtonsForSession",
+      "startLine": 460,
+      "startCol": 1,
+      "endLine": 478,
+      "endCol": 1,
+      "preview": "function updateImportExportButtonsForSession(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p66",
+      "type": "function_decl",
+      "name": "renderAgentSelectForSession",
+      "startLine": 480,
+      "startCol": 1,
+      "endLine": 503,
+      "endCol": 1,
+      "preview": "function renderAgentSelectForSession(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p67",
+      "type": "function_decl",
+      "name": "setActiveAgentForSession",
+      "startLine": 505,
+      "startCol": 1,
+      "endLine": 529,
+      "endCol": 1,
+      "preview": "function setActiveAgentForSession(sessionId, agentId, { persist = true } = {}) {"
+    },
+    {
+      "id": "p68",
+      "type": "function_decl",
+      "name": "restoreAgentForSession",
+      "startLine": 531,
+      "startCol": 1,
+      "endLine": 541,
+      "endCol": 1,
+      "preview": "function restoreAgentForSession(sessionId) {"
+    },
+    {
+      "id": "p69",
+      "type": "function_decl",
+      "name": "loadProjectAgents",
+      "startLine": 543,
+      "startCol": 1,
+      "endLine": 589,
+      "endCol": 1,
+      "preview": "async function loadProjectAgents() {"
+    },
+    {
+      "id": "p70",
+      "type": "function_decl",
+      "name": "loadUserAgents",
+      "startLine": 591,
+      "startCol": 1,
+      "endLine": 619,
+      "endCol": 1,
+      "preview": "async function loadUserAgents() {"
+    },
+    {
+      "id": "p71",
+      "type": "function_decl",
+      "name": "applyActiveAgentToPrompt",
+      "startLine": 621,
+      "startCol": 1,
+      "endLine": 639,
+      "endCol": 1,
+      "preview": "function applyActiveAgentToPrompt(sessionId, userPrompt) {"
+    },
+    {
+      "id": "p72",
+      "type": "function_decl",
+      "name": "getPendingSkillId",
+      "startLine": 641,
+      "startCol": 1,
+      "endLine": 646,
+      "endCol": 1,
+      "preview": "function getPendingSkillId(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p73",
+      "type": "function_decl",
+      "name": "getPendingSkill",
+      "startLine": 648,
+      "startCol": 1,
+      "endLine": 653,
+      "endCol": 1,
+      "preview": "function getPendingSkill(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p74",
+      "type": "function_decl",
+      "name": "setPendingSkillForSession",
+      "startLine": 655,
+      "startCol": 1,
+      "endLine": 663,
+      "endCol": 1,
+      "preview": "function setPendingSkillForSession(sessionId, skillId) {"
+    },
+    {
+      "id": "p75",
+      "type": "function_decl",
+      "name": "clearPendingSkillForSession",
+      "startLine": 665,
+      "startCol": 1,
+      "endLine": 667,
+      "endCol": 1,
+      "preview": "function clearPendingSkillForSession(sessionId) {"
+    },
+    {
+      "id": "p76",
+      "type": "function_decl",
+      "name": "renderSkillSelectForSession",
+      "startLine": 669,
+      "startCol": 1,
+      "endLine": 689,
+      "endCol": 1,
+      "preview": "function renderSkillSelectForSession(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p77",
+      "type": "function_decl",
+      "name": "tokenizeForSuggestions",
+      "startLine": 691,
+      "startCol": 1,
+      "endLine": 696,
+      "endCol": 1,
+      "preview": "function tokenizeForSuggestions(text) {"
+    },
+    {
+      "id": "p78",
+      "type": "function_decl",
+      "name": "scoreSkillForText",
+      "startLine": 698,
+      "startCol": 1,
+      "endLine": 707,
+      "endCol": 1,
+      "preview": "function scoreSkillForText(skill, tokens) {"
+    },
+    {
+      "id": "p79",
+      "type": "function_decl",
+      "name": "computeSkillSuggestions",
+      "startLine": 709,
+      "startCol": 1,
+      "endLine": 720,
+      "endCol": 1,
+      "preview": "function computeSkillSuggestions(text, { limit = 4 } = {}) {"
+    },
+    {
+      "id": "p80",
+      "type": "function_decl",
+      "name": "renderSkillSuggestionsForText",
+      "startLine": 722,
+      "startCol": 1,
+      "endLine": 766,
+      "endCol": 1,
+      "preview": "function renderSkillSuggestionsForText(text, sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p81",
+      "type": "function_decl",
+      "name": "loadProjectSkills",
+      "startLine": 768,
+      "startCol": 1,
+      "endLine": 822,
+      "endCol": 1,
+      "preview": "async function loadProjectSkills() {"
+    },
+    {
+      "id": "p82",
+      "type": "function_decl",
+      "name": "loadUserSkills",
+      "startLine": 824,
+      "startCol": 1,
+      "endLine": 860,
+      "endCol": 1,
+      "preview": "async function loadUserSkills() {"
+    },
+    {
+      "id": "p83",
+      "type": "function_decl",
+      "name": "applySkillByIdToPrompt",
+      "startLine": 862,
+      "startCol": 1,
+      "endLine": 880,
+      "endCol": 1,
+      "preview": "function applySkillByIdToPrompt(skillId, userPrompt) {"
+    },
+    {
+      "id": "p84",
+      "type": "function_decl",
+      "name": "getToolReceiptsForSession",
+      "startLine": 882,
+      "startCol": 1,
+      "endLine": 887,
+      "endCol": 1,
+      "preview": "function getToolReceiptsForSession(sessionId) {"
+    },
+    {
+      "id": "p85",
+      "type": "function_decl",
+      "name": "clearReceiptsForSession",
+      "startLine": 889,
+      "startCol": 1,
+      "endLine": 898,
+      "endCol": 1,
+      "preview": "function clearReceiptsForSession(sessionId) {"
+    },
+    {
+      "id": "p86",
+      "type": "function_decl",
+      "name": "renderReceiptsForSession",
+      "startLine": 900,
+      "startCol": 1,
+      "endLine": 983,
+      "endCol": 1,
+      "preview": "function renderReceiptsForSession(sessionId) {"
+    },
+    {
+      "id": "p87",
+      "type": "function_decl",
+      "name": "renderTodoList",
+      "startLine": 985,
+      "startCol": 1,
+      "endLine": 1041,
+      "endCol": 1,
+      "preview": "function renderTodoList() {"
+    },
+    {
+      "id": "p88",
+      "type": "function_decl",
+      "name": "initConsoleTabsAndTasks",
+      "startLine": 1043,
+      "startCol": 1,
+      "endLine": 1112,
+      "endCol": 1,
+      "preview": "function initConsoleTabsAndTasks() {"
+    },
+    {
+      "id": "p89",
+      "type": "var_value",
+      "name": "__problemsSetupDone",
+      "startLine": 1118,
+      "startCol": 1,
+      "endLine": 1118,
+      "endCol": 32,
+      "preview": "let __problemsSetupDone = false;"
+    },
+    {
+      "id": "p90",
+      "type": "var_value",
+      "name": "__problemsRenderTimer",
+      "startLine": 1119,
+      "startCol": 1,
+      "endLine": 1119,
+      "endCol": 33,
+      "preview": "let __problemsRenderTimer = null;"
+    },
+    {
+      "id": "p91",
+      "type": "function_decl",
+      "name": "scheduleRenderProblemsView",
+      "startLine": 1121,
+      "startCol": 1,
+      "endLine": 1132,
+      "endCol": 1,
+      "preview": "function scheduleRenderProblemsView() {"
+    },
+    {
+      "id": "p92",
+      "type": "function_decl",
+      "name": "setupProblemsOnce",
+      "startLine": 1134,
+      "startCol": 1,
+      "endLine": 1146,
+      "endCol": 1,
+      "preview": "function setupProblemsOnce() {"
+    },
+    {
+      "id": "p93",
+      "type": "var_object_literal",
+      "name": "projectProblemsState",
+      "startLine": 1149,
+      "startCol": 1,
+      "endLine": 1159,
+      "endCol": 2,
+      "preview": "const projectProblemsState = {"
+    },
+    {
+      "id": "p94",
+      "type": "var_value",
+      "name": "__projectScanDebounceTimer",
+      "startLine": 1161,
+      "startCol": 1,
+      "endLine": 1161,
+      "endCol": 38,
+      "preview": "let __projectScanDebounceTimer = null;"
+    },
+    {
+      "id": "p95",
+      "type": "function_decl",
+      "name": "scheduleProjectProblemsScan",
+      "startLine": 1162,
+      "startCol": 1,
+      "endLine": 1175,
+      "endCol": 1,
+      "preview": "function scheduleProjectProblemsScan(reason = 'auto') {"
+    },
+    {
+      "id": "p96",
+      "type": "function_decl",
+      "name": "flattenWorkspaceTreeFiles",
+      "startLine": 1177,
+      "startCol": 1,
+      "endLine": 1190,
+      "endCol": 1,
+      "preview": "function flattenWorkspaceTreeFiles(nodes, out = []) {"
+    },
+    {
+      "id": "p97",
+      "type": "function_decl",
+      "name": "looksLikeRelFilePathToken",
+      "startLine": 1192,
+      "startCol": 1,
+      "endLine": 1202,
+      "endCol": 1,
+      "preview": "function looksLikeRelFilePathToken(token) {"
+    },
+    {
+      "id": "p98",
+      "type": "function_decl",
+      "name": "cleanFileToken",
+      "startLine": 1204,
+      "startCol": 1,
+      "endLine": 1210,
+      "endCol": 1,
+      "preview": "function cleanFileToken(raw) {"
+    },
+    {
+      "id": "p99",
+      "type": "function_decl",
+      "name": "parseClaudeMissingConversationId",
+      "startLine": 1212,
+      "startCol": 1,
+      "endLine": 1218,
+      "endCol": 1,
+      "preview": "function parseClaudeMissingConversationId(errText) {"
+    },
+    {
+      "id": "p100",
+      "type": "function_decl",
+      "name": "parseClaudeMissingResumeAnchorUuid",
+      "startLine": 1220,
+      "startCol": 1,
+      "endLine": 1226,
+      "endCol": 1,
+      "preview": "function parseClaudeMissingResumeAnchorUuid(errText) {"
+    },
+    {
+      "id": "p101",
+      "type": "function_decl",
+      "name": "flattenWorkspaceTreeEntries",
+      "startLine": 1228,
+      "startCol": 1,
+      "endLine": 1250,
+      "endCol": 1,
+      "preview": "function flattenWorkspaceTreeEntries(nodes, out = []) {"
+    },
+    {
+      "id": "p102",
+      "type": "function_decl",
+      "name": "shouldShowInComposerContextPicker",
+      "startLine": 1252,
+      "startCol": 1,
+      "endLine": 1255,
+      "endCol": 1,
+      "preview": "function shouldShowInComposerContextPicker(rel) {"
+    },
+    {
+      "id": "p103",
+      "type": "var_object_literal",
+      "name": "composerContextState",
+      "startLine": 1257,
+      "startCol": 1,
+      "endLine": 1264,
+      "endCol": 2,
+      "preview": "let composerContextState = {"
+    },
+    {
+      "id": "p104",
+      "type": "function_decl",
+      "name": "getComposerContextPopoverEls",
+      "startLine": 1266,
+      "startCol": 1,
+      "endLine": 1273,
+      "endCol": 1,
+      "preview": "function getComposerContextPopoverEls() {"
+    },
+    {
+      "id": "p105",
+      "type": "function_decl",
+      "name": "ensureComposerContextPopoverInBody",
+      "startLine": 1275,
+      "startCol": 1,
+      "endLine": 1285,
+      "endCol": 1,
+      "preview": "function ensureComposerContextPopoverInBody() {"
+    },
+    {
+      "id": "p106",
+      "type": "function_decl",
+      "name": "positionComposerContextPopover",
+      "startLine": 1287,
+      "startCol": 1,
+      "endLine": 1318,
+      "endCol": 1,
+      "preview": "function positionComposerContextPopover() {"
+    },
+    {
+      "id": "p107",
+      "type": "function_decl",
+      "name": "scoreComposerContextEntry",
+      "startLine": 1320,
+      "startCol": 1,
+      "endLine": 1329,
+      "endCol": 1,
+      "preview": "function scoreComposerContextEntry(entry, queryLower) {"
+    },
+    {
+      "id": "p108",
+      "type": "function_decl",
+      "name": "getComposerContextFilteredEntries",
+      "startLine": 1331,
+      "startCol": 1,
+      "endLine": 1349,
+      "endCol": 1,
+      "preview": "function getComposerContextFilteredEntries(entries, query) {"
+    },
+    {
+      "id": "p109",
+      "type": "function_decl",
+      "name": "renderComposerContextPopover",
+      "startLine": 1351,
+      "startCol": 1,
+      "endLine": 1387,
+      "endCol": 1,
+      "preview": "function renderComposerContextPopover() {"
+    },
+    {
+      "id": "p110",
+      "type": "function_decl",
+      "name": "openComposerContextPopover",
+      "startLine": 1389,
+      "startCol": 1,
+      "endLine": 1426,
+      "endCol": 1,
+      "preview": "async function openComposerContextPopover({ trigger = 'button', atIndex = -1, query = '' } = {}) {"
+    },
+    {
+      "id": "p111",
+      "type": "function_decl",
+      "name": "closeComposerContextPopover",
+      "startLine": 1428,
+      "startCol": 1,
+      "endLine": 1437,
+      "endCol": 1,
+      "preview": "function closeComposerContextPopover() {"
+    },
+    {
+      "id": "p112",
+      "type": "function_decl",
+      "name": "isComposerContextPopoverOpen",
+      "startLine": 1439,
+      "startCol": 1,
+      "endLine": 1442,
+      "endCol": 1,
+      "preview": "function isComposerContextPopoverOpen() {"
+    },
+    {
+      "id": "p113",
+      "type": "function_decl",
+      "name": "detectAtQueryFromTextarea",
+      "startLine": 1444,
+      "startCol": 1,
+      "endLine": 1457,
+      "endCol": 1,
+      "preview": "function detectAtQueryFromTextarea(text, cursorIndex) {"
+    },
+    {
+      "id": "p114",
+      "type": "function_decl",
+      "name": "replaceTextareaRange",
+      "startLine": 1459,
+      "startCol": 1,
+      "endLine": 1474,
+      "endCol": 1,
+      "preview": "function replaceTextareaRange(textarea, start, end, nextText) {"
+    },
+    {
+      "id": "p115",
+      "type": "function_decl",
+      "name": "handleComposerContextPick",
+      "startLine": 1476,
+      "startCol": 1,
+      "endLine": 1504,
+      "endCol": 1,
+      "preview": "async function handleComposerContextPick(relPath, kind) {"
+    },
+    {
+      "id": "p116",
+      "type": "function_decl",
+      "name": "shouldProjectScanRelPath",
+      "startLine": 1506,
+      "startCol": 1,
+      "endLine": 1522,
+      "endCol": 1,
+      "preview": "function shouldProjectScanRelPath(rel) {"
+    },
+    {
+      "id": "p117",
+      "type": "function_decl",
+      "name": "isProjectScanLanguage",
+      "startLine": 1524,
+      "startCol": 1,
+      "endLine": 1536,
+      "endCol": 1,
+      "preview": "function isProjectScanLanguage(rel) {"
+    },
+    {
+      "id": "p118",
+      "type": "function_decl",
+      "name": "tsDiagMessageToString",
+      "startLine": 1538,
+      "startCol": 1,
+      "endLine": 1550,
+      "endCol": 1,
+      "preview": "function tsDiagMessageToString(msg) {"
+    },
+    {
+      "id": "p119",
+      "type": "function_decl",
+      "name": "tsCategoryToSeverity",
+      "startLine": 1552,
+      "startCol": 1,
+      "endLine": 1558,
+      "endCol": 1,
+      "preview": "function tsCategoryToSeverity(cat) {"
+    },
+    {
+      "id": "p120",
+      "type": "function_decl",
+      "name": "computeLineColFromIndex",
+      "startLine": 1560,
+      "startCol": 1,
+      "endLine": 1569,
+      "endCol": 1,
+      "preview": "function computeLineColFromIndex(text, idx) {"
+    },
+    {
+      "id": "p121",
+      "type": "function_decl",
+      "name": "scanHtmlTextForEmbeddedScriptErrors",
+      "startLine": 1571,
+      "startCol": 1,
+      "endLine": 1600,
+      "endCol": 1,
+      "preview": "function scanHtmlTextForEmbeddedScriptErrors(htmlText) {"
+    },
+    {
+      "id": "p122",
+      "type": "function_decl",
+      "name": "runProjectProblemsScan",
+      "startLine": 1602,
+      "startCol": 1,
+      "endLine": 1790,
+      "endCol": 1,
+      "preview": "async function runProjectProblemsScan({ reason = '' } = {}) {"
+    },
+    {
+      "id": "p123",
+      "type": "function_decl",
+      "name": "markerSeverityToKind",
+      "startLine": 1792,
+      "startCol": 1,
+      "endLine": 1798,
+      "endCol": 1,
+      "preview": "function markerSeverityToKind(sev) {"
+    },
+    {
+      "id": "p124",
+      "type": "function_decl",
+      "name": "problemOriginRank",
+      "startLine": 1800,
+      "startCol": 1,
+      "endLine": 1812,
+      "endCol": 1,
+      "preview": "function problemOriginRank(p) {"
+    },
+    {
+      "id": "p125",
+      "type": "function_decl",
+      "name": "problemDedupeKey",
+      "startLine": 1814,
+      "startCol": 1,
+      "endLine": 1831,
+      "endCol": 1,
+      "preview": "function problemDedupeKey(p) {"
+    },
+    {
+      "id": "p126",
+      "type": "function_decl",
+      "name": "dedupeProblems",
+      "startLine": 1833,
+      "startCol": 1,
+      "endLine": 1859,
+      "endCol": 1,
+      "preview": "function dedupeProblems(list) {"
+    },
+    {
+      "id": "p127",
+      "type": "function_decl",
+      "name": "getProblemsForOpenTabs",
+      "startLine": 1861,
+      "startCol": 1,
+      "endLine": 1928,
+      "endCol": 1,
+      "preview": "function getProblemsForOpenTabs() {"
+    },
+    {
+      "id": "p128",
+      "type": "function_decl",
+      "name": "jumpToProblem",
+      "startLine": 1930,
+      "startCol": 1,
+      "endLine": 1969,
+      "endCol": 1,
+      "preview": "async function jumpToProblem(p) {"
+    },
+    {
+      "id": "p129",
+      "type": "function_decl",
+      "name": "buildProblemContextForOpenTab",
+      "startLine": 1971,
+      "startCol": 1,
+      "endLine": 2006,
+      "endCol": 1,
+      "preview": "function buildProblemContextForOpenTab(absPath, line, context = 8) {"
+    },
+    {
+      "id": "p130",
+      "type": "function_decl",
+      "name": "buildProblemContextForFile",
+      "startLine": 2008,
+      "startCol": 1,
+      "endLine": 2046,
+      "endCol": 1,
+      "preview": "async function buildProblemContextForFile(absPath, line, context = 8) {"
+    },
+    {
+      "id": "p131",
+      "type": "function_decl",
+      "name": "addProblemContextAttachment",
+      "startLine": 2048,
+      "startCol": 1,
+      "endLine": 2092,
+      "endCol": 1,
+      "preview": "function addProblemContextAttachment({ absPath, relPath, lineNumber, startLine, endLine, snippet, diagnosticMessage }) {"
+    },
+    {
+      "id": "p132",
+      "type": "function_decl",
+      "name": "prefillChatForProblemFix",
+      "startLine": 2094,
+      "startCol": 1,
+      "endLine": 2139,
+      "endCol": 1,
+      "preview": "function prefillChatForProblemFix(p) {"
+    },
+    {
+      "id": "p133",
+      "type": "function_decl",
+      "name": "normalizeClipboardText",
+      "startLine": 2141,
+      "startCol": 1,
+      "endLine": 2143,
+      "endCol": 1,
+      "preview": "function normalizeClipboardText(s) {"
+    },
+    {
+      "id": "p134",
+      "type": "function_decl",
+      "name": "_looksLikeCode",
+      "startLine": 2146,
+      "startCol": 1,
+      "endLine": 2190,
+      "endCol": 1,
+      "preview": "function _looksLikeCode(text) {"
+    },
+    {
+      "id": "p135",
+      "type": "function_decl",
+      "name": "tryGetEditorSelectionContext",
+      "startLine": 2192,
+      "startCol": 1,
+      "endLine": 2212,
+      "endCol": 1,
+      "preview": "function tryGetEditorSelectionContext() {"
+    },
+    {
+      "id": "p136",
+      "type": "var_value",
+      "name": "CODEON_CLIPBOARD_SELECTION_META_TYPE",
+      "startLine": 2214,
+      "startCol": 1,
+      "endLine": 2214,
+      "endCol": 78,
+      "preview": "const CODEON_CLIPBOARD_SELECTION_META_TYPE = 'application/x-codeon-selection';"
+    },
+    {
+      "id": "p137",
+      "type": "function_decl",
+      "name": "buildCodeonClipboardSelectionMeta",
+      "startLine": 2216,
+      "startCol": 1,
+      "endLine": 2229,
+      "endCol": 1,
+      "preview": "function buildCodeonClipboardSelectionMeta(selCtx) {"
+    },
+    {
+      "id": "p138",
+      "type": "function_decl",
+      "name": "parseCodeonClipboardSelectionMeta",
+      "startLine": 2231,
+      "startCol": 1,
+      "endLine": 2245,
+      "endCol": 1,
+      "preview": "function parseCodeonClipboardSelectionMeta(raw) {"
+    },
+    {
+      "id": "p139",
+      "type": "function_decl",
+      "name": "normalizeWorkspaceRelPath",
+      "startLine": 2247,
+      "startCol": 1,
+      "endLine": 2249,
+      "endCol": 1,
+      "preview": "function normalizeWorkspaceRelPath(p) {"
+    },
+    {
+      "id": "p140",
+      "type": "function_decl",
+      "name": "workspaceTreeHasFileRelPath",
+      "startLine": 2251,
+      "startCol": 1,
+      "endLine": 2276,
+      "endCol": 1,
+      "preview": "function workspaceTreeHasFileRelPath(relPath) {"
+    },
+    {
+      "id": "p141",
+      "type": "var_value",
+      "name": "CODE_CONTEXT_HEADER_ALLOWED_EXTS",
+      "startLine": 2278,
+      "startCol": 1,
+      "endLine": 2284,
+      "endCol": 3,
+      "preview": "const CODE_CONTEXT_HEADER_ALLOWED_EXTS = new Set(["
+    },
+    {
+      "id": "p142",
+      "type": "function_decl",
+      "name": "looksLikeCodeFilePathForContext",
+      "startLine": 2286,
+      "startCol": 1,
+      "endLine": 2300,
+      "endCol": 1,
+      "preview": "function looksLikeCodeFilePathForContext(pathStr) {"
+    },
+    {
+      "id": "p143",
+      "type": "function_decl",
+      "name": "parseFileRangeHeaderFromPastedText",
+      "startLine": 2302,
+      "startCol": 1,
+      "endLine": 2372,
+      "endCol": 1,
+      "preview": "function parseFileRangeHeaderFromPastedText(clipText) {"
+    },
+    {
+      "id": "p144",
+      "type": "function_decl",
+      "name": "renderProblemsView",
+      "startLine": 2374,
+      "startCol": 1,
+      "endLine": 2502,
+      "endCol": 1,
+      "preview": "function renderProblemsView() {"
+    },
+    {
+      "id": "p145",
+      "type": "function_decl",
+      "name": "hideContextMenu",
+      "startLine": 2504,
+      "startCol": 1,
+      "endLine": 2510,
+      "endCol": 1,
+      "preview": "function hideContextMenu() {"
+    },
+    {
+      "id": "p146",
+      "type": "function_decl",
+      "name": "hideChatTabContextMenu",
+      "startLine": 2512,
+      "startCol": 1,
+      "endLine": 2516,
+      "endCol": 1,
+      "preview": "function hideChatTabContextMenu() {"
+    },
+    {
+      "id": "p147",
+      "type": "function_decl",
+      "name": "closeChatSessionsPopover",
+      "startLine": 2518,
+      "startCol": 1,
+      "endLine": 2523,
+      "endCol": 1,
+      "preview": "function closeChatSessionsPopover() {"
+    },
+    {
+      "id": "p148",
+      "type": "function_decl",
+      "name": "openChatSessionsPopover",
+      "startLine": 2525,
+      "startCol": 1,
+      "endLine": 2573,
+      "endCol": 1,
+      "preview": "function openChatSessionsPopover() {"
+    },
+    {
+      "id": "p149",
+      "type": "function_decl",
+      "name": "toggleChatSessionsPopover",
+      "startLine": 2575,
+      "startCol": 1,
+      "endLine": 2581,
+      "endCol": 1,
+      "preview": "function toggleChatSessionsPopover() {"
+    },
+    {
+      "id": "p150",
+      "type": "function_decl",
+      "name": "closeAssistantToolsPopover",
+      "startLine": 2583,
+      "startCol": 1,
+      "endLine": 2587,
+      "endCol": 1,
+      "preview": "function closeAssistantToolsPopover() {"
+    },
+    {
+      "id": "p151",
+      "type": "function_decl",
+      "name": "openAssistantToolsPopover",
+      "startLine": 2589,
+      "startCol": 1,
+      "endLine": 2624,
+      "endCol": 1,
+      "preview": "function openAssistantToolsPopover() {"
+    },
+    {
+      "id": "p152",
+      "type": "function_decl",
+      "name": "toggleAssistantToolsPopover",
+      "startLine": 2626,
+      "startCol": 1,
+      "endLine": 2632,
+      "endCol": 1,
+      "preview": "function toggleAssistantToolsPopover() {"
+    },
+    {
+      "id": "p153",
+      "type": "var_value",
+      "name": "agentSkillLibraryActiveTab",
+      "startLine": 2637,
+      "startCol": 1,
+      "endLine": 2637,
+      "endCol": 42,
+      "preview": "let agentSkillLibraryActiveTab = 'agents';"
+    },
+    {
+      "id": "p154",
+      "type": "function_decl",
+      "name": "slugifyName",
+      "startLine": 2639,
+      "startCol": 1,
+      "endLine": 2648,
+      "endCol": 1,
+      "preview": "function slugifyName(input) {"
+    },
+    {
+      "id": "p155",
+      "type": "function_decl",
+      "name": "ensureUniqueProjectPath",
+      "startLine": 2650,
+      "startCol": 1,
+      "endLine": 2667,
+      "endCol": 1,
+      "preview": "async function ensureUniqueProjectPath(desiredPath) {"
+    },
+    {
+      "id": "p156",
+      "type": "function_decl",
+      "name": "showAgentSkillLibrary",
+      "startLine": 2669,
+      "startCol": 1,
+      "endLine": 2674,
+      "endCol": 1,
+      "preview": "function showAgentSkillLibrary() {"
+    },
+    {
+      "id": "p157",
+      "type": "function_decl",
+      "name": "hideAgentSkillLibrary",
+      "startLine": 2676,
+      "startCol": 1,
+      "endLine": 2681,
+      "endCol": 1,
+      "preview": "function hideAgentSkillLibrary() {"
+    },
+    {
+      "id": "p158",
+      "type": "function_decl",
+      "name": "switchAgentSkillLibraryTab",
+      "startLine": 2683,
+      "startCol": 1,
+      "endLine": 2698,
+      "endCol": 1,
+      "preview": "function switchAgentSkillLibraryTab(tab) {"
+    },
+    {
+      "id": "p159",
+      "type": "function_decl",
+      "name": "getProjectAgentsForLibrary",
+      "startLine": 2700,
+      "startCol": 1,
+      "endLine": 2702,
+      "endCol": 1,
+      "preview": "function getProjectAgentsForLibrary() {"
+    },
+    {
+      "id": "p160",
+      "type": "function_decl",
+      "name": "getUserAgentsForLibrary",
+      "startLine": 2704,
+      "startCol": 1,
+      "endLine": 2706,
+      "endCol": 1,
+      "preview": "function getUserAgentsForLibrary() {"
+    },
+    {
+      "id": "p161",
+      "type": "function_decl",
+      "name": "getProjectSkillsForLibrary",
+      "startLine": 2708,
+      "startCol": 1,
+      "endLine": 2710,
+      "endCol": 1,
+      "preview": "function getProjectSkillsForLibrary() {"
+    },
+    {
+      "id": "p162",
+      "type": "function_decl",
+      "name": "getUserSkillsForLibrary",
+      "startLine": 2712,
+      "startCol": 1,
+      "endLine": 2714,
+      "endCol": 1,
+      "preview": "function getUserSkillsForLibrary() {"
+    },
+    {
+      "id": "p163",
+      "type": "function_decl",
+      "name": "createAgentFromLibrary",
+      "startLine": 2716,
+      "startCol": 1,
+      "endLine": 2746,
+      "endCol": 1,
+      "preview": "async function createAgentFromLibrary({ location, name, description, instructions }) {"
+    },
+    {
+      "id": "p164",
+      "type": "function_decl",
+      "name": "createSkillFromLibrary",
+      "startLine": 2748,
+      "startCol": 1,
+      "endLine": 2775,
+      "endCol": 1,
+      "preview": "async function createSkillFromLibrary({ location, displayName, dirName, description, instructions }) {"
+    },
+    {
+      "id": "p165",
+      "type": "function_decl",
+      "name": "renderAgentSkillLibrary",
+      "startLine": 2777,
+      "startCol": 1,
+      "endLine": 3032,
+      "endCol": 1,
+      "preview": "function renderAgentSkillLibrary() {"
+    },
+    {
+      "id": "p166",
+      "type": "function_decl",
+      "name": "refreshScriptsListForLibrary",
+      "startLine": 3034,
+      "startCol": 1,
+      "endLine": 3070,
+      "endCol": 1,
+      "preview": "async function refreshScriptsListForLibrary() {"
+    },
+    {
+      "id": "p167",
+      "type": "function_decl",
+      "name": "startOfLocalDay",
+      "startLine": 3072,
+      "startCol": 1,
+      "endLine": 3076,
+      "endCol": 1,
+      "preview": "function startOfLocalDay(ts) {"
+    },
+    {
+      "id": "p168",
+      "type": "function_decl",
+      "name": "formatAgeShort",
+      "startLine": 3078,
+      "startCol": 1,
+      "endLine": 3090,
+      "endCol": 1,
+      "preview": "function formatAgeShort(ts) {"
+    },
+    {
+      "id": "p169",
+      "type": "function_decl",
+      "name": "getSessionDisplayMeta",
+      "startLine": 3092,
+      "startCol": 1,
+      "endLine": 3102,
+      "endCol": 1,
+      "preview": "function getSessionDisplayMeta(session) {"
+    },
+    {
+      "id": "p170",
+      "type": "function_decl",
+      "name": "getFilePreviewBadgeClass",
+      "startLine": 3104,
+      "startCol": 1,
+      "endLine": 3108,
+      "endCol": 1,
+      "preview": "function getFilePreviewBadgeClass(ext) {"
+    },
+    {
+      "id": "p171",
+      "type": "function_decl",
+      "name": "getFileExtFromPath",
+      "startLine": 3110,
+      "startCol": 1,
+      "endLine": 3116,
+      "endCol": 1,
+      "preview": "function getFileExtFromPath(p) {"
+    },
+    {
+      "id": "p172",
+      "type": "function_decl",
+      "name": "normalizeRelPathForDiffPreview",
+      "startLine": 3118,
+      "startCol": 1,
+      "endLine": 3120,
+      "endCol": 1,
+      "preview": "function normalizeRelPathForDiffPreview(relPath) {"
+    },
+    {
+      "id": "p173",
+      "type": "function_decl",
+      "name": "isHiddenOrInternalPathForDiffPreview",
+      "startLine": 3122,
+      "startCol": 1,
+      "endLine": 3132,
+      "endCol": 1,
+      "preview": "function isHiddenOrInternalPathForDiffPreview(relPath) {"
+    },
+    {
+      "id": "p174",
+      "type": "function_decl",
+      "name": "countDiffStats",
+      "startLine": 3134,
+      "startCol": 1,
+      "endLine": 3147,
+      "endCol": 1,
+      "preview": "function countDiffStats(diffContent) {"
+    },
+    {
+      "id": "p175",
+      "type": "function_decl",
+      "name": "renderDiffStatHtml",
+      "startLine": 3149,
+      "startCol": 1,
+      "endLine": 3158,
+      "endCol": 1,
+      "preview": "function renderDiffStatHtml({ added = 0, removed = 0, isNewFile = false } = {}) {"
+    },
+    {
+      "id": "p176",
+      "type": "function_decl",
+      "name": "addFilePreviewMessageFromDiff",
+      "startLine": 3160,
+      "startCol": 1,
+      "endLine": 3227,
+      "endCol": 1,
+      "preview": "async function addFilePreviewMessageFromDiff(sessionId, filePath, diffContent, toolName = '', { renderNow = true, timestamp = null } = {}) {"
+    },
+    {
+      "id": "p177",
+      "type": "function_decl",
+      "name": "groupLabelForTimestamp",
+      "startLine": 3229,
+      "startCol": 1,
+      "endLine": 3240,
+      "endCol": 1,
+      "preview": "function groupLabelForTimestamp(ts) {"
+    },
+    {
+      "id": "p178",
+      "type": "function_decl",
+      "name": "renderChatSessionsPopoverList",
+      "startLine": 3242,
+      "startCol": 1,
+      "endLine": 3358,
+      "endCol": 1,
+      "preview": "function renderChatSessionsPopoverList() {"
+    },
+    {
+      "id": "p179",
+      "type": "function_decl",
+      "name": "showContextMenu",
+      "startLine": 3360,
+      "startCol": 1,
+      "endLine": 3423,
+      "endCol": 1,
+      "preview": "function showContextMenu(e, targetPath, isFolder, targetEl) {"
+    },
+    {
+      "id": "p180",
+      "type": "function_decl",
+      "name": "showChatTabContextMenu",
+      "startLine": 3425,
+      "startCol": 1,
+      "endLine": 3455,
+      "endCol": 1,
+      "preview": "function showChatTabContextMenu(e, sessionId) {"
+    },
+    {
+      "id": "p181",
+      "type": "function_decl",
+      "name": "setEditorReadOnly",
+      "startLine": 3457,
+      "startCol": 1,
+      "endLine": 3464,
+      "endCol": 1,
+      "preview": "function setEditorReadOnly(isReadOnly) {"
+    },
+    {
+      "id": "p182",
+      "type": "function_decl",
+      "name": "formatChatTranscriptMarkdown",
+      "startLine": 3466,
+      "startCol": 1,
+      "endLine": 3510,
+      "endCol": 1,
+      "preview": "function formatChatTranscriptMarkdown(sessionId) {"
+    },
+    {
+      "id": "p183",
+      "type": "function_decl",
+      "name": "openChatSessionAsEditor",
+      "startLine": 3512,
+      "startCol": 1,
+      "endLine": 3538,
+      "endCol": 1,
+      "preview": "async function openChatSessionAsEditor(sessionId) {"
+    },
+    {
+      "id": "p184",
+      "type": "function_decl",
+      "name": "renameChatSession",
+      "startLine": 3540,
+      "startCol": 1,
+      "endLine": 3552,
+      "endCol": 1,
+      "preview": "async function renameChatSession(sessionId) {"
+    },
+    {
+      "id": "p185",
+      "type": "function_decl",
+      "name": "closeOtherChatSessions",
+      "startLine": 3554,
+      "startCol": 1,
+      "endLine": 3579,
+      "endCol": 1,
+      "preview": "async function closeOtherChatSessions(keepSessionId) {"
+    },
+    {
+      "id": "p186",
+      "type": "function_decl",
+      "name": "exitDiffView",
+      "startLine": 3581,
+      "startCol": 1,
+      "endLine": 3608,
+      "endCol": 1,
+      "preview": "function exitDiffView() {"
+    },
+    {
+      "id": "p187",
+      "type": "function_decl",
+      "name": "customAlert",
+      "startLine": 3610,
+      "startCol": 1,
+      "endLine": 3617,
+      "endCol": 1,
+      "preview": "function customAlert(message, titleText = 'Alert') {"
+    },
+    {
+      "id": "p188",
+      "type": "function_decl",
+      "name": "customConfirm",
+      "startLine": 3619,
+      "startCol": 1,
+      "endLine": 3630,
+      "endCol": 1,
+      "preview": "function customConfirm(message, titleText = 'Confirm', opts = {}) {"
+    },
+    {
+      "id": "p189",
+      "type": "function_decl",
+      "name": "customPrompt",
+      "startLine": 3632,
+      "startCol": 1,
+      "endLine": 3641,
+      "endCol": 1,
+      "preview": "function customPrompt(message, defaultValue = '', titleText = 'Input Required') {"
+    },
+    {
+      "id": "p190",
+      "type": "function_decl",
+      "name": "showCustomDialog",
+      "startLine": 3643,
+      "startCol": 1,
+      "endLine": 3698,
+      "endCol": 1,
+      "preview": "function showCustomDialog({ titleText, messageText, mode, defaultValue = '', confirmText = 'OK', cancelText = 'Cancel' }) {"
+    },
+    {
+      "id": "p191",
+      "type": "var_object_literal",
+      "name": "chatSessions",
+      "startLine": 3701,
+      "startCol": 1,
+      "endLine": 3701,
+      "endCol": 22,
+      "preview": "let chatSessions = {};"
+    },
+    {
+      "id": "p192",
+      "type": "var_value",
+      "name": "currentSessionId",
+      "startLine": 3702,
+      "startCol": 1,
+      "endLine": 3702,
+      "endCol": 28,
+      "preview": "let currentSessionId = null;"
+    },
+    {
+      "id": "p193",
+      "type": "var_value",
+      "name": "hydratedChatSessionId",
+      "startLine": 3705,
+      "startCol": 1,
+      "endLine": 3705,
+      "endCol": 33,
+      "preview": "let hydratedChatSessionId = null;"
+    },
+    {
+      "id": "p194",
+      "type": "var_object_literal",
+      "name": "messageSeqBySession",
+      "startLine": 3709,
+      "startCol": 1,
+      "endLine": 3709,
+      "endCol": 29,
+      "preview": "let messageSeqBySession = {};"
+    },
+    {
+      "id": "p195",
+      "type": "function_decl",
+      "name": "ensureSessionMessages",
+      "startLine": 3711,
+      "startCol": 1,
+      "endLine": 3719,
+      "endCol": 1,
+      "preview": "function ensureSessionMessages(sessionId) {"
+    },
+    {
+      "id": "p196",
+      "type": "function_decl",
+      "name": "replaceSessionMessages",
+      "startLine": 3721,
+      "startCol": 1,
+      "endLine": 3731,
+      "endCol": 1,
+      "preview": "function replaceSessionMessages(sessionId, nextMessages) {"
+    },
+    {
+      "id": "p197",
+      "type": "function_decl",
+      "name": "runAssistantMessageId",
+      "startLine": 3733,
+      "startCol": 1,
+      "endLine": 3736,
+      "endCol": 1,
+      "preview": "function runAssistantMessageId(requestId) {"
+    },
+    {
+      "id": "p198",
+      "type": "function_decl",
+      "name": "getOrCreateRunAssistantMessage",
+      "startLine": 3738,
+      "startCol": 1,
+      "endLine": 3760,
+      "endCol": 1,
+      "preview": "function getOrCreateRunAssistantMessage(sessionId, requestId, { timestamp = null } = {}) {"
+    },
+    {
+      "id": "p199",
+      "type": "function_decl",
+      "name": "updateRunAssistantMessage",
+      "startLine": 3762,
+      "startCol": 1,
+      "endLine": 3774,
+      "endCol": 1,
+      "preview": "function updateRunAssistantMessage(sessionId, requestId, patch = {}) {"
+    },
+    {
+      "id": "p200",
+      "type": "function_decl",
+      "name": "_inlineDiffKey",
+      "startLine": 3776,
+      "startCol": 1,
+      "endLine": 3781,
+      "endCol": 1,
+      "preview": "function _inlineDiffKey(filePath, diffContent) {"
+    },
+    {
+      "id": "p201",
+      "type": "function_decl",
+      "name": "_buildInlineDiffKeySetForSession",
+      "startLine": 3783,
+      "startCol": 1,
+      "endLine": 3800,
+      "endCol": 1,
+      "preview": "function _buildInlineDiffKeySetForSession(sessionId) {"
+    },
+    {
+      "id": "p202",
+      "type": "function_decl",
+      "name": "migrateLegacyUiMetadataIntoMessages",
+      "startLine": 3802,
+      "startCol": 1,
+      "endLine": 3811,
+      "endCol": 1,
+      "preview": "function migrateLegacyUiMetadataIntoMessages(sessionId) {"
+    },
+    {
+      "id": "p203",
+      "type": "function_decl",
+      "name": "getMaxSeqForSession",
+      "startLine": 3813,
+      "startCol": 1,
+      "endLine": 3829,
+      "endCol": 1,
+      "preview": "function getMaxSeqForSession(sessionId) {"
+    },
+    {
+      "id": "p204",
+      "type": "function_decl",
+      "name": "ensureMessageSeqInitialized",
+      "startLine": 3831,
+      "startCol": 1,
+      "endLine": 3836,
+      "endCol": 1,
+      "preview": "function ensureMessageSeqInitialized(sessionId) {"
+    },
+    {
+      "id": "p205",
+      "type": "function_decl",
+      "name": "nextMessageSeq",
+      "startLine": 3838,
+      "startCol": 1,
+      "endLine": 3844,
+      "endCol": 1,
+      "preview": "function nextMessageSeq(sessionId) {"
+    },
+    {
+      "id": "p206",
+      "type": "function_decl",
+      "name": "compareTimeline",
+      "startLine": 3846,
+      "startCol": 1,
+      "endLine": 3854,
+      "endCol": 1,
+      "preview": "function compareTimeline(a, b) {"
+    },
+    {
+      "id": "p207",
+      "type": "function_decl",
+      "name": "cleanupStaleAssistantPartialSnapshot",
+      "startLine": 3856,
+      "startCol": 1,
+      "endLine": 3881,
+      "endCol": 1,
+      "preview": "function cleanupStaleAssistantPartialSnapshot(sessionId) {"
+    },
+    {
+      "id": "p208",
+      "type": "function_decl",
+      "name": "ensureHydratedChatHistoryForCurrentSession",
+      "startLine": 3885,
+      "startCol": 1,
+      "endLine": 3899,
+      "endCol": 1,
+      "preview": "function ensureHydratedChatHistoryForCurrentSession(reason = '') {"
+    },
+    {
+      "id": "p209",
+      "type": "var_value",
+      "name": "CODEON_CHAT_STATE_KEY",
+      "startLine": 3905,
+      "startCol": 1,
+      "endLine": 3905,
+      "endCol": 49,
+      "preview": "const CODEON_CHAT_STATE_KEY = 'codeon.chatState';"
+    },
+    {
+      "id": "p210",
+      "type": "var_value",
+      "name": "CODEON_CHAT_STATE_VERSION",
+      "startLine": 3906,
+      "startCol": 1,
+      "endLine": 3906,
+      "endCol": 36,
+      "preview": "const CODEON_CHAT_STATE_VERSION = 1;"
+    },
+    {
+      "id": "p211",
+      "type": "var_value",
+      "name": "CODEON_CHAT_STREAM_KEY_PREFIX",
+      "startLine": 3908,
+      "startCol": 1,
+      "endLine": 3908,
+      "endCol": 62,
+      "preview": "const CODEON_CHAT_STREAM_KEY_PREFIX = 'codeon.chatStream.v1.';"
+    },
+    {
+      "id": "p212",
+      "type": "var_value",
+      "name": "CHAT_PERSIST_DEBOUNCE_MS",
+      "startLine": 3910,
+      "startCol": 1,
+      "endLine": 3910,
+      "endCol": 37,
+      "preview": "const CHAT_PERSIST_DEBOUNCE_MS = 800;"
+    },
+    {
+      "id": "p213",
+      "type": "var_value",
+      "name": "MAX_SESSIONS",
+      "startLine": 3911,
+      "startCol": 1,
+      "endLine": 3911,
+      "endCol": 24,
+      "preview": "const MAX_SESSIONS = 30;"
+    },
+    {
+      "id": "p214",
+      "type": "var_value",
+      "name": "MAX_MESSAGES_PER_SESSION",
+      "startLine": 3912,
+      "startCol": 1,
+      "endLine": 3912,
+      "endCol": 37,
+      "preview": "const MAX_MESSAGES_PER_SESSION = 200;"
+    },
+    {
+      "id": "p215",
+      "type": "var_value",
+      "name": "MAX_TOOL_RESULT_CHARS",
+      "startLine": 3913,
+      "startCol": 1,
+      "endLine": 3913,
+      "endCol": 37,
+      "preview": "const MAX_TOOL_RESULT_CHARS = 20_000;"
+    },
+    {
+      "id": "p216",
+      "type": "var_value",
+      "name": "MAX_SUMMARY_CHARS",
+      "startLine": 3914,
+      "startCol": 1,
+      "endLine": 3914,
+      "endCol": 31,
+      "preview": "const MAX_SUMMARY_CHARS = 8000;"
+    },
+    {
+      "id": "p217",
+      "type": "var_value",
+      "name": "MIN_SUMMARY_CHARS",
+      "startLine": 3915,
+      "startCol": 1,
+      "endLine": 3915,
+      "endCol": 30,
+      "preview": "const MIN_SUMMARY_CHARS = 500;"
+    },
+    {
+      "id": "p218",
+      "type": "var_value",
+      "name": "chatPersistTimer",
+      "startLine": 3917,
+      "startCol": 1,
+      "endLine": 3917,
+      "endCol": 28,
+      "preview": "let chatPersistTimer = null;"
+    },
+    {
+      "id": "p219",
+      "type": "var_value",
+      "name": "STREAM_JOURNAL_DEBOUNCE_MS",
+      "startLine": 3922,
+      "startCol": 1,
+      "endLine": 3922,
+      "endCol": 39,
+      "preview": "const STREAM_JOURNAL_DEBOUNCE_MS = 180;"
+    },
+    {
+      "id": "p220",
+      "type": "var_object_literal",
+      "name": "streamJournalTimerBySession",
+      "startLine": 3923,
+      "startCol": 1,
+      "endLine": 3923,
+      "endCol": 37,
+      "preview": "let streamJournalTimerBySession = {};"
+    },
+    {
+      "id": "p221",
+      "type": "var_object_literal",
+      "name": "streamJournalLastSigBySession",
+      "startLine": 3924,
+      "startCol": 1,
+      "endLine": 3924,
+      "endCol": 39,
+      "preview": "let streamJournalLastSigBySession = {};"
+    },
+    {
+      "id": "p222",
+      "type": "function_decl",
+      "name": "streamJournalKey",
+      "startLine": 3926,
+      "startCol": 1,
+      "endLine": 3928,
+      "endCol": 1,
+      "preview": "function streamJournalKey(sessionId) {"
+    },
+    {
+      "id": "p223",
+      "type": "function_decl",
+      "name": "scheduleStreamJournalPersist",
+      "startLine": 3930,
+      "startCol": 1,
+      "endLine": 3962,
+      "endCol": 1,
+      "preview": "function scheduleStreamJournalPersist(sessionId) {"
+    },
+    {
+      "id": "p224",
+      "type": "function_decl",
+      "name": "clearStreamJournal",
+      "startLine": 3964,
+      "startCol": 1,
+      "endLine": 3973,
+      "endCol": 1,
+      "preview": "async function clearStreamJournal(sessionId) {"
+    },
+    {
+      "id": "p225",
+      "type": "function_decl",
+      "name": "hydrateStreamJournalIntoTimeline",
+      "startLine": 3975,
+      "startCol": 1,
+      "endLine": 4008,
+      "endCol": 1,
+      "preview": "async function hydrateStreamJournalIntoTimeline(sessionId) {"
+    },
+    {
+      "id": "p226",
+      "type": "function_decl",
+      "name": "dedupeMessagesStable",
+      "startLine": 4010,
+      "startCol": 1,
+      "endLine": 4028,
+      "endCol": 1,
+      "preview": "function dedupeMessagesStable(messages) {"
+    },
+    {
+      "id": "p227",
+      "type": "function_decl",
+      "name": "clampSummary",
+      "startLine": 4030,
+      "startCol": 1,
+      "endLine": 4037,
+      "endCol": 1,
+      "preview": "function clampSummary(summary) {"
+    },
+    {
+      "id": "p228",
+      "type": "function_decl",
+      "name": "truncateToolResultForStorage",
+      "startLine": 4039,
+      "startCol": 1,
+      "endLine": 4047,
+      "endCol": 1,
+      "preview": "function truncateToolResultForStorage(content) {"
+    },
+    {
+      "id": "p229",
+      "type": "function_decl",
+      "name": "stripRawFileFromAttachments",
+      "startLine": 4049,
+      "startCol": 1,
+      "endLine": 4058,
+      "endCol": 1,
+      "preview": "function stripRawFileFromAttachments(msg) {"
+    },
+    {
+      "id": "p230",
+      "type": "function_decl",
+      "name": "buildPersistedChatState",
+      "startLine": 4060,
+      "startCol": 1,
+      "endLine": 4130,
+      "endCol": 1,
+      "preview": "function buildPersistedChatState() {"
+    },
+    {
+      "id": "p231",
+      "type": "function_decl",
+      "name": "applyPersistedChatState",
+      "startLine": 4132,
+      "startCol": 1,
+      "endLine": 4178,
+      "endCol": 1,
+      "preview": "function applyPersistedChatState(persisted) {"
+    },
+    {
+      "id": "p232",
+      "type": "function_decl",
+      "name": "isDefaultSessionName",
+      "startLine": 4180,
+      "startCol": 1,
+      "endLine": 4186,
+      "endCol": 1,
+      "preview": "function isDefaultSessionName(name) {"
+    },
+    {
+      "id": "p233",
+      "type": "function_decl",
+      "name": "normalizeTitleText",
+      "startLine": 4188,
+      "startCol": 1,
+      "endLine": 4196,
+      "endCol": 1,
+      "preview": "function normalizeTitleText(text) {"
+    },
+    {
+      "id": "p234",
+      "type": "function_decl",
+      "name": "deriveSessionTitleFromMessage",
+      "startLine": 4198,
+      "startCol": 1,
+      "endLine": 4230,
+      "endCol": 1,
+      "preview": "function deriveSessionTitleFromMessage(content, attachments = []) {"
+    },
+    {
+      "id": "p235",
+      "type": "function_decl",
+      "name": "makeUniqueSessionName",
+      "startLine": 4232,
+      "startCol": 1,
+      "endLine": 4249,
+      "endCol": 1,
+      "preview": "function makeUniqueSessionName(baseName, excludeSessionId = null) {"
+    },
+    {
+      "id": "p236",
+      "type": "var_value",
+      "name": "SCROLL_THRESHOLD",
+      "startLine": 4253,
+      "startCol": 1,
+      "endLine": 4253,
+      "endCol": 29,
+      "preview": "const SCROLL_THRESHOLD = 150;"
+    },
+    {
+      "id": "p237",
+      "type": "var_value",
+      "name": "__chatAutoScrollFollow",
+      "startLine": 4254,
+      "startCol": 1,
+      "endLine": 4254,
+      "endCol": 34,
+      "preview": "let __chatAutoScrollFollow = true;"
+    },
+    {
+      "id": "p238",
+      "type": "var_value",
+      "name": "__chatAutoScrollBoundEl",
+      "startLine": 4255,
+      "startCol": 1,
+      "endLine": 4255,
+      "endCol": 35,
+      "preview": "let __chatAutoScrollBoundEl = null;"
+    },
+    {
+      "id": "p239",
+      "type": "function_decl",
+      "name": "isUserNearBottom",
+      "startLine": 4257,
+      "startCol": 1,
+      "endLine": 4262,
+      "endCol": 1,
+      "preview": "function isUserNearBottom(container) {"
+    },
+    {
+      "id": "p240",
+      "type": "function_decl",
+      "name": "bindChatAutoScrollOnce",
+      "startLine": 4264,
+      "startCol": 1,
+      "endLine": 4285,
+      "endCol": 1,
+      "preview": "function bindChatAutoScrollOnce(container) {"
+    },
+    {
+      "id": "p241",
+      "type": "function_decl",
+      "name": "scrollChatToBottom",
+      "startLine": 4287,
+      "startCol": 1,
+      "endLine": 4300,
+      "endCol": 1,
+      "preview": "function scrollChatToBottom(container) {"
+    },
+    {
+      "id": "p242",
+      "type": "function_decl",
+      "name": "smartScrollToBottom",
+      "startLine": 4302,
+      "startCol": 1,
+      "endLine": 4309,
+      "endCol": 1,
+      "preview": "function smartScrollToBottom(container, { force = false } = {}) {"
+    },
+    {
+      "id": "p243",
+      "type": "var_array_literal",
+      "name": "editorTabs",
+      "startLine": 4321,
+      "startCol": 1,
+      "endLine": 4321,
+      "endCol": 20,
+      "preview": "let editorTabs = [];"
+    },
+    {
+      "id": "p244",
+      "type": "var_value",
+      "name": "activeEditorTabKey",
+      "startLine": 4322,
+      "startCol": 1,
+      "endLine": 4322,
+      "endCol": 30,
+      "preview": "let activeEditorTabKey = null;"
+    },
+    {
+      "id": "p245",
+      "type": "var_value",
+      "name": "suppressModelDirtyTracking",
+      "startLine": 4323,
+      "startCol": 1,
+      "endLine": 4323,
+      "endCol": 39,
+      "preview": "let suppressModelDirtyTracking = false;"
+    },
+    {
+      "id": "p246",
+      "type": "var_value",
+      "name": "diffModels",
+      "startLine": 4324,
+      "startCol": 1,
+      "endLine": 4324,
+      "endCol": 22,
+      "preview": "let diffModels = null;"
+    },
+    {
+      "id": "p247",
+      "type": "var_object_literal",
+      "name": "lastDiffByRelPath",
+      "startLine": 4325,
+      "startCol": 1,
+      "endLine": 4325,
+      "endCol": 27,
+      "preview": "let lastDiffByRelPath = {};"
+    },
+    {
+      "id": "p248",
+      "type": "function_decl",
+      "name": "getLastApplyBeforeCommitForSession",
+      "startLine": 4327,
+      "startCol": 1,
+      "endLine": 4345,
+      "endCol": 1,
+      "preview": "function getLastApplyBeforeCommitForSession(sessionId) {"
+    },
+    {
+      "id": "p249",
+      "type": "function_decl",
+      "name": "getDiffHighlightsClearedAt",
+      "startLine": 4347,
+      "startCol": 1,
+      "endLine": 4353,
+      "endCol": 1,
+      "preview": "function getDiffHighlightsClearedAt(sessionId) {"
+    },
+    {
+      "id": "p250",
+      "type": "function_decl",
+      "name": "getDiffHighlightsGlobalClearedAt",
+      "startLine": 4355,
+      "startCol": 1,
+      "endLine": 4360,
+      "endCol": 1,
+      "preview": "function getDiffHighlightsGlobalClearedAt() {"
+    },
+    {
+      "id": "p251",
+      "type": "function_decl",
+      "name": "getDiffHighlightsGlobalClearedFiles",
+      "startLine": 4362,
+      "startCol": 1,
+      "endLine": 4366,
+      "endCol": 1,
+      "preview": "function getDiffHighlightsGlobalClearedFiles() {"
+    },
+    {
+      "id": "p252",
+      "type": "function_decl",
+      "name": "getDiffHighlightsClearedFiles",
+      "startLine": 4368,
+      "startCol": 1,
+      "endLine": 4374,
+      "endCol": 1,
+      "preview": "function getDiffHighlightsClearedFiles(sessionId) {"
+    },
+    {
+      "id": "p253",
+      "type": "function_decl",
+      "name": "rebuildLastDiffCacheForSession",
+      "startLine": 4376,
+      "startCol": 1,
+      "endLine": 4427,
+      "endCol": 1,
+      "preview": "function rebuildLastDiffCacheForSession(sessionId) {"
+    },
+    {
+      "id": "p254",
+      "type": "function_decl",
+      "name": "refreshDiffDecorationsForAllOpenTabs",
+      "startLine": 4429,
+      "startCol": 1,
+      "endLine": 4436,
+      "endCol": 1,
+      "preview": "function refreshDiffDecorationsForAllOpenTabs() {"
+    },
+    {
+      "id": "p255",
+      "type": "function_decl",
+      "name": "_clearDiffHighlightsForSession",
+      "startLine": 4438,
+      "startCol": 1,
+      "endLine": 4462,
+      "endCol": 1,
+      "preview": "async function _clearDiffHighlightsForSession(sessionId) {"
+    },
+    {
+      "id": "p256",
+      "type": "function_decl",
+      "name": "_clearDiffHighlightsGlobally",
+      "startLine": 4464,
+      "startCol": 1,
+      "endLine": 4483,
+      "endCol": 1,
+      "preview": "async function _clearDiffHighlightsGlobally() {"
+    },
+    {
+      "id": "p257",
+      "type": "function_decl",
+      "name": "_clearDiffHighlightsForFileGlobally",
+      "startLine": 4485,
+      "startCol": 1,
+      "endLine": 4520,
+      "endCol": 1,
+      "preview": "async function _clearDiffHighlightsForFileGlobally(relPath) {"
+    },
+    {
+      "id": "p258",
+      "type": "function_decl",
+      "name": "_clearDiffHighlightsForFileInSession",
+      "startLine": 4522,
+      "startCol": 1,
+      "endLine": 4558,
+      "endCol": 1,
+      "preview": "async function _clearDiffHighlightsForFileInSession(sessionId, relPath) {"
+    },
+    {
+      "id": "p259",
+      "type": "function_decl",
+      "name": "normalizeFsPath",
+      "startLine": 4559,
+      "startCol": 1,
+      "endLine": 4561,
+      "endCol": 1,
+      "preview": "function normalizeFsPath(p) {"
+    },
+    {
+      "id": "p260",
+      "type": "function_decl",
+      "name": "joinFsPath",
+      "startLine": 4563,
+      "startCol": 1,
+      "endLine": 4567,
+      "endCol": 1,
+      "preview": "function joinFsPath(a, b) {"
+    },
+    {
+      "id": "p261",
+      "type": "function_decl",
+      "name": "getRelPath",
+      "startLine": 4569,
+      "startCol": 1,
+      "endLine": 4577,
+      "endCol": 1,
+      "preview": "function getRelPath(absPath) {"
+    },
+    {
+      "id": "p262",
+      "type": "function_decl",
+      "name": "isProbablyAbsolutePath",
+      "startLine": 4579,
+      "startCol": 1,
+      "endLine": 4583,
+      "endCol": 1,
+      "preview": "function isProbablyAbsolutePath(p) {"
+    },
+    {
+      "id": "p263",
+      "type": "function_decl",
+      "name": "resolveToWorkspaceAbsPath",
+      "startLine": 4585,
+      "startCol": 1,
+      "endLine": 4592,
+      "endCol": 1,
+      "preview": "function resolveToWorkspaceAbsPath(pathMaybeRel) {"
+    },
+    {
+      "id": "p264",
+      "type": "function_decl",
+      "name": "detectMonacoLanguageFromPath",
+      "startLine": 4594,
+      "startCol": 1,
+      "endLine": 4636,
+      "endCol": 1,
+      "preview": "function detectMonacoLanguageFromPath(filePath) {"
+    },
+    {
+      "id": "p265",
+      "type": "function_decl",
+      "name": "safeMonacoFileUri",
+      "startLine": 4638,
+      "startCol": 1,
+      "endLine": 4647,
+      "endCol": 1,
+      "preview": "function safeMonacoFileUri(absPath) {"
+    },
+    {
+      "id": "p266",
+      "type": "var_value",
+      "name": "HTML_SCRIPT_MARKER_OWNER",
+      "startLine": 4655,
+      "startCol": 1,
+      "endLine": 4655,
+      "endCol": 59,
+      "preview": "const HTML_SCRIPT_MARKER_OWNER = 'codeon-html-embedded-js';"
+    },
+    {
+      "id": "p267",
+      "type": "function_decl",
+      "name": "countNewlines",
+      "startLine": 4657,
+      "startCol": 1,
+      "endLine": 4662,
+      "endCol": 1,
+      "preview": "function countNewlines(s) {"
+    },
+    {
+      "id": "p268",
+      "type": "function_decl",
+      "name": "parseScriptAttrs",
+      "startLine": 4664,
+      "startCol": 1,
+      "endLine": 4674,
+      "endCol": 1,
+      "preview": "function parseScriptAttrs(rawAttrs) {"
+    },
+    {
+      "id": "p269",
+      "type": "function_decl",
+      "name": "findHtmlScriptBlockRangeForLine",
+      "startLine": 4676,
+      "startCol": 1,
+      "endLine": 4696,
+      "endCol": 1,
+      "preview": "function findHtmlScriptBlockRangeForLine(text, targetLine) {"
+    },
+    {
+      "id": "p270",
+      "type": "function_decl",
+      "name": "shouldCheckScriptType",
+      "startLine": 4698,
+      "startCol": 1,
+      "endLine": 4706,
+      "endCol": 1,
+      "preview": "function shouldCheckScriptType(type) {"
+    },
+    {
+      "id": "p271",
+      "type": "function_decl",
+      "name": "validateEmbeddedScriptsInHtmlModel",
+      "startLine": 4708,
+      "startCol": 1,
+      "endLine": 4760,
+      "endCol": 1,
+      "preview": "function validateEmbeddedScriptsInHtmlModel(tab) {"
+    },
+    {
+      "id": "p272",
+      "type": "function_decl",
+      "name": "bindHtmlEmbeddedScriptValidationForTab",
+      "startLine": 4762,
+      "startCol": 1,
+      "endLine": 4783,
+      "endCol": 1,
+      "preview": "function bindHtmlEmbeddedScriptValidationForTab(tab) {"
+    },
+    {
+      "id": "p273",
+      "type": "function_decl",
+      "name": "getEditorTabsEl",
+      "startLine": 4785,
+      "startCol": 1,
+      "endLine": 4787,
+      "endCol": 1,
+      "preview": "function getEditorTabsEl() {"
+    },
+    {
+      "id": "p274",
+      "type": "function_decl",
+      "name": "setTopFilePathLabel",
+      "startLine": 4789,
+      "startCol": 1,
+      "endLine": 4792,
+      "endCol": 1,
+      "preview": "function setTopFilePathLabel(text) {"
+    },
+    {
+      "id": "p275",
+      "type": "function_decl",
+      "name": "findTabByKey",
+      "startLine": 4794,
+      "startCol": 1,
+      "endLine": 4796,
+      "endCol": 1,
+      "preview": "function findTabByKey(key) {"
+    },
+    {
+      "id": "p276",
+      "type": "function_decl",
+      "name": "findTabByAbsPath",
+      "startLine": 4798,
+      "startCol": 1,
+      "endLine": 4801,
+      "endCol": 1,
+      "preview": "function findTabByAbsPath(absPath) {"
+    },
+    {
+      "id": "p277",
+      "type": "function_decl",
+      "name": "isTabDirty",
+      "startLine": 4803,
+      "startCol": 1,
+      "endLine": 4810,
+      "endCol": 1,
+      "preview": "function isTabDirty(tab) {"
+    },
+    {
+      "id": "p278",
+      "type": "function_decl",
+      "name": "renderEditorTabs",
+      "startLine": 4812,
+      "startCol": 1,
+      "endLine": 4933,
+      "endCol": 1,
+      "preview": "function renderEditorTabs() {"
+    },
+    {
+      "id": "p279",
+      "type": "function_decl",
+      "name": "activateEditorTab",
+      "startLine": 4935,
+      "startCol": 1,
+      "endLine": 4992,
+      "endCol": 1,
+      "preview": "async function activateEditorTab(key) {"
+    },
+    {
+      "id": "p280",
+      "type": "function_decl",
+      "name": "simpleSig",
+      "startLine": 4994,
+      "startCol": 1,
+      "endLine": 5002,
+      "endCol": 1,
+      "preview": "function simpleSig(str) {"
+    },
+    {
+      "id": "p281",
+      "type": "function_decl",
+      "name": "parseUnifiedDiffAddedLines",
+      "startLine": 5004,
+      "startCol": 1,
+      "endLine": 5037,
+      "endCol": 1,
+      "preview": "function parseUnifiedDiffAddedLines(diffContent) {"
+    },
+    {
+      "id": "p282",
+      "type": "function_decl",
+      "name": "extractFirstNewLineFromUnifiedDiff",
+      "startLine": 5039,
+      "startCol": 1,
+      "endLine": 5045,
+      "endCol": 1,
+      "preview": "function extractFirstNewLineFromUnifiedDiff(diffContent) {"
+    },
+    {
+      "id": "p283",
+      "type": "function_decl",
+      "name": "findFirstAddedLineFromUnifiedDiff",
+      "startLine": 5047,
+      "startCol": 1,
+      "endLine": 5059,
+      "endCol": 1,
+      "preview": "function findFirstAddedLineFromUnifiedDiff(diffContent) {"
+    },
+    {
+      "id": "p284",
+      "type": "function_decl",
+      "name": "syncDiffDecorationsForTab",
+      "startLine": 5061,
+      "startCol": 1,
+      "endLine": 5104,
+      "endCol": 1,
+      "preview": "function syncDiffDecorationsForTab(tab) {"
+    },
+    {
+      "id": "p285",
+      "type": "function_decl",
+      "name": "openRelPathFromChat",
+      "startLine": 5106,
+      "startCol": 1,
+      "endLine": 5135,
+      "endCol": 1,
+      "preview": "async function openRelPathFromChat(relPath, { jumpToDiff = false, diffContent = '' } = {}) {"
+    },
+    {
+      "id": "p286",
+      "type": "function_decl",
+      "name": "retryLastUserMessageWithNewClaudeSession",
+      "startLine": 5137,
+      "startCol": 1,
+      "endLine": 5197,
+      "endCol": 1,
+      "preview": "async function retryLastUserMessageWithNewClaudeSession(sessionId) {"
+    },
+    {
+      "id": "p287",
+      "type": "function_decl",
+      "name": "parseRetryAfterSecondsFromText",
+      "startLine": 5199,
+      "startCol": 1,
+      "endLine": 5213,
+      "endCol": 1,
+      "preview": "function parseRetryAfterSecondsFromText(text) {"
+    },
+    {
+      "id": "p288",
+      "type": "function_decl",
+      "name": "retryLastUserMessageAfterTransientClaudeFailure",
+      "startLine": 5215,
+      "startCol": 1,
+      "endLine": 5318,
+      "endCol": 1,
+      "preview": "async function retryLastUserMessageAfterTransientClaudeFailure(sessionId, { restoreToCheckpointHash = null, forceNewClaudeSession = false } "
+    },
+    {
+      "id": "p289",
+      "type": "function_decl",
+      "name": "invalidateDiffDecorations",
+      "startLine": 5320,
+      "startCol": 1,
+      "endLine": 5328,
+      "endCol": 1,
+      "preview": "function invalidateDiffDecorations(tab) {"
+    },
+    {
+      "id": "p290",
+      "type": "function_decl",
+      "name": "closeEditorTab",
+      "startLine": 5330,
+      "startCol": 1,
+      "endLine": 5366,
+      "endCol": 1,
+      "preview": "async function closeEditorTab(key) {"
+    },
+    {
+      "id": "p291",
+      "type": "function_decl",
+      "name": "openEditorTabFromFilePayload",
+      "startLine": 5368,
+      "startCol": 1,
+      "endLine": 5446,
+      "endCol": 1,
+      "preview": "async function openEditorTabFromFilePayload({ absPath, content, language }) {"
+    },
+    {
+      "id": "p292",
+      "type": "function_decl",
+      "name": "bindEditorTabHotkeysOnce",
+      "startLine": 5448,
+      "startCol": 1,
+      "endLine": 5477,
+      "endCol": 1,
+      "preview": "function bindEditorTabHotkeysOnce() {"
+    },
+    {
+      "id": "p293",
+      "type": "function_decl",
+      "name": "initializeApp",
+      "startLine": 5576,
+      "startCol": 1,
+      "endLine": 5635,
+      "endCol": 1,
+      "preview": "async function initializeApp() {"
+    },
+    {
+      "id": "p294",
+      "type": "function_decl",
+      "name": "loadSettings",
+      "startLine": 5638,
+      "startCol": 1,
+      "endLine": 5754,
+      "endCol": 1,
+      "preview": "async function loadSettings() {"
+    },
+    {
+      "id": "p295",
+      "type": "function_decl",
+      "name": "saveSettings",
+      "startLine": 5757,
+      "startCol": 1,
+      "endLine": 5769,
+      "endCol": 1,
+      "preview": "async function saveSettings() {"
+    },
+    {
+      "id": "p296",
+      "type": "function_decl",
+      "name": "normalizeClaudeAuthMode",
+      "startLine": 5771,
+      "startCol": 1,
+      "endLine": 5776,
+      "endCol": 1,
+      "preview": "function normalizeClaudeAuthMode() {"
+    },
+    {
+      "id": "p297",
+      "type": "function_decl",
+      "name": "applyClaudeAuthSettingsUI",
+      "startLine": 5778,
+      "startCol": 1,
+      "endLine": 5796,
+      "endCol": 1,
+      "preview": "function applyClaudeAuthSettingsUI({ refreshStatus = false } = {}) {"
+    },
+    {
+      "id": "p298",
+      "type": "function_decl",
+      "name": "refreshClaudeAuthStatus",
+      "startLine": 5798,
+      "startCol": 1,
+      "endLine": 5848,
+      "endCol": 1,
+      "preview": "async function refreshClaudeAuthStatus() {"
+    },
+    {
+      "id": "p299",
+      "type": "function_decl",
+      "name": "getClaudeApiKeyForSdkCalls",
+      "startLine": 5850,
+      "startCol": 1,
+      "endLine": 5855,
+      "endCol": 1,
+      "preview": "function getClaudeApiKeyForSdkCalls() {"
+    },
+    {
+      "id": "p300",
+      "type": "function_decl",
+      "name": "fetchClaudeSupportedModelsBestEffort",
+      "startLine": 5857,
+      "startCol": 1,
+      "endLine": 5878,
+      "endCol": 1,
+      "preview": "async function fetchClaudeSupportedModelsBestEffort({ force = false } = {}) {"
+    },
+    {
+      "id": "p301",
+      "type": "function_decl",
+      "name": "refreshClaudeModelComposerSelect",
+      "startLine": 5880,
+      "startCol": 1,
+      "endLine": 5952,
+      "endCol": 1,
+      "preview": "async function refreshClaudeModelComposerSelect({ force = false } = {}) {"
+    },
+    {
+      "id": "p302",
+      "type": "function_decl",
+      "name": "checkApiKey",
+      "startLine": 5955,
+      "startCol": 1,
+      "endLine": 5967,
+      "endCol": 1,
+      "preview": "function checkApiKey() {"
+    },
+    {
+      "id": "p303",
+      "type": "function_decl",
+      "name": "setupEventListeners",
+      "startLine": 5972,
+      "startCol": 1,
+      "endLine": 7610,
+      "endCol": 1,
+      "preview": "function setupEventListeners() {"
+    },
+    {
+      "id": "p304",
+      "type": "function_decl",
+      "name": "setupResizing",
+      "startLine": 7613,
+      "startCol": 1,
+      "endLine": 7637,
+      "endCol": 1,
+      "preview": "function setupResizing() {"
+    },
+    {
+      "id": "p305",
+      "type": "var_value",
+      "name": "__monacoLayoutRaf",
+      "startLine": 7639,
+      "startCol": 1,
+      "endLine": 7639,
+      "endCol": 26,
+      "preview": "let __monacoLayoutRaf = 0;"
+    },
+    {
+      "id": "p306",
+      "type": "function_decl",
+      "name": "scheduleMonacoLayout",
+      "startLine": 7640,
+      "startCol": 1,
+      "endLine": 7651,
+      "endCol": 1,
+      "preview": "function scheduleMonacoLayout() {"
+    },
+    {
+      "id": "p307",
+      "type": "function_decl",
+      "name": "setupMonacoLayoutObserversOnce",
+      "startLine": 7653,
+      "startCol": 1,
+      "endLine": 7676,
+      "endCol": 1,
+      "preview": "function setupMonacoLayoutObserversOnce() {"
+    },
+    {
+      "id": "p308",
+      "type": "function_decl",
+      "name": "setupPanelResize",
+      "startLine": 7678,
+      "startCol": 1,
+      "endLine": 7763,
+      "endCol": 1,
+      "preview": "function setupPanelResize(panel, handle, direction, minWidth, maxWidth) {"
+    },
+    {
+      "id": "p309",
+      "type": "function_decl",
+      "name": "setupVerticalResize",
+      "startLine": 7765,
+      "startCol": 1,
+      "endLine": 7836,
+      "endCol": 1,
+      "preview": "function setupVerticalResize(panel, handle, minHeight, maxHeight) {"
+    },
+    {
+      "id": "p310",
+      "type": "function_decl",
+      "name": "openFolder",
+      "startLine": 7839,
+      "startCol": 1,
+      "endLine": 7846,
+      "endCol": 1,
+      "preview": "async function openFolder() {"
+    },
+    {
+      "id": "p311",
+      "type": "function_decl",
+      "name": "handleFolderOpened",
+      "startLine": 7849,
+      "startCol": 1,
+      "endLine": 7999,
+      "endCol": 1,
+      "preview": "async function handleFolderOpened(data) {"
+    },
+    {
+      "id": "p312",
+      "type": "function_decl",
+      "name": "explorerIsMac",
+      "startLine": 8005,
+      "startCol": 1,
+      "endLine": 8008,
+      "endCol": 1,
+      "preview": "function explorerIsMac() {"
+    },
+    {
+      "id": "p313",
+      "type": "function_decl",
+      "name": "explorerIsToggleSelectEvent",
+      "startLine": 8010,
+      "startCol": 1,
+      "endLine": 8014,
+      "endCol": 1,
+      "preview": "function explorerIsToggleSelectEvent(e) {"
+    },
+    {
+      "id": "p314",
+      "type": "function_decl",
+      "name": "explorerIsEditableTarget",
+      "startLine": 8016,
+      "startCol": 1,
+      "endLine": 8025,
+      "endCol": 1,
+      "preview": "function explorerIsEditableTarget(target) {"
+    },
+    {
+      "id": "p315",
+      "type": "function_decl",
+      "name": "explorerAbsFromRel",
+      "startLine": 8027,
+      "startCol": 1,
+      "endLine": 8031,
+      "endCol": 1,
+      "preview": "function explorerAbsFromRel(relPath) {"
+    },
+    {
+      "id": "p316",
+      "type": "function_decl",
+      "name": "explorerExpandAncestorsForRel",
+      "startLine": 8033,
+      "startCol": 1,
+      "endLine": 8046,
+      "endCol": 1,
+      "preview": "function explorerExpandAncestorsForRel(relPath) {"
+    },
+    {
+      "id": "p317",
+      "type": "function_decl",
+      "name": "explorerFindElByAbsPath",
+      "startLine": 8048,
+      "startCol": 1,
+      "endLine": 8060,
+      "endCol": 1,
+      "preview": "function explorerFindElByAbsPath(absPath) {"
+    },
+    {
+      "id": "p318",
+      "type": "function_decl",
+      "name": "explorerRevealAbsPath",
+      "startLine": 8062,
+      "startCol": 1,
+      "endLine": 8088,
+      "endCol": 1,
+      "preview": "function explorerRevealAbsPath(absPath) {"
+    },
+    {
+      "id": "p319",
+      "type": "function_decl",
+      "name": "explorerSelectedAbsList",
+      "startLine": 8090,
+      "startCol": 1,
+      "endLine": 8092,
+      "endCol": 1,
+      "preview": "function explorerSelectedAbsList() {"
+    },
+    {
+      "id": "p320",
+      "type": "function_decl",
+      "name": "explorerReplaceSelection",
+      "startLine": 8094,
+      "startCol": 1,
+      "endLine": 8105,
+      "endCol": 1,
+      "preview": "function explorerReplaceSelection(absPaths, { anchorAbs = null, focusAbs = null } = {}) {"
+    },
+    {
+      "id": "p321",
+      "type": "function_decl",
+      "name": "explorerClearSelection",
+      "startLine": 8107,
+      "startCol": 1,
+      "endLine": 8109,
+      "endCol": 1,
+      "preview": "function explorerClearSelection() {"
+    },
+    {
+      "id": "p322",
+      "type": "function_decl",
+      "name": "explorerClipboardSet",
+      "startLine": 8111,
+      "startCol": 1,
+      "endLine": 8120,
+      "endCol": 1,
+      "preview": "function explorerClipboardSet(op, absPaths) {"
+    },
+    {
+      "id": "p323",
+      "type": "function_decl",
+      "name": "explorerClipboardClear",
+      "startLine": 8122,
+      "startCol": 1,
+      "endLine": 8125,
+      "endCol": 1,
+      "preview": "function explorerClipboardClear() {"
+    },
+    {
+      "id": "p324",
+      "type": "function_decl",
+      "name": "explorerIsCutAbs",
+      "startLine": 8127,
+      "startCol": 1,
+      "endLine": 8131,
+      "endCol": 1,
+      "preview": "function explorerIsCutAbs(absPath) {"
+    },
+    {
+      "id": "p325",
+      "type": "function_decl",
+      "name": "explorerSyncFileTreeClasses",
+      "startLine": 8133,
+      "startCol": 1,
+      "endLine": 8144,
+      "endCol": 1,
+      "preview": "function explorerSyncFileTreeClasses() {"
+    },
+    {
+      "id": "p326",
+      "type": "function_decl",
+      "name": "explorerVisibleItemEls",
+      "startLine": 8146,
+      "startCol": 1,
+      "endLine": 8152,
+      "endCol": 1,
+      "preview": "function explorerVisibleItemEls() {"
+    },
+    {
+      "id": "p327",
+      "type": "function_decl",
+      "name": "explorerVisibleAbsList",
+      "startLine": 8154,
+      "startCol": 1,
+      "endLine": 8158,
+      "endCol": 1,
+      "preview": "function explorerVisibleAbsList() {"
+    },
+    {
+      "id": "p328",
+      "type": "function_decl",
+      "name": "explorerRangeAbsBetween",
+      "startLine": 8160,
+      "startCol": 1,
+      "endLine": 8168,
+      "endCol": 1,
+      "preview": "function explorerRangeAbsBetween(anchorAbs, focusAbs) {"
+    },
+    {
+      "id": "p329",
+      "type": "function_decl",
+      "name": "explorerCopyOrCutSelection",
+      "startLine": 8170,
+      "startCol": 1,
+      "endLine": 8178,
+      "endCol": 1,
+      "preview": "async function explorerCopyOrCutSelection(op = 'copy') {"
+    },
+    {
+      "id": "p330",
+      "type": "function_decl",
+      "name": "explorerMoveOrCopyAbsPaths",
+      "startLine": 8180,
+      "startCol": 1,
+      "endLine": 8202,
+      "endCol": 1,
+      "preview": "async function explorerMoveOrCopyAbsPaths(absPaths, destDirAbs, { copy = false } = {}) {"
+    },
+    {
+      "id": "p331",
+      "type": "function_decl",
+      "name": "explorerPasteInto",
+      "startLine": 8204,
+      "startCol": 1,
+      "endLine": 8225,
+      "endCol": 1,
+      "preview": "async function explorerPasteInto(destDirAbs) {"
+    },
+    {
+      "id": "p332",
+      "type": "function_decl",
+      "name": "explorerDuplicateSelection",
+      "startLine": 8227,
+      "startCol": 1,
+      "endLine": 8254,
+      "endCol": 1,
+      "preview": "async function explorerDuplicateSelection() {"
+    },
+    {
+      "id": "p333",
+      "type": "function_decl",
+      "name": "explorerPreferredPasteDestAbs",
+      "startLine": 8256,
+      "startCol": 1,
+      "endLine": 8270,
+      "endCol": 1,
+      "preview": "function explorerPreferredPasteDestAbs() {"
+    },
+    {
+      "id": "p334",
+      "type": "function_decl",
+      "name": "explorerDeleteSelection",
+      "startLine": 8272,
+      "startCol": 1,
+      "endLine": 8312,
+      "endCol": 1,
+      "preview": "async function explorerDeleteSelection() {"
+    },
+    {
+      "id": "p335",
+      "type": "function_decl",
+      "name": "explorerRenameSingleSelection",
+      "startLine": 8314,
+      "startCol": 1,
+      "endLine": 8342,
+      "endCol": 1,
+      "preview": "async function explorerRenameSingleSelection() {"
+    },
+    {
+      "id": "p336",
+      "type": "function_decl",
+      "name": "explorerSyncLocksFromCache",
+      "startLine": 8344,
+      "startCol": 1,
+      "endLine": 8379,
+      "endCol": 1,
+      "preview": "function explorerSyncLocksFromCache() {"
+    },
+    {
+      "id": "p337",
+      "type": "function_decl",
+      "name": "explorerEnsureLocksCacheFresh",
+      "startLine": 8381,
+      "startCol": 1,
+      "endLine": 8398,
+      "endCol": 1,
+      "preview": "async function explorerEnsureLocksCacheFresh() {"
+    },
+    {
+      "id": "p338",
+      "type": "function_decl",
+      "name": "renderFileTree",
+      "startLine": 8401,
+      "startCol": 1,
+      "endLine": 8503,
+      "endCol": 1,
+      "preview": "function renderFileTree(files) {"
+    },
+    {
+      "id": "p339",
+      "type": "function_decl",
+      "name": "createFileTreeItem",
+      "startLine": 8506,
+      "startCol": 1,
+      "endLine": 8854,
+      "endCol": 1,
+      "preview": "function createFileTreeItem(item, depth = 0) {"
+    },
+    {
+      "id": "p340",
+      "type": "function_decl",
+      "name": "getFileIconClass",
+      "startLine": 8857,
+      "startCol": 1,
+      "endLine": 8860,
+      "endCol": 1,
+      "preview": "function getFileIconClass(fileName) {"
+    },
+    {
+      "id": "p341",
+      "type": "function_decl",
+      "name": "getFileIconLabel",
+      "startLine": 8863,
+      "startCol": 1,
+      "endLine": 8885,
+      "endCol": 1,
+      "preview": "function getFileIconLabel(fileName) {"
+    },
+    {
+      "id": "p342",
+      "type": "function_decl",
+      "name": "openFile",
+      "startLine": 8888,
+      "startCol": 1,
+      "endLine": 8920,
+      "endCol": 1,
+      "preview": "async function openFile(filePath) {"
+    },
+    {
+      "id": "p343",
+      "type": "function_decl",
+      "name": "openGitDiffForFile",
+      "startLine": 8922,
+      "startCol": 1,
+      "endLine": 8982,
+      "endCol": 1,
+      "preview": "async function openGitDiffForFile(absPath, rev = 'HEAD') {"
+    },
+    {
+      "id": "p344",
+      "type": "function_decl",
+      "name": "handleFileOpened",
+      "startLine": 8985,
+      "startCol": 1,
+      "endLine": 9015,
+      "endCol": 1,
+      "preview": "function handleFileOpened(data) {"
+    },
+    {
+      "id": "p345",
+      "type": "function_decl",
+      "name": "saveCurrentFile",
+      "startLine": 9018,
+      "startCol": 1,
+      "endLine": 9039,
+      "endCol": 1,
+      "preview": "async function saveCurrentFile() {"
+    },
+    {
+      "id": "p346",
+      "type": "function_decl",
+      "name": "handleSaveFileAs",
+      "startLine": 9042,
+      "startCol": 1,
+      "endLine": 9055,
+      "endCol": 1,
+      "preview": "async function handleSaveFileAs(filePath) {"
+    },
+    {
+      "id": "p347",
+      "type": "function_decl",
+      "name": "openSettings",
+      "startLine": 9058,
+      "startCol": 1,
+      "endLine": 9061,
+      "endCol": 1,
+      "preview": "function openSettings() {"
+    },
+    {
+      "id": "p348",
+      "type": "function_decl",
+      "name": "closeSettings",
+      "startLine": 9063,
+      "startCol": 1,
+      "endLine": 9065,
+      "endCol": 1,
+      "preview": "function closeSettings() {"
+    },
+    {
+      "id": "p349",
+      "type": "function_decl",
+      "name": "applyEditorEnhancementsSettingsUI",
+      "startLine": 9067,
+      "startCol": 1,
+      "endLine": 9129,
+      "endCol": 1,
+      "preview": "function applyEditorEnhancementsSettingsUI() {"
+    },
+    {
+      "id": "p350",
+      "type": "var_value",
+      "name": "__tsJsServiceConfigured",
+      "startLine": 9131,
+      "startCol": 1,
+      "endLine": 9131,
+      "endCol": 36,
+      "preview": "let __tsJsServiceConfigured = false;"
+    },
+    {
+      "id": "p351",
+      "type": "function_decl",
+      "name": "configureMonacoTsJsServiceOnce",
+      "startLine": 9132,
+      "startCol": 1,
+      "endLine": 9174,
+      "endCol": 1,
+      "preview": "function configureMonacoTsJsServiceOnce() {"
+    },
+    {
+      "id": "p352",
+      "type": "var_value",
+      "name": "__webServicesConfigured",
+      "startLine": 9176,
+      "startCol": 1,
+      "endLine": 9176,
+      "endCol": 36,
+      "preview": "let __webServicesConfigured = false;"
+    },
+    {
+      "id": "p353",
+      "type": "function_decl",
+      "name": "configureMonacoWebLanguageServicesOnce",
+      "startLine": 9177,
+      "startCol": 1,
+      "endLine": 9208,
+      "endCol": 1,
+      "preview": "function configureMonacoWebLanguageServicesOnce() {"
+    },
+    {
+      "id": "p354",
+      "type": "function_decl",
+      "name": "saveSettingsAndClose",
+      "startLine": 9210,
+      "startCol": 1,
+      "endLine": 9278,
+      "endCol": 1,
+      "preview": "async function saveSettingsAndClose() {"
+    },
+    {
+      "id": "p355",
+      "type": "function_decl",
+      "name": "toggleChat",
+      "startLine": 9281,
+      "startCol": 1,
+      "endLine": 9284,
+      "endCol": 1,
+      "preview": "function toggleChat() {"
+    },
+    {
+      "id": "p356",
+      "type": "function_decl",
+      "name": "startNewChat",
+      "startLine": 9286,
+      "startCol": 1,
+      "endLine": 9298,
+      "endCol": 1,
+      "preview": "async function startNewChat() {"
+    },
+    {
+      "id": "p357",
+      "type": "var_object_literal",
+      "name": "runStateBySession",
+      "startLine": 9306,
+      "startCol": 1,
+      "endLine": 9306,
+      "endCol": 27,
+      "preview": "let runStateBySession = {};"
+    },
+    {
+      "id": "p358",
+      "type": "var_value",
+      "name": "workspaceFsRefreshTimer",
+      "startLine": 9308,
+      "startCol": 1,
+      "endLine": 9308,
+      "endCol": 35,
+      "preview": "let workspaceFsRefreshTimer = null;"
+    },
+    {
+      "id": "p359",
+      "type": "var_object_literal",
+      "name": "claudeAuthGateState",
+      "startLine": 9313,
+      "startCol": 1,
+      "endLine": 9318,
+      "endCol": 2,
+      "preview": "const claudeAuthGateState = {"
+    },
+    {
+      "id": "p360",
+      "type": "function_decl",
+      "name": "isClaudeAiAuthMode",
+      "startLine": 9320,
+      "startCol": 1,
+      "endLine": 9327,
+      "endCol": 1,
+      "preview": "function isClaudeAiAuthMode() {"
+    },
+    {
+      "id": "p361",
+      "type": "function_decl",
+      "name": "accountLooksLoggedIn",
+      "startLine": 9329,
+      "startCol": 1,
+      "endLine": 9335,
+      "endCol": 1,
+      "preview": "function accountLooksLoggedIn(account) {"
+    },
+    {
+      "id": "p362",
+      "type": "function_decl",
+      "name": "setAuthGateUi",
+      "startLine": 9337,
+      "startCol": 1,
+      "endLine": 9346,
+      "endCol": 1,
+      "preview": "function setAuthGateUi({ statusText = '', subtitleText = '' } = {}) {"
+    },
+    {
+      "id": "p363",
+      "type": "function_decl",
+      "name": "openAuthGateModal",
+      "startLine": 9348,
+      "startCol": 1,
+      "endLine": 9354,
+      "endCol": 1,
+      "preview": "function openAuthGateModal({ statusText = 'Not signed in', subtitleText = '' } = {}) {"
+    },
+    {
+      "id": "p364",
+      "type": "function_decl",
+      "name": "closeAuthGateModal",
+      "startLine": 9356,
+      "startCol": 1,
+      "endLine": 9361,
+      "endCol": 1,
+      "preview": "function closeAuthGateModal() {"
+    },
+    {
+      "id": "p365",
+      "type": "var_value",
+      "name": "authGatePollTimer",
+      "startLine": 9363,
+      "startCol": 1,
+      "endLine": 9363,
+      "endCol": 29,
+      "preview": "let authGatePollTimer = null;"
+    },
+    {
+      "id": "p366",
+      "type": "var_value",
+      "name": "authGatePollLastShownAt",
+      "startLine": 9364,
+      "startCol": 1,
+      "endLine": 9364,
+      "endCol": 32,
+      "preview": "let authGatePollLastShownAt = 0;"
+    },
+    {
+      "id": "p367",
+      "type": "function_decl",
+      "name": "isAuthGateModalOpen",
+      "startLine": 9366,
+      "startCol": 1,
+      "endLine": 9369,
+      "endCol": 1,
+      "preview": "function isAuthGateModalOpen() {"
+    },
+    {
+      "id": "p368",
+      "type": "function_decl",
+      "name": "stopAuthGateLoginWatch",
+      "startLine": 9371,
+      "startCol": 1,
+      "endLine": 9374,
+      "endCol": 1,
+      "preview": "function stopAuthGateLoginWatch() {"
+    },
+    {
+      "id": "p369",
+      "type": "function_decl",
+      "name": "startAuthGateLoginWatch",
+      "startLine": 9376,
+      "startCol": 1,
+      "endLine": 9428,
+      "endCol": 1,
+      "preview": "function startAuthGateLoginWatch() {"
+    },
+    {
+      "id": "p370",
+      "type": "function_decl",
+      "name": "shouldSuppressClaudeTechnicalErrors",
+      "startLine": 9430,
+      "startCol": 1,
+      "endLine": 9436,
+      "endCol": 1,
+      "preview": "function shouldSuppressClaudeTechnicalErrors() {"
+    },
+    {
+      "id": "p371",
+      "type": "function_decl",
+      "name": "isAuthOrRuntimeSetupError",
+      "startLine": 9438,
+      "startCol": 1,
+      "endLine": 9448,
+      "endCol": 1,
+      "preview": "function isAuthOrRuntimeSetupError(errText) {"
+    },
+    {
+      "id": "p372",
+      "type": "function_decl",
+      "name": "checkClaudeLoginStatusBestEffort",
+      "startLine": 9450,
+      "startCol": 1,
+      "endLine": 9494,
+      "endCol": 1,
+      "preview": "async function checkClaudeLoginStatusBestEffort({ projectOpen = false } = {}) {"
+    },
+    {
+      "id": "p373",
+      "type": "function_decl",
+      "name": "maybePromptClaudeLoginOnProjectOpen",
+      "startLine": 9496,
+      "startCol": 1,
+      "endLine": 9532,
+      "endCol": 1,
+      "preview": "async function maybePromptClaudeLoginOnProjectOpen() {"
+    },
+    {
+      "id": "p374",
+      "type": "var_call_expr",
+      "name": "gitOperationChain",
+      "startLine": 9538,
+      "startCol": 1,
+      "endLine": 9538,
+      "endCol": 42,
+      "preview": "let gitOperationChain = Promise.resolve();"
+    },
+    {
+      "id": "p375",
+      "type": "function_decl",
+      "name": "withGitOperationLock",
+      "startLine": 9540,
+      "startCol": 1,
+      "endLine": 9546,
+      "endCol": 1,
+      "preview": "function withGitOperationLock(fn) {"
+    },
+    {
+      "id": "p376",
+      "type": "function_decl",
+      "name": "getRunningSessionIds",
+      "startLine": 9548,
+      "startCol": 1,
+      "endLine": 9561,
+      "endCol": 1,
+      "preview": "function getRunningSessionIds({ exceptSessionId = null } = {}) {"
+    },
+    {
+      "id": "p377",
+      "type": "function_decl",
+      "name": "abortSessionRunNoRestore",
+      "startLine": 9563,
+      "startCol": 1,
+      "endLine": 9584,
+      "endCol": 1,
+      "preview": "async function abortSessionRunNoRestore(sessionId, reason = '') {"
+    },
+    {
+      "id": "p378",
+      "type": "function_decl",
+      "name": "getRunState",
+      "startLine": 9586,
+      "startCol": 1,
+      "endLine": 9621,
+      "endCol": 1,
+      "preview": "function getRunState(sessionId) {"
+    },
+    {
+      "id": "p379",
+      "type": "var_call_expr",
+      "name": "permissionDialogChain",
+      "startLine": 9625,
+      "startCol": 1,
+      "endLine": 9625,
+      "endCol": 46,
+      "preview": "let permissionDialogChain = Promise.resolve();"
+    },
+    {
+      "id": "p380",
+      "type": "function_decl",
+      "name": "isSessionProcessing",
+      "startLine": 9627,
+      "startCol": 1,
+      "endLine": 9630,
+      "endCol": 1,
+      "preview": "function isSessionProcessing(sessionId) {"
+    },
+    {
+      "id": "p381",
+      "type": "function_decl",
+      "name": "resetStreamBuffer",
+      "startLine": 9632,
+      "startCol": 1,
+      "endLine": 9643,
+      "endCol": 1,
+      "preview": "function resetStreamBuffer(sessionId) {"
+    },
+    {
+      "id": "p382",
+      "type": "var_value",
+      "name": "STREAM_SNAPSHOT_DEBOUNCE_MS",
+      "startLine": 9647,
+      "startCol": 1,
+      "endLine": 9647,
+      "endCol": 41,
+      "preview": "const STREAM_SNAPSHOT_DEBOUNCE_MS = 1200;"
+    },
+    {
+      "id": "p383",
+      "type": "var_value",
+      "name": "MAX_STREAM_SNAPSHOT_TEXT_CHARS",
+      "startLine": 9648,
+      "startCol": 1,
+      "endLine": 9648,
+      "endCol": 47,
+      "preview": "const MAX_STREAM_SNAPSHOT_TEXT_CHARS = 120_000;"
+    },
+    {
+      "id": "p384",
+      "type": "var_value",
+      "name": "MAX_STREAM_SNAPSHOT_THINKING_CHARS",
+      "startLine": 9649,
+      "startCol": 1,
+      "endLine": 9649,
+      "endCol": 50,
+      "preview": "const MAX_STREAM_SNAPSHOT_THINKING_CHARS = 60_000;"
+    },
+    {
+      "id": "p385",
+      "type": "var_value",
+      "name": "MAX_STREAM_SNAPSHOT_DIFF_CHARS",
+      "startLine": 9650,
+      "startCol": 1,
+      "endLine": 9650,
+      "endCol": 46,
+      "preview": "const MAX_STREAM_SNAPSHOT_DIFF_CHARS = 50_000;"
+    },
+    {
+      "id": "p386",
+      "type": "var_value",
+      "name": "MAX_STREAM_SNAPSHOT_DIFF_BLOCKS",
+      "startLine": 9651,
+      "startCol": 1,
+      "endLine": 9651,
+      "endCol": 43,
+      "preview": "const MAX_STREAM_SNAPSHOT_DIFF_BLOCKS = 40;"
+    },
+    {
+      "id": "p387",
+      "type": "var_object_literal",
+      "name": "streamSnapshotTimerBySession",
+      "startLine": 9653,
+      "startCol": 1,
+      "endLine": 9653,
+      "endCol": 38,
+      "preview": "let streamSnapshotTimerBySession = {};"
+    },
+    {
+      "id": "p388",
+      "type": "var_object_literal",
+      "name": "streamSnapshotLastSigBySession",
+      "startLine": 9654,
+      "startCol": 1,
+      "endLine": 9654,
+      "endCol": 40,
+      "preview": "let streamSnapshotLastSigBySession = {};"
+    },
+    {
+      "id": "p389",
+      "type": "var_object_literal",
+      "name": "streamSnapshotLastForcedSaveAtBySession",
+      "startLine": 9655,
+      "startCol": 1,
+      "endLine": 9655,
+      "endCol": 49,
+      "preview": "let streamSnapshotLastForcedSaveAtBySession = {};"
+    },
+    {
+      "id": "p390",
+      "type": "var_value",
+      "name": "STREAM_SNAPSHOT_FORCE_SAVE_MIN_INTERVAL_MS",
+      "startLine": 9657,
+      "startCol": 1,
+      "endLine": 9657,
+      "endCol": 55,
+      "preview": "const STREAM_SNAPSHOT_FORCE_SAVE_MIN_INTERVAL_MS = 500;"
+    },
+    {
+      "id": "p391",
+      "type": "function_decl",
+      "name": "maybeForcePersistNow",
+      "startLine": 9659,
+      "startCol": 1,
+      "endLine": 9668,
+      "endCol": 1,
+      "preview": "function maybeForcePersistNow(sessionId) {"
+    },
+    {
+      "id": "p392",
+      "type": "function_decl",
+      "name": "truncateForSnapshot",
+      "startLine": 9670,
+      "startCol": 1,
+      "endLine": 9675,
+      "endCol": 1,
+      "preview": "function truncateForSnapshot(text, maxChars) {"
+    },
+    {
+      "id": "p393",
+      "type": "function_decl",
+      "name": "_upsertAssistantPartialSnapshot",
+      "startLine": 9679,
+      "startCol": 1,
+      "endLine": 9740,
+      "endCol": 1,
+      "preview": "function _upsertAssistantPartialSnapshot(sessionId) {"
+    },
+    {
+      "id": "p394",
+      "type": "function_decl",
+      "name": "scheduleAssistantPartialSnapshot",
+      "startLine": 9742,
+      "startCol": 1,
+      "endLine": 9776,
+      "endCol": 1,
+      "preview": "function scheduleAssistantPartialSnapshot(sessionId) {"
+    },
+    {
+      "id": "p395",
+      "type": "function_decl",
+      "name": "clearAssistantPartialSnapshot",
+      "startLine": 9778,
+      "startCol": 1,
+      "endLine": 9813,
+      "endCol": 1,
+      "preview": "function clearAssistantPartialSnapshot(sessionId) {"
+    },
+    {
+      "id": "p396",
+      "type": "function_decl",
+      "name": "flushStreamDiffBlocksToHistory",
+      "startLine": 9815,
+      "startCol": 1,
+      "endLine": 9836,
+      "endCol": 1,
+      "preview": "async function flushStreamDiffBlocksToHistory(sessionId) {"
+    },
+    {
+      "id": "p397",
+      "type": "function_decl",
+      "name": "ensureStreamingBubbleForActiveSession",
+      "startLine": 9838,
+      "startCol": 1,
+      "endLine": 9912,
+      "endCol": 1,
+      "preview": "function ensureStreamingBubbleForActiveSession(sessionId) {"
+    },
+    {
+      "id": "p398",
+      "type": "function_decl",
+      "name": "ensureStreamingThinkingSection",
+      "startLine": 9914,
+      "startCol": 1,
+      "endLine": 9929,
+      "endCol": 1,
+      "preview": "function ensureStreamingThinkingSection(streamingDiv) {"
+    },
+    {
+      "id": "p399",
+      "type": "function_decl",
+      "name": "ensureStreamingToolsSection",
+      "startLine": 9931,
+      "startCol": 1,
+      "endLine": 9946,
+      "endCol": 1,
+      "preview": "function ensureStreamingToolsSection(streamingDiv) {"
+    },
+    {
+      "id": "p400",
+      "type": "function_decl",
+      "name": "renderBufferedStreamingForSession",
+      "startLine": 9948,
+      "startCol": 1,
+      "endLine": 10210,
+      "endCol": 1,
+      "preview": "function renderBufferedStreamingForSession(sessionId, { finalize = false, allowWhenNotProcessing = false } = {}) {"
+    },
+    {
+      "id": "p401",
+      "type": "var_value",
+      "name": "STREAM_RENDER_MIN_INTERVAL_MS",
+      "startLine": 10213,
+      "startCol": 1,
+      "endLine": 10213,
+      "endCol": 41,
+      "preview": "const STREAM_RENDER_MIN_INTERVAL_MS = 90;"
+    },
+    {
+      "id": "p402",
+      "type": "var_object_literal",
+      "name": "streamRenderTimerBySession",
+      "startLine": 10214,
+      "startCol": 1,
+      "endLine": 10214,
+      "endCol": 36,
+      "preview": "let streamRenderTimerBySession = {};"
+    },
+    {
+      "id": "p403",
+      "type": "var_object_literal",
+      "name": "streamRenderLastAtBySession",
+      "startLine": 10215,
+      "startCol": 1,
+      "endLine": 10215,
+      "endCol": 37,
+      "preview": "let streamRenderLastAtBySession = {};"
+    },
+    {
+      "id": "p404",
+      "type": "var_object_literal",
+      "name": "streamRenderPendingOptsBySession",
+      "startLine": 10216,
+      "startCol": 1,
+      "endLine": 10216,
+      "endCol": 42,
+      "preview": "let streamRenderPendingOptsBySession = {};"
+    },
+    {
+      "id": "p405",
+      "type": "function_decl",
+      "name": "scheduleBufferedStreamingRender",
+      "startLine": 10218,
+      "startCol": 1,
+      "endLine": 10248,
+      "endCol": 1,
+      "preview": "function scheduleBufferedStreamingRender(sessionId, opts = {}) {"
+    },
+    {
+      "id": "p406",
+      "type": "function_decl",
+      "name": "getClaudeSessionMeta",
+      "startLine": 10250,
+      "startCol": 1,
+      "endLine": 10260,
+      "endCol": 1,
+      "preview": "function getClaudeSessionMeta(sessionId) {"
+    },
+    {
+      "id": "p407",
+      "type": "var_value",
+      "name": "claudeSdkHandlers",
+      "startLine": 10263,
+      "startCol": 1,
+      "endLine": 10263,
+      "endCol": 36,
+      "preview": "const claudeSdkHandlers = new Map();"
+    },
+    {
+      "id": "p408",
+      "type": "var_object_literal",
+      "name": "executionTimelineRunsBySession",
+      "startLine": 10280,
+      "startCol": 1,
+      "endLine": 10280,
+      "endCol": 42,
+      "preview": "const executionTimelineRunsBySession = {};"
+    },
+    {
+      "id": "p409",
+      "type": "var_object_literal",
+      "name": "executionTimelineActiveRunBySession",
+      "startLine": 10281,
+      "startCol": 1,
+      "endLine": 10281,
+      "endCol": 47,
+      "preview": "const executionTimelineActiveRunBySession = {};"
+    },
+    {
+      "id": "p410",
+      "type": "var_object_literal",
+      "name": "executionTimelineSessionByRunId",
+      "startLine": 10282,
+      "startCol": 1,
+      "endLine": 10282,
+      "endCol": 43,
+      "preview": "const executionTimelineSessionByRunId = {};"
+    },
+    {
+      "id": "p411",
+      "type": "var_object_literal",
+      "name": "executionTimelineViewModeBySession",
+      "startLine": 10283,
+      "startCol": 1,
+      "endLine": 10283,
+      "endCol": 46,
+      "preview": "const executionTimelineViewModeBySession = {};"
+    },
+    {
+      "id": "p412",
+      "type": "var_object_literal",
+      "name": "executionTimelineFiltersBySession",
+      "startLine": 10284,
+      "startCol": 1,
+      "endLine": 10284,
+      "endCol": 45,
+      "preview": "const executionTimelineFiltersBySession = {};"
+    },
+    {
+      "id": "p413",
+      "type": "var_object_literal",
+      "name": "executionTimelinePanelPrefsBySession",
+      "startLine": 10285,
+      "startCol": 1,
+      "endLine": 10285,
+      "endCol": 48,
+      "preview": "const executionTimelinePanelPrefsBySession = {};"
+    },
+    {
+      "id": "p414",
+      "type": "var_object_literal",
+      "name": "executionTimelineGraphViewportByRunId",
+      "startLine": 10286,
+      "startCol": 1,
+      "endLine": 10286,
+      "endCol": 49,
+      "preview": "const executionTimelineGraphViewportByRunId = {};"
+    },
+    {
+      "id": "p415",
+      "type": "var_object_literal",
+      "name": "executionTimelineGraphNodeLayoutByRunId",
+      "startLine": 10287,
+      "startCol": 1,
+      "endLine": 10287,
+      "endCol": 51,
+      "preview": "const executionTimelineGraphNodeLayoutByRunId = {};"
+    },
+    {
+      "id": "p416",
+      "type": "var_object_literal",
+      "name": "executionTimelineSelectedNodeByRunId",
+      "startLine": 10288,
+      "startCol": 1,
+      "endLine": 10288,
+      "endCol": 48,
+      "preview": "const executionTimelineSelectedNodeByRunId = {};"
+    },
+    {
+      "id": "p417",
+      "type": "var_value",
+      "name": "executionTimelineIsOpen",
+      "startLine": 10289,
+      "startCol": 1,
+      "endLine": 10289,
+      "endCol": 36,
+      "preview": "let executionTimelineIsOpen = false;"
+    },
+    {
+      "id": "p418",
+      "type": "var_value",
+      "name": "executionTimelineEditorOpen",
+      "startLine": 10290,
+      "startCol": 1,
+      "endLine": 10290,
+      "endCol": 40,
+      "preview": "let executionTimelineEditorOpen = false;"
+    },
+    {
+      "id": "p419",
+      "type": "var_value",
+      "name": "executionTimelineEditorRestore",
+      "startLine": 10291,
+      "startCol": 1,
+      "endLine": 10291,
+      "endCol": 42,
+      "preview": "let executionTimelineEditorRestore = null;"
+    },
+    {
+      "id": "p420",
+      "type": "function_decl",
+      "name": "_fmtAetTime",
+      "startLine": 10293,
+      "startCol": 1,
+      "endLine": 10300,
+      "endCol": 1,
+      "preview": "function _fmtAetTime(ts) {"
+    },
+    {
+      "id": "p421",
+      "type": "function_decl",
+      "name": "_nodeLevel",
+      "startLine": 10302,
+      "startCol": 1,
+      "endLine": 10322,
+      "endCol": 1,
+      "preview": "function _nodeLevel(node) {"
+    },
+    {
+      "id": "p422",
+      "type": "function_decl",
+      "name": "_getAetEls",
+      "startLine": 10324,
+      "startCol": 1,
+      "endLine": 10344,
+      "endCol": 1,
+      "preview": "function _getAetEls() {"
+    },
+    {
+      "id": "p423",
+      "type": "function_decl",
+      "name": "_getActiveRunForSession",
+      "startLine": 10346,
+      "startCol": 1,
+      "endLine": 10358,
+      "endCol": 1,
+      "preview": "function _getActiveRunForSession(sessionId) {"
+    },
+    {
+      "id": "p424",
+      "type": "function_decl",
+      "name": "_findRunById",
+      "startLine": 10360,
+      "startCol": 1,
+      "endLine": 10370,
+      "endCol": 1,
+      "preview": "function _findRunById(sessionId, runId) {"
+    },
+    {
+      "id": "p425",
+      "type": "function_decl",
+      "name": "_findNodeById",
+      "startLine": 10372,
+      "startCol": 1,
+      "endLine": 10381,
+      "endCol": 1,
+      "preview": "function _findNodeById(run, nodeId) {"
+    },
+    {
+      "id": "p426",
+      "type": "function_decl",
+      "name": "_findNearestCheckpointHashes",
+      "startLine": 10383,
+      "startCol": 1,
+      "endLine": 10407,
+      "endCol": 1,
+      "preview": "function _findNearestCheckpointHashes(run, node) {"
+    },
+    {
+      "id": "p427",
+      "type": "function_decl",
+      "name": "_closeAetNodeDrawer",
+      "startLine": 10409,
+      "startCol": 1,
+      "endLine": 10416,
+      "endCol": 1,
+      "preview": "function _closeAetNodeDrawer() {"
+    },
+    {
+      "id": "p428",
+      "type": "function_decl",
+      "name": "_renderAetNodeDrawer",
+      "startLine": 10418,
+      "startCol": 1,
+      "endLine": 10897,
+      "endCol": 1,
+      "preview": "function _renderAetNodeDrawer({ sessionId, runId, nodeId } = {}) {"
+    },
+    {
+      "id": "p429",
+      "type": "function_decl",
+      "name": "_openAetNodeDrawer",
+      "startLine": 10899,
+      "startCol": 1,
+      "endLine": 10933,
+      "endCol": 1,
+      "preview": "function _openAetNodeDrawer({ sessionId, runId, nodeId } = {}) {"
+    },
+    {
+      "id": "p430",
+      "type": "function_decl",
+      "name": "_runAetResumeFromNode",
+      "startLine": 10935,
+      "startCol": 1,
+      "endLine": 11062,
+      "endCol": 1,
+      "preview": "async function _runAetResumeFromNode({ sessionId, runId, nodeId } = {}) {"
+    },
+    {
+      "id": "p431",
+      "type": "function_decl",
+      "name": "_getAetViewMode",
+      "startLine": 11064,
+      "startCol": 1,
+      "endLine": 11068,
+      "endCol": 1,
+      "preview": "function _getAetViewMode(sessionId) {"
+    },
+    {
+      "id": "p432",
+      "type": "function_decl",
+      "name": "_setAetViewMode",
+      "startLine": 11070,
+      "startCol": 1,
+      "endLine": 11076,
+      "endCol": 1,
+      "preview": "function _setAetViewMode(sessionId, mode) {"
+    },
+    {
+      "id": "p433",
+      "type": "function_decl",
+      "name": "_syncAetViewToggleUI",
+      "startLine": 11078,
+      "startCol": 1,
+      "endLine": 11124,
+      "endCol": 1,
+      "preview": "function _syncAetViewToggleUI() {"
+    },
+    {
+      "id": "p434",
+      "type": "function_decl",
+      "name": "_syncAetPauseButtonUI",
+      "startLine": 11126,
+      "startCol": 1,
+      "endLine": 11134,
+      "endCol": 1,
+      "preview": "function _syncAetPauseButtonUI(sessionId) {"
+    },
+    {
+      "id": "p435",
+      "type": "function_decl",
+      "name": "_openExecutionTimelineInEditor",
+      "startLine": 11136,
+      "startCol": 1,
+      "endLine": 11162,
+      "endCol": 1,
+      "preview": "function _openExecutionTimelineInEditor() {"
+    },
+    {
+      "id": "p436",
+      "type": "function_decl",
+      "name": "_closeExecutionTimelineInEditor",
+      "startLine": 11164,
+      "startCol": 1,
+      "endLine": 11185,
+      "endCol": 1,
+      "preview": "function _closeExecutionTimelineInEditor() {"
+    },
+    {
+      "id": "p437",
+      "type": "function_decl",
+      "name": "_getGraphViewportState",
+      "startLine": 11187,
+      "startCol": 1,
+      "endLine": 11201,
+      "endCol": 1,
+      "preview": "function _getGraphViewportState(runId) {"
+    },
+    {
+      "id": "p438",
+      "type": "function_decl",
+      "name": "_setGraphViewportState",
+      "startLine": 11203,
+      "startCol": 1,
+      "endLine": 11216,
+      "endCol": 1,
+      "preview": "function _setGraphViewportState(runId, state) {"
+    },
+    {
+      "id": "p439",
+      "type": "function_decl",
+      "name": "_applyGraphTransform",
+      "startLine": 11218,
+      "startCol": 1,
+      "endLine": 11224,
+      "endCol": 1,
+      "preview": "function _applyGraphTransform(canvas, { scale, tx, ty }) {"
+    },
+    {
+      "id": "p440",
+      "type": "function_decl",
+      "name": "_fitGraphToView",
+      "startLine": 11226,
+      "startCol": 1,
+      "endLine": 11265,
+      "endCol": 1,
+      "preview": "function _fitGraphToView({ runId, viewport, canvas, grid }) {"
+    },
+    {
+      "id": "p441",
+      "type": "function_decl",
+      "name": "_installGraphInteractions",
+      "startLine": 11267,
+      "startCol": 1,
+      "endLine": 11364,
+      "endCol": 1,
+      "preview": "function _installGraphInteractions({ runId, viewport, canvas }) {"
+    },
+    {
+      "id": "p442",
+      "type": "function_decl",
+      "name": "openExecutionTimeline",
+      "startLine": 11366,
+      "startCol": 1,
+      "endLine": 11378,
+      "endCol": 1,
+      "preview": "function openExecutionTimeline() {"
+    },
+    {
+      "id": "p443",
+      "type": "function_decl",
+      "name": "closeExecutionTimeline",
+      "startLine": 11380,
+      "startCol": 1,
+      "endLine": 11390,
+      "endCol": 1,
+      "preview": "function closeExecutionTimeline() {"
+    },
+    {
+      "id": "p444",
+      "type": "function_decl",
+      "name": "toggleExecutionTimeline",
+      "startLine": 11392,
+      "startCol": 1,
+      "endLine": 11395,
+      "endCol": 1,
+      "preview": "function toggleExecutionTimeline() {"
+    },
+    {
+      "id": "p445",
+      "type": "function_decl",
+      "name": "loadExecutionTimelineForSession",
+      "startLine": 11397,
+      "startCol": 1,
+      "endLine": 11420,
+      "endCol": 1,
+      "preview": "async function loadExecutionTimelineForSession(sessionId) {"
+    },
+    {
+      "id": "p446",
+      "type": "function_decl",
+      "name": "_nodeTitle",
+      "startLine": 11422,
+      "startCol": 1,
+      "endLine": 11428,
+      "endCol": 1,
+      "preview": "function _nodeTitle(node) {"
+    },
+    {
+      "id": "p447",
+      "type": "function_decl",
+      "name": "_nodeJustificationText",
+      "startLine": 11430,
+      "startCol": 1,
+      "endLine": 11437,
+      "endCol": 1,
+      "preview": "function _nodeJustificationText(node) {"
+    },
+    {
+      "id": "p448",
+      "type": "function_decl",
+      "name": "_nodeJustificationMeta",
+      "startLine": 11439,
+      "startCol": 1,
+      "endLine": 11446,
+      "endCol": 1,
+      "preview": "function _nodeJustificationMeta(node) {"
+    },
+    {
+      "id": "p449",
+      "type": "function_decl",
+      "name": "_executionTimelineDevMode",
+      "startLine": 11448,
+      "startCol": 1,
+      "endLine": 11456,
+      "endCol": 1,
+      "preview": "function _executionTimelineDevMode() {"
+    },
+    {
+      "id": "p450",
+      "type": "function_decl",
+      "name": "_shouldShowJustificationForNode",
+      "startLine": 11458,
+      "startCol": 1,
+      "endLine": 11464,
+      "endCol": 1,
+      "preview": "function _shouldShowJustificationForNode(node) {"
+    },
+    {
+      "id": "p451",
+      "type": "function_decl",
+      "name": "_nodeFilePath",
+      "startLine": 11466,
+      "startCol": 1,
+      "endLine": 11480,
+      "endCol": 1,
+      "preview": "function _nodeFilePath(node) {"
+    },
+    {
+      "id": "p452",
+      "type": "function_decl",
+      "name": "_nodeIsDiff",
+      "startLine": 11482,
+      "startCol": 1,
+      "endLine": 11489,
+      "endCol": 1,
+      "preview": "function _nodeIsDiff(node) {"
+    },
+    {
+      "id": "p453",
+      "type": "function_decl",
+      "name": "_nodeCheckpointHash",
+      "startLine": 11491,
+      "startCol": 1,
+      "endLine": 11498,
+      "endCol": 1,
+      "preview": "function _nodeCheckpointHash(node) {"
+    },
+    {
+      "id": "p454",
+      "type": "function_decl",
+      "name": "_isCheckpointNode",
+      "startLine": 11500,
+      "startCol": 1,
+      "endLine": 11502,
+      "endCol": 1,
+      "preview": "function _isCheckpointNode(node) {"
+    },
+    {
+      "id": "p455",
+      "type": "function_decl",
+      "name": "_fmtAetDuration",
+      "startLine": 11504,
+      "startCol": 1,
+      "endLine": 11518,
+      "endCol": 1,
+      "preview": "function _fmtAetDuration(ms) {"
+    },
+    {
+      "id": "p456",
+      "type": "function_decl",
+      "name": "_aetRunAnchorCheckpointHash",
+      "startLine": 11520,
+      "startCol": 1,
+      "endLine": 11540,
+      "endCol": 1,
+      "preview": "function _aetRunAnchorCheckpointHash(run) {"
+    },
+    {
+      "id": "p457",
+      "type": "function_decl",
+      "name": "_aetRunStatus",
+      "startLine": 11542,
+      "startCol": 1,
+      "endLine": 11549,
+      "endCol": 1,
+      "preview": "function _aetRunStatus(run) {"
+    },
+    {
+      "id": "p458",
+      "type": "function_decl",
+      "name": "_aetRunSummaryHtml",
+      "startLine": 11551,
+      "startCol": 1,
+      "endLine": 11636,
+      "endCol": 1,
+      "preview": "function _aetRunSummaryHtml(run, { shownNodesCount = null, recordedNodesCount = null } = {}) {"
+    },
+    {
+      "id": "p459",
+      "type": "function_decl",
+      "name": "_renderAetRunSummary",
+      "startLine": 11638,
+      "startCol": 1,
+      "endLine": 11647,
+      "endCol": 1,
+      "preview": "function _renderAetRunSummary(run, opts = {}) {"
+    },
+    {
+      "id": "p460",
+      "type": "function_decl",
+      "name": "_aetBuildChangesFromDisplayNodes",
+      "startLine": 11649,
+      "startCol": 1,
+      "endLine": 11672,
+      "endCol": 1,
+      "preview": "function _aetBuildChangesFromDisplayNodes(nodes) {"
+    },
+    {
+      "id": "p461",
+      "type": "function_decl",
+      "name": "_renderAetChangesPanel",
+      "startLine": 11674,
+      "startCol": 1,
+      "endLine": 11744,
+      "endCol": 1,
+      "preview": "function _renderAetChangesPanel({ sessionId, runId, nodes } = {}) {"
+    },
+    {
+      "id": "p462",
+      "type": "function_decl",
+      "name": "_getAetFiltersForSession",
+      "startLine": 11746,
+      "startCol": 1,
+      "endLine": 11771,
+      "endCol": 1,
+      "preview": "function _getAetFiltersForSession(sessionId) {"
+    },
+    {
+      "id": "p463",
+      "type": "function_decl",
+      "name": "_getAetPanelPrefsForSession",
+      "startLine": 11773,
+      "startCol": 1,
+      "endLine": 11783,
+      "endCol": 1,
+      "preview": "function _getAetPanelPrefsForSession(sessionId) {"
+    },
+    {
+      "id": "p464",
+      "type": "function_decl",
+      "name": "_aetHasActiveFilters",
+      "startLine": 11785,
+      "startCol": 1,
+      "endLine": 11794,
+      "endCol": 1,
+      "preview": "function _aetHasActiveFilters(f) {"
+    },
+    {
+      "id": "p465",
+      "type": "function_decl",
+      "name": "_aetNormalizeRisk",
+      "startLine": 11796,
+      "startCol": 1,
+      "endLine": 11800,
+      "endCol": 1,
+      "preview": "function _aetNormalizeRisk(val) {"
+    },
+    {
+      "id": "p466",
+      "type": "function_decl",
+      "name": "_aetNodeRisk",
+      "startLine": 11802,
+      "startCol": 1,
+      "endLine": 11810,
+      "endCol": 1,
+      "preview": "function _aetNodeRisk(node) {"
+    },
+    {
+      "id": "p467",
+      "type": "function_decl",
+      "name": "_aetApplyNodeFilters",
+      "startLine": 11812,
+      "startCol": 1,
+      "endLine": 11854,
+      "endCol": 1,
+      "preview": "function _aetApplyNodeFilters(nodes, filters) {"
+    },
+    {
+      "id": "p468",
+      "type": "function_decl",
+      "name": "_aetFiltersHtml",
+      "startLine": 11856,
+      "startCol": 1,
+      "endLine": 11930,
+      "endCol": 1,
+      "preview": "function _aetFiltersHtml({ sessionId, shownCount, totalCount } = {}) {"
+    },
+    {
+      "id": "p469",
+      "type": "function_decl",
+      "name": "_patchAetFiltersDom",
+      "startLine": 11932,
+      "startCol": 1,
+      "endLine": 12013,
+      "endCol": 1,
+      "preview": "function _patchAetFiltersDom(containerEl, { sessionId, shownCount, totalCount } = {}) {"
+    },
+    {
+      "id": "p470",
+      "type": "function_decl",
+      "name": "_renderAetFilters",
+      "startLine": 12015,
+      "startCol": 1,
+      "endLine": 12107,
+      "endCol": 1,
+      "preview": "function _renderAetFilters({ sessionId, shownCount, totalCount } = {}) {"
+    },
+    {
+      "id": "p471",
+      "type": "function_decl",
+      "name": "_aetShowDiffNodes",
+      "startLine": 12109,
+      "startCol": 1,
+      "endLine": 12117,
+      "endCol": 1,
+      "preview": "function _aetShowDiffNodes() {"
+    },
+    {
+      "id": "p472",
+      "type": "function_decl",
+      "name": "_aetAttachDiffPreviewsToEdits",
+      "startLine": 12119,
+      "startCol": 1,
+      "endLine": 12155,
+      "endCol": 1,
+      "preview": "function _aetAttachDiffPreviewsToEdits(nodes) {"
+    },
+    {
+      "id": "p473",
+      "type": "function_decl",
+      "name": "_aetNodesForDisplay",
+      "startLine": 12157,
+      "startCol": 1,
+      "endLine": 12181,
+      "endCol": 1,
+      "preview": "function _aetNodesForDisplay({ runId, nodes }) {"
+    },
+    {
+      "id": "p474",
+      "type": "function_decl",
+      "name": "_graphLaneForNode",
+      "startLine": 12183,
+      "startCol": 1,
+      "endLine": 12201,
+      "endCol": 1,
+      "preview": "function _graphLaneForNode(node) {"
+    },
+    {
+      "id": "p475",
+      "type": "function_decl",
+      "name": "_getRunIdForActiveGraph",
+      "startLine": 12203,
+      "startCol": 1,
+      "endLine": 12210,
+      "endCol": 1,
+      "preview": "function _getRunIdForActiveGraph() {"
+    },
+    {
+      "id": "p476",
+      "type": "function_decl",
+      "name": "_getNodeLayoutMapForRun",
+      "startLine": 12212,
+      "startCol": 1,
+      "endLine": 12219,
+      "endCol": 1,
+      "preview": "function _getNodeLayoutMapForRun(runId) {"
+    },
+    {
+      "id": "p477",
+      "type": "function_decl",
+      "name": "_ensureNodeLayout",
+      "startLine": 12221,
+      "startCol": 1,
+      "endLine": 12244,
+      "endCol": 1,
+      "preview": "function _ensureNodeLayout({ runId, nodeId, lane, defaultY, defaultW }) {"
+    },
+    {
+      "id": "p478",
+      "type": "function_decl",
+      "name": "_buildExecutionGraph",
+      "startLine": 12246,
+      "startCol": 1,
+      "endLine": 12283,
+      "endCol": 1,
+      "preview": "function _buildExecutionGraph(nodesInOrder) {"
+    },
+    {
+      "id": "p479",
+      "type": "function_decl",
+      "name": "_renderExecutionTimelineGraph",
+      "startLine": 12285,
+      "startCol": 1,
+      "endLine": 12691,
+      "endCol": 1,
+      "preview": "function _renderExecutionTimelineGraph({ nodes }) {"
+    },
+    {
+      "id": "p480",
+      "type": "function_decl",
+      "name": "_renderExecutionTimelineFeed",
+      "startLine": 12693,
+      "startCol": 1,
+      "endLine": 12819,
+      "endCol": 1,
+      "preview": "function _renderExecutionTimelineFeed({ nodes }) {"
+    },
+    {
+      "id": "p481",
+      "type": "function_decl",
+      "name": "renderExecutionTimelineForSession",
+      "startLine": 12821,
+      "startCol": 1,
+      "endLine": 12957,
+      "endCol": 1,
+      "preview": "function renderExecutionTimelineForSession(sessionId) {"
+    },
+    {
+      "id": "p482",
+      "type": "function_decl",
+      "name": "updateSendButtonForCurrentSession",
+      "startLine": 13028,
+      "startCol": 1,
+      "endLine": 13056,
+      "endCol": 1,
+      "preview": "function updateSendButtonForCurrentSession() {"
+    },
+    {
+      "id": "p483",
+      "type": "function_decl",
+      "name": "setProcessingState",
+      "startLine": 13058,
+      "startCol": 1,
+      "endLine": 13072,
+      "endCol": 1,
+      "preview": "function setProcessingState(isProcessing, sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p484",
+      "type": "function_decl",
+      "name": "stopProcessing",
+      "startLine": 13074,
+      "startCol": 1,
+      "endLine": 13108,
+      "endCol": 1,
+      "preview": "async function stopProcessing(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p485",
+      "type": "function_decl",
+      "name": "sendMessage",
+      "startLine": 13110,
+      "startCol": 1,
+      "endLine": 13355,
+      "endCol": 1,
+      "preview": "async function sendMessage() {"
+    },
+    {
+      "id": "p486",
+      "type": "function_decl",
+      "name": "getLastChatTurn",
+      "startLine": 13363,
+      "startCol": 1,
+      "endLine": 13375,
+      "endCol": 1,
+      "preview": "function getLastChatTurn(messagesContainer) {"
+    },
+    {
+      "id": "p487",
+      "type": "function_decl",
+      "name": "appendChatNode",
+      "startLine": 13377,
+      "startCol": 1,
+      "endLine": 13394,
+      "endCol": 1,
+      "preview": "function appendChatNode(messagesContainer, node, { roleHint = '' } = {}) {"
+    },
+    {
+      "id": "p488",
+      "type": "function_decl",
+      "name": "buildMessageAttachmentsElement",
+      "startLine": 13396,
+      "startCol": 1,
+      "endLine": 13473,
+      "endCol": 1,
+      "preview": "function buildMessageAttachmentsElement(attachments) {"
+    },
+    {
+      "id": "p489",
+      "type": "function_decl",
+      "name": "wireUserMessageCollapse",
+      "startLine": 13475,
+      "startCol": 1,
+      "endLine": 13549,
+      "endCol": 1,
+      "preview": "function wireUserMessageCollapse(messageDiv) {"
+    },
+    {
+      "id": "p490",
+      "type": "function_decl",
+      "name": "removeTurnAndFollowingFromMessage",
+      "startLine": 13551,
+      "startCol": 1,
+      "endLine": 13575,
+      "endCol": 1,
+      "preview": "function removeTurnAndFollowingFromMessage(messageElement) {"
+    },
+    {
+      "id": "p491",
+      "type": "function_decl",
+      "name": "addMessage",
+      "startLine": 13577,
+      "startCol": 1,
+      "endLine": 13705,
+      "endCol": 1,
+      "preview": "function addMessage(role, content, id = null, restoreHash = null, save = true, attachments = [], skills = []) {"
+    },
+    {
+      "id": "p492",
+      "type": "function_decl",
+      "name": "_ensureSafeForGlobalGitRestore",
+      "startLine": 13707,
+      "startCol": 1,
+      "endLine": 13754,
+      "endCol": 1,
+      "preview": "async function _ensureSafeForGlobalGitRestore({ actionTitle = 'Git Restore' } = {}) {"
+    },
+    {
+      "id": "p493",
+      "type": "function_decl",
+      "name": "restoreToUserCheckpoint",
+      "startLine": 13757,
+      "startCol": 1,
+      "endLine": 13973,
+      "endCol": 1,
+      "preview": "async function restoreToUserCheckpoint(commitHash, messageElement, content, attachments = [], skipConfirmation = false) {"
+    },
+    {
+      "id": "p494",
+      "type": "function_decl",
+      "name": "formatMessage",
+      "startLine": 13975,
+      "startCol": 1,
+      "endLine": 14023,
+      "endCol": 1,
+      "preview": "function formatMessage(content) {"
+    },
+    {
+      "id": "p495",
+      "type": "function_decl",
+      "name": "escapeHtml",
+      "startLine": 14025,
+      "startCol": 1,
+      "endLine": 14029,
+      "endCol": 1,
+      "preview": "function escapeHtml(text) {"
+    },
+    {
+      "id": "p496",
+      "type": "function_decl",
+      "name": "escapeAttr",
+      "startLine": 14031,
+      "startCol": 1,
+      "endLine": 14038,
+      "endCol": 1,
+      "preview": "function escapeAttr(text) {"
+    },
+    {
+      "id": "p497",
+      "type": "function_decl",
+      "name": "formatMessageStreamingSafe",
+      "startLine": 14042,
+      "startCol": 1,
+      "endLine": 14045,
+      "endCol": 1,
+      "preview": "function formatMessageStreamingSafe(content) {"
+    },
+    {
+      "id": "p498",
+      "type": "function_decl",
+      "name": "handleFileSelect",
+      "startLine": 14049,
+      "startCol": 1,
+      "endLine": 14056,
+      "endCol": 1,
+      "preview": "async function handleFileSelect(event) {"
+    },
+    {
+      "id": "p499",
+      "type": "function_decl",
+      "name": "normalizePathSlashes",
+      "startLine": 14058,
+      "startCol": 1,
+      "endLine": 14060,
+      "endCol": 1,
+      "preview": "function normalizePathSlashes(p) {"
+    },
+    {
+      "id": "p500",
+      "type": "function_decl",
+      "name": "stripFileUriPrefix",
+      "startLine": 14062,
+      "startCol": 1,
+      "endLine": 14074,
+      "endCol": 1,
+      "preview": "function stripFileUriPrefix(p) {"
+    },
+    {
+      "id": "p501",
+      "type": "function_decl",
+      "name": "extractWorkspaceDropPaths",
+      "startLine": 14076,
+      "startCol": 1,
+      "endLine": 14116,
+      "endCol": 1,
+      "preview": "function extractWorkspaceDropPaths(dataTransfer) {"
+    },
+    {
+      "id": "p502",
+      "type": "function_decl",
+      "name": "basenameFromPath",
+      "startLine": 14118,
+      "startCol": 1,
+      "endLine": 14122,
+      "endCol": 1,
+      "preview": "function basenameFromPath(p) {"
+    },
+    {
+      "id": "p503",
+      "type": "function_decl",
+      "name": "inferKindFromPath",
+      "startLine": 14124,
+      "startCol": 1,
+      "endLine": 14129,
+      "endCol": 1,
+      "preview": "function inferKindFromPath(p) {"
+    },
+    {
+      "id": "p504",
+      "type": "function_decl",
+      "name": "resolveFileTokenToRelPath",
+      "startLine": 14131,
+      "startCol": 1,
+      "endLine": 14163,
+      "endCol": 1,
+      "preview": "function resolveFileTokenToRelPath(token) {"
+    },
+    {
+      "id": "p505",
+      "type": "function_decl",
+      "name": "clearClaudeResumeStateForSession",
+      "startLine": 14165,
+      "startCol": 1,
+      "endLine": 14182,
+      "endCol": 1,
+      "preview": "function clearClaudeResumeStateForSession(sessionId) {"
+    },
+    {
+      "id": "p506",
+      "type": "function_decl",
+      "name": "clearClaudeResumeAnchorForSession",
+      "startLine": 14184,
+      "startCol": 1,
+      "endLine": 14198,
+      "endCol": 1,
+      "preview": "function clearClaudeResumeAnchorForSession(sessionId) {"
+    },
+    {
+      "id": "p507",
+      "type": "function_decl",
+      "name": "addClaudeMissingConversationRecoveryCard",
+      "startLine": 14200,
+      "startCol": 1,
+      "endLine": 14248,
+      "endCol": 1,
+      "preview": "function addClaudeMissingConversationRecoveryCard(sessionId, missingId) {"
+    },
+    {
+      "id": "p508",
+      "type": "function_decl",
+      "name": "addClaudeMissingResumeAnchorRecoveryCard",
+      "startLine": 14250,
+      "startCol": 1,
+      "endLine": 14298,
+      "endCol": 1,
+      "preview": "function addClaudeMissingResumeAnchorRecoveryCard(sessionId, missingUuid) {"
+    },
+    {
+      "id": "p509",
+      "type": "function_decl",
+      "name": "classifyClaudeTransientFailure",
+      "startLine": 14300,
+      "startCol": 1,
+      "endLine": 14366,
+      "endCol": 1,
+      "preview": "function classifyClaudeTransientFailure(text) {"
+    },
+    {
+      "id": "p510",
+      "type": "function_decl",
+      "name": "addClaudeTransientRetryCard",
+      "startLine": 14368,
+      "startCol": 1,
+      "endLine": 14611,
+      "endCol": 1,
+      "preview": "function addClaudeTransientRetryCard(sessionId, { title = '', subtitle = '', errorText = '', retryAfterSeconds = null, kind = '', requestId "
+    },
+    {
+      "id": "p511",
+      "type": "function_decl",
+      "name": "toRelativeProjectPath",
+      "startLine": 14613,
+      "startCol": 1,
+      "endLine": 14629,
+      "endCol": 1,
+      "preview": "function toRelativeProjectPath(absOrRelPath) {"
+    },
+    {
+      "id": "p512",
+      "type": "function_decl",
+      "name": "addWorkspaceFileAttachment",
+      "startLine": 14631,
+      "startCol": 1,
+      "endLine": 14659,
+      "endCol": 1,
+      "preview": "async function addWorkspaceFileAttachment(pathStr) {"
+    },
+    {
+      "id": "p513",
+      "type": "function_decl",
+      "name": "addAttachment",
+      "startLine": 14661,
+      "startCol": 1,
+      "endLine": 14694,
+      "endCol": 1,
+      "preview": "async function addAttachment(file) {"
+    },
+    {
+      "id": "p514",
+      "type": "function_decl",
+      "name": "readFileAsDataURL",
+      "startLine": 14696,
+      "startCol": 1,
+      "endLine": 14703,
+      "endCol": 1,
+      "preview": "function readFileAsDataURL(file) {"
+    },
+    {
+      "id": "p515",
+      "type": "function_decl",
+      "name": "readFileAsText",
+      "startLine": 14705,
+      "startCol": 1,
+      "endLine": 14712,
+      "endCol": 1,
+      "preview": "function readFileAsText(file) {"
+    },
+    {
+      "id": "p516",
+      "type": "function_decl",
+      "name": "sanitizeAttachmentFileName",
+      "startLine": 14714,
+      "startCol": 1,
+      "endLine": 14720,
+      "endCol": 1,
+      "preview": "function sanitizeAttachmentFileName(name) {"
+    },
+    {
+      "id": "p517",
+      "type": "function_decl",
+      "name": "inferLangFromPath",
+      "startLine": 14722,
+      "startCol": 1,
+      "endLine": 14755,
+      "endCol": 1,
+      "preview": "function inferLangFromPath(p) {"
+    },
+    {
+      "id": "p518",
+      "type": "function_decl",
+      "name": "addPastedCodeAttachment",
+      "startLine": 14757,
+      "startCol": 1,
+      "endLine": 14808,
+      "endCol": 1,
+      "preview": "function addPastedCodeAttachment({ absPath = '', relPath = '', startLine = 0, endLine = 0, code = '' } = {}) {"
+    },
+    {
+      "id": "p519",
+      "type": "function_decl",
+      "name": "parseDataUrl",
+      "startLine": 14810,
+      "startCol": 1,
+      "endLine": 14815,
+      "endCol": 1,
+      "preview": "function parseDataUrl(dataUrl) {"
+    },
+    {
+      "id": "p520",
+      "type": "function_decl",
+      "name": "materializeAttachmentsForClaude",
+      "startLine": 14817,
+      "startCol": 1,
+      "endLine": 14889,
+      "endCol": 1,
+      "preview": "async function materializeAttachmentsForClaude(attachments, sessionId = null) {"
+    },
+    {
+      "id": "p521",
+      "type": "function_decl",
+      "name": "renderAttachmentPreview",
+      "startLine": 14891,
+      "startCol": 1,
+      "endLine": 14971,
+      "endCol": 1,
+      "preview": "function renderAttachmentPreview() {"
+    },
+    {
+      "id": "p522",
+      "type": "function_decl",
+      "name": "clearAttachments",
+      "startLine": 14973,
+      "startCol": 1,
+      "endLine": 14981,
+      "endCol": 1,
+      "preview": "function clearAttachments(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p523",
+      "type": "function_decl",
+      "name": "addCodeBlockActions",
+      "startLine": 14983,
+      "startCol": 1,
+      "endLine": 15014,
+      "endCol": 1,
+      "preview": "function addCodeBlockActions(messageDiv) {"
+    },
+    {
+      "id": "p524",
+      "type": "function_decl",
+      "name": "copyCodeToClipboard",
+      "startLine": 15016,
+      "startCol": 1,
+      "endLine": 15029,
+      "endCol": 1,
+      "preview": "function copyCodeToClipboard(code, button) {"
+    },
+    {
+      "id": "p525",
+      "type": "function_decl",
+      "name": "showToast",
+      "startLine": 15031,
+      "startCol": 1,
+      "endLine": 15045,
+      "endCol": 1,
+      "preview": "function showToast(message) {"
+    },
+    {
+      "id": "p526",
+      "type": "function_decl",
+      "name": "openFullDiffForRelPath",
+      "startLine": 15047,
+      "startCol": 1,
+      "endLine": 15060,
+      "endCol": 1,
+      "preview": "async function openFullDiffForRelPath(relPath) {"
+    },
+    {
+      "id": "p527",
+      "type": "function_decl",
+      "name": "handleWorkspaceFilesChanged",
+      "startLine": 15062,
+      "startCol": 1,
+      "endLine": 15147,
+      "endCol": 1,
+      "preview": "async function handleWorkspaceFilesChanged(data) {"
+    },
+    {
+      "id": "p528",
+      "type": "function_decl",
+      "name": "showTypingIndicator",
+      "startLine": 15153,
+      "startCol": 1,
+      "endLine": 15165,
+      "endCol": 1,
+      "preview": "function showTypingIndicator(sessionId = currentSessionId) {"
+    },
+    {
+      "id": "p529",
+      "type": "function_decl",
+      "name": "removeTypingIndicator",
+      "startLine": 15167,
+      "startCol": 1,
+      "endLine": 15170,
+      "endCol": 1,
+      "preview": "function removeTypingIndicator(_id) {"
+    },
+    {
+      "id": "p530",
+      "type": "var_value",
+      "name": "STATUS_BANNER_MIN_UPDATE_MS",
+      "startLine": 15175,
+      "startCol": 1,
+      "endLine": 15175,
+      "endCol": 40,
+      "preview": "const STATUS_BANNER_MIN_UPDATE_MS = 120;"
+    },
+    {
+      "id": "p531",
+      "type": "function_decl",
+      "name": "_setChatStatusBannerText",
+      "startLine": 15177,
+      "startCol": 1,
+      "endLine": 15197,
+      "endCol": 1,
+      "preview": "function _setChatStatusBannerText(text, { sessionId = currentSessionId } = {}) {"
+    },
+    {
+      "id": "p532",
+      "type": "function_decl",
+      "name": "_setRunUiStatus",
+      "startLine": 15199,
+      "startCol": 1,
+      "endLine": 15210,
+      "endCol": 1,
+      "preview": "function _setRunUiStatus(sessionId, text, { kind = 'info', setWritingNext = false } = {}) {"
+    },
+    {
+      "id": "p533",
+      "type": "function_decl",
+      "name": "_refreshChatStatusBannerForCurrentSession",
+      "startLine": 15212,
+      "startCol": 1,
+      "endLine": 15222,
+      "endCol": 1,
+      "preview": "function _refreshChatStatusBannerForCurrentSession() {"
+    },
+    {
+      "id": "p534",
+      "type": "var_value",
+      "name": "STANDARD_SYSTEM_PROMPT_CLAUDE",
+      "startLine": 15230,
+      "startCol": 1,
+      "endLine": 15342,
+      "endCol": 76,
+      "preview": "const STANDARD_SYSTEM_PROMPT_CLAUDE = `"
+    },
+    {
+      "id": "p535",
+      "type": "var_value",
+      "name": "STANDARD_SYSTEM_PROMPT_OPENAI",
+      "startLine": 15345,
+      "startCol": 1,
+      "endLine": 15513,
+      "endCol": 76,
+      "preview": "const STANDARD_SYSTEM_PROMPT_OPENAI = `"
+    },
+    {
+      "id": "p536",
+      "type": "var_value",
+      "name": "ARCHITECT_SYSTEM_PROMPT",
+      "startLine": 15515,
+      "startCol": 1,
+      "endLine": 15543,
+      "endCol": 16,
+      "preview": "const ARCHITECT_SYSTEM_PROMPT = `You are a senior software architect who delivers comprehensive, actionable architecture blueprints by deepl"
+    },
+    {
+      "id": "p537",
+      "type": "var_value",
+      "name": "REVIEWER_SYSTEM_PROMPT",
+      "startLine": 15545,
+      "startCol": 1,
+      "endLine": 15586,
+      "endCol": 16,
+      "preview": "const REVIEWER_SYSTEM_PROMPT = `You are an expert code reviewer specializing in modern software development across multiple languages and fr"
+    },
+    {
+      "id": "p538",
+      "type": "var_value",
+      "name": "TUTOR_SYSTEM_PROMPT",
+      "startLine": 15588,
+      "startCol": 1,
+      "endLine": 15632,
+      "endCol": 16,
+      "preview": "const TUTOR_SYSTEM_PROMPT = `You are a world-class coding tutor. This session is focused on active learning."
+    },
+    {
+      "id": "p539",
+      "type": "function_decl",
+      "name": "getSystemPromptForMode",
+      "startLine": 15635,
+      "startCol": 1,
+      "endLine": 15657,
+      "endCol": 1,
+      "preview": "function getSystemPromptForMode(mode, modelInfo = {}) {"
+    },
+    {
+      "id": "p540",
+      "type": "function_decl",
+      "name": "getAIResponseForAgent",
+      "startLine": 15662,
+      "startCol": 1,
+      "endLine": 15948,
+      "endCol": 1,
+      "preview": "async function getAIResponseForAgent(agentMessage, mode) {"
+    },
+    {
+      "id": "p541",
+      "type": "function_decl",
+      "name": "cleanupOldToolResults",
+      "startLine": 15954,
+      "startCol": 1,
+      "endLine": 16108,
+      "endCol": 1,
+      "preview": "function cleanupOldToolResults(conversationMessages, keepRecentTurns = 10) {"
+    },
+    {
+      "id": "p542",
+      "type": "function_decl",
+      "name": "getAIResponse",
+      "startLine": 16110,
+      "startCol": 1,
+      "endLine": 17433,
+      "endCol": 1,
+      "preview": "async function getAIResponse(userMessage, attachments = [], signal = null, sessionId = null, options = {}) {"
+    },
+    {
+      "id": "p543",
+      "type": "function_decl",
+      "name": "createGeneratedImagePreviewElement",
+      "startLine": 17440,
+      "startCol": 1,
+      "endLine": 17504,
+      "endCol": 1,
+      "preview": "async function createGeneratedImagePreviewElement(result, args) {"
+    },
+    {
+      "id": "p544",
+      "type": "function_decl",
+      "name": "openLightbox",
+      "startLine": 17506,
+      "startCol": 1,
+      "endLine": 17529,
+      "endCol": 1,
+      "preview": "function openLightbox(imageUrl) {"
+    },
+    {
+      "id": "p545",
+      "type": "function_decl",
+      "name": "showGeneratedImagePreview",
+      "startLine": 17532,
+      "startCol": 1,
+      "endLine": 17536,
+      "endCol": 1,
+      "preview": "async function showGeneratedImagePreview(result, args) {"
+    },
+    {
+      "id": "p546",
+      "type": "function_decl",
+      "name": "formatGitDiff",
+      "startLine": 17538,
+      "startCol": 1,
+      "endLine": 17569,
+      "endCol": 1,
+      "preview": "function formatGitDiff(diffContent) {"
+    },
+    {
+      "id": "p547",
+      "type": "function_decl",
+      "name": "getLastCommitHash",
+      "startLine": 17572,
+      "startCol": 1,
+      "endLine": 17582,
+      "endCol": 1,
+      "preview": "async function getLastCommitHash() {"
+    },
+    {
+      "id": "p548",
+      "type": "function_decl",
+      "name": "ensureGitOnMainBranch",
+      "startLine": 17584,
+      "startCol": 1,
+      "endLine": 17595,
+      "endCol": 1,
+      "preview": "async function ensureGitOnMainBranch() {"
+    },
+    {
+      "id": "p549",
+      "type": "function_decl",
+      "name": "maybeCommitAICheckpoint",
+      "startLine": 17597,
+      "startCol": 1,
+      "endLine": 17621,
+      "endCol": 1,
+      "preview": "async function maybeCommitAICheckpoint(reason = 'Claude run') {"
+    },
+    {
+      "id": "p550",
+      "type": "function_decl",
+      "name": "saveChatHistory",
+      "startLine": 17624,
+      "startCol": 1,
+      "endLine": 17689,
+      "endCol": 1,
+      "preview": "async function saveChatHistory(force = false) {"
+    },
+    {
+      "id": "p551",
+      "type": "function_decl",
+      "name": "_buildUIMetadataSnapshot",
+      "startLine": 17691,
+      "startCol": 1,
+      "endLine": 17721,
+      "endCol": 1,
+      "preview": "function _buildUIMetadataSnapshot() {"
+    },
+    {
+      "id": "p552",
+      "type": "function_decl",
+      "name": "scheduleUIMetadataSave",
+      "startLine": 17723,
+      "startCol": 1,
+      "endLine": 17735,
+      "endCol": 1,
+      "preview": "function scheduleUIMetadataSave(delayMs = 500) {"
+    },
+    {
+      "id": "p553",
+      "type": "function_decl",
+      "name": "saveUIMetadataNow",
+      "startLine": 17737,
+      "startCol": 1,
+      "endLine": 17751,
+      "endCol": 1,
+      "preview": "async function saveUIMetadataNow(force = false) {"
+    },
+    {
+      "id": "p554",
+      "type": "function_decl",
+      "name": "applyUIMetadataState",
+      "startLine": 17753,
+      "startCol": 1,
+      "endLine": 17780,
+      "endCol": 1,
+      "preview": "function applyUIMetadataState(loaded) {"
+    },
+    {
+      "id": "p555",
+      "type": "function_decl",
+      "name": "loadChatSessions",
+      "startLine": 17783,
+      "startCol": 1,
+      "endLine": 17960,
+      "endCol": 1,
+      "preview": "async function loadChatSessions() {"
+    },
+    {
+      "id": "p556",
+      "type": "function_decl",
+      "name": "createNewChatSession",
+      "startLine": 17963,
+      "startCol": 1,
+      "endLine": 18038,
+      "endCol": 1,
+      "preview": "async function createNewChatSession(name = null) {"
+    },
+    {
+      "id": "p557",
+      "type": "function_decl",
+      "name": "scrollChatTabIntoView",
+      "startLine": 18040,
+      "startCol": 1,
+      "endLine": 18062,
+      "endCol": 1,
+      "preview": "function scrollChatTabIntoView(sessionId = currentSessionId, { behavior = 'smooth' } = {}) {"
+    },
+    {
+      "id": "p558",
+      "type": "function_decl",
+      "name": "renderMessageToUI",
+      "startLine": 18065,
+      "startCol": 1,
+      "endLine": 18670,
+      "endCol": 1,
+      "preview": "async function renderMessageToUI(msg) {"
+    },
+    {
+      "id": "p559",
+      "type": "function_decl",
+      "name": "switchToSession",
+      "startLine": 18673,
+      "startCol": 1,
+      "endLine": 18799,
+      "endCol": 1,
+      "preview": "async function switchToSession(sessionId) {"
+    },
+    {
+      "id": "p560",
+      "type": "function_decl",
+      "name": "openChatSession",
+      "startLine": 18801,
+      "startCol": 1,
+      "endLine": 18809,
+      "endCol": 1,
+      "preview": "function openChatSession(sessionId) {"
+    },
+    {
+      "id": "p561",
+      "type": "function_decl",
+      "name": "closeChatSession",
+      "startLine": 18811,
+      "startCol": 1,
+      "endLine": 18836,
+      "endCol": 1,
+      "preview": "async function closeChatSession(sessionId) {"
+    },
+    {
+      "id": "p562",
+      "type": "function_decl",
+      "name": "deleteChatSession",
+      "startLine": 18839,
+      "startCol": 1,
+      "endLine": 18872,
+      "endCol": 1,
+      "preview": "function deleteChatSession(sessionId) {"
+    },
+    {
+      "id": "p563",
+      "type": "function_decl",
+      "name": "renderChatTabs",
+      "startLine": 18875,
+      "startCol": 1,
+      "endLine": 18919,
+      "endCol": 1,
+      "preview": "function renderChatTabs() {"
+    },
+    {
+      "id": "p564",
+      "type": "function_decl",
+      "name": "renderChatDropdown",
+      "startLine": 18922,
+      "startCol": 1,
+      "endLine": 18975,
+      "endCol": 1,
+      "preview": "function renderChatDropdown() {"
+    },
+    {
+      "id": "p565",
+      "type": "function_decl",
+      "name": "restoreToCheckpoint",
+      "startLine": 18978,
+      "startCol": 1,
+      "endLine": 19023,
+      "endCol": 1,
+      "preview": "async function restoreToCheckpoint(commitHash) {"
+    },
+    {
+      "id": "p566",
+      "type": "function_decl",
+      "name": "addSystemMessage",
+      "startLine": 19025,
+      "startCol": 1,
+      "endLine": 19036,
+      "endCol": 1,
+      "preview": "function addSystemMessage(message, isError = false, { sessionId = currentSessionId } = {}) {"
+    },
+    {
+      "id": "p567",
+      "type": "function_decl",
+      "name": "ensureGitInitializedIfNeeded",
+      "startLine": 19038,
+      "startCol": 1,
+      "endLine": 19071,
+      "endCol": 1,
+      "preview": "async function ensureGitInitializedIfNeeded() {"
+    },
+    {
+      "id": "p568",
+      "type": "function_decl",
+      "name": "getGitInProgressState",
+      "startLine": 19073,
+      "startCol": 1,
+      "endLine": 19097,
+      "endCol": 1,
+      "preview": "async function getGitInProgressState() {"
+    },
+    {
+      "id": "p569",
+      "type": "function_decl",
+      "name": "abortGitOpIfAny",
+      "startLine": 19099,
+      "startCol": 1,
+      "endLine": 19112,
+      "endCol": 1,
+      "preview": "async function abortGitOpIfAny() {"
+    },
+    {
+      "id": "p570",
+      "type": "function_decl",
+      "name": "addGitOpRecoveryMessage",
+      "startLine": 19114,
+      "startCol": 1,
+      "endLine": 19151,
+      "endCol": 1,
+      "preview": "function addGitOpRecoveryMessage(sessionId, { op = 'cherry-pick', conflictFiles = [], beforeCommit = '', filesChanged = 0, note = '' } = {})"
+    },
+    {
+      "id": "p571",
+      "type": "function_decl",
+      "name": "createNewFile",
+      "startLine": 19153,
+      "startCol": 1,
+      "endLine": 19186,
+      "endCol": 1,
+      "preview": "async function createNewFile() {"
+    },
+    {
+      "id": "p572",
+      "type": "function_decl",
+      "name": "createNewFolder",
+      "startLine": 19188,
+      "startCol": 1,
+      "endLine": 19221,
+      "endCol": 1,
+      "preview": "async function createNewFolder() {"
+    },
+    {
+      "id": "p573",
+      "type": "function_decl",
+      "name": "renameItem",
+      "startLine": 19223,
+      "startCol": 1,
+      "endLine": 19270,
+      "endCol": 1,
+      "preview": "async function renameItem() {"
+    },
+    {
+      "id": "p574",
+      "type": "function_decl",
+      "name": "deleteItem",
+      "startLine": 19272,
+      "startCol": 1,
+      "endLine": 19314,
+      "endCol": 1,
+      "preview": "async function deleteItem() {"
+    },
+    {
+      "id": "p575",
+      "type": "function_decl",
+      "name": "revealInFinder",
+      "startLine": 19316,
+      "startCol": 1,
+      "endLine": 19327,
+      "endCol": 1,
+      "preview": "async function revealInFinder() {"
+    },
+    {
+      "id": "p576",
+      "type": "function_decl",
+      "name": "commitFileOperation",
+      "startLine": 19330,
+      "startCol": 1,
+      "endLine": 19379,
+      "endCol": 1,
+      "preview": "async function commitFileOperation(operation, itemName, newPath, oldPath = null) {"
+    },
+    {
+      "id": "p577",
+      "type": "function_decl",
+      "name": "addFileOperationMessage",
+      "startLine": 19382,
+      "startCol": 1,
+      "endLine": 19444,
+      "endCol": 1,
+      "preview": "function addFileOperationMessage(operation, itemName, beforeCommit, afterCommit, newPath, oldPath) {"
+    },
+    {
+      "id": "p578",
+      "type": "function_decl",
+      "name": "restoreFileOperation",
+      "startLine": 19447,
+      "startCol": 1,
+      "endLine": 19479,
+      "endCol": 1,
+      "preview": "async function restoreFileOperation(beforeCommit, operation, newPath, oldPath) {"
+    },
+    {
+      "id": "p579",
+      "type": "function_decl",
+      "name": "refreshFileTree",
+      "startLine": 19481,
+      "startCol": 1,
+      "endLine": 19492,
+      "endCol": 1,
+      "preview": "async function refreshFileTree() {"
+    },
+    {
+      "id": "p580",
+      "type": "function_decl",
+      "name": "loadRecentProjects",
+      "startLine": 19499,
+      "startCol": 1,
+      "endLine": 19513,
+      "endCol": 1,
+      "preview": "async function loadRecentProjects() {"
+    },
+    {
+      "id": "p581",
+      "type": "function_decl",
+      "name": "saveRecentProjects",
+      "startLine": 19516,
+      "startCol": 1,
+      "endLine": 19529,
+      "endCol": 1,
+      "preview": "async function saveRecentProjects(projects) {"
+    },
+    {
+      "id": "p582",
+      "type": "function_decl",
+      "name": "addToRecentProjects",
+      "startLine": 19532,
+      "startCol": 1,
+      "endLine": 19557,
+      "endCol": 1,
+      "preview": "async function addToRecentProjects(projectPath) {"
+    },
+    {
+      "id": "p583",
+      "type": "function_decl",
+      "name": "removeFromRecentProjects",
+      "startLine": 19560,
+      "startCol": 1,
+      "endLine": 19565,
+      "endCol": 1,
+      "preview": "async function removeFromRecentProjects(projectPath) {"
+    },
+    {
+      "id": "p584",
+      "type": "function_decl",
+      "name": "renderRecentProjects",
+      "startLine": 19568,
+      "startCol": 1,
+      "endLine": 19630,
+      "endCol": 1,
+      "preview": "async function renderRecentProjects() {"
+    },
+    {
+      "id": "p585",
+      "type": "function_decl",
+      "name": "showWelcomeScreen",
+      "startLine": 19633,
+      "startCol": 1,
+      "endLine": 19643,
+      "endCol": 1,
+      "preview": "async function showWelcomeScreen() {"
+    },
+    {
+      "id": "p586",
+      "type": "function_decl",
+      "name": "initStickyPromptsScrollState",
+      "startLine": 19645,
+      "startCol": 1,
+      "endLine": 19662,
+      "endCol": 1,
+      "preview": "function initStickyPromptsScrollState() {"
+    },
+    {
+      "id": "p587",
+      "type": "function_decl",
+      "name": "initChatFileLinkNavigation",
+      "startLine": 19664,
+      "startCol": 1,
+      "endLine": 19690,
+      "endCol": 1,
+      "preview": "function initChatFileLinkNavigation() {"
+    },
+    {
+      "id": "p588",
+      "type": "function_decl",
+      "name": "hideWelcomeScreen",
+      "startLine": 19693,
+      "startCol": 1,
+      "endLine": 19701,
+      "endCol": 1,
+      "preview": "function hideWelcomeScreen() {"
+    }
+  ]
+}

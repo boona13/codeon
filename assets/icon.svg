@@ -1,0 +1,42 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle with Gradient -->
+  <circle cx="256" cy="256" r="256" fill="url(#gradient)"/>
+
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Code Symbol -->
+  <g transform="translate(256, 256)">
+    <!-- Left Bracket -->
+    <path d="M -80 -100 L -120 -60 L -120 60 L -80 100"
+          stroke="white"
+          stroke-width="24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"/>
+
+    <!-- Right Bracket -->
+    <path d="M 80 -100 L 120 -60 L 120 60 L 80 100"
+          stroke="white"
+          stroke-width="24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"/>
+
+    <!-- AI Sparkle -->
+    <circle cx="0" cy="-40" r="12" fill="white"/>
+    <circle cx="-30" cy="20" r="8" fill="white" opacity="0.8"/>
+    <circle cx="35" cy="25" r="10" fill="white" opacity="0.8"/>
+    <circle cx="0" cy="60" r="6" fill="white" opacity="0.6"/>
+
+    <!-- Central Dot -->
+    <circle cx="0" cy="0" r="16" fill="white"/>
+  </g>
+</svg>
+

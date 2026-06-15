@@ -1,0 +1,53 @@
+{
+  "name": "codeon",
+  "version": "1.0.0",
+  "description": "Open-source AI coding agent desktop app: one agent loop (Claude Agent SDK), any model — Claude, Codex (ChatGPT plan), or OpenRouter — with an anti-slop design engine, image generation, execution receipts, and git checkpoints.",
+  "main": "main.js",
+  "scripts": {
+    "lint": "eslint --max-warnings=0 .",
+    "postinstall": "electron-builder install-app-deps && node scripts/fix-node-pty-perms.js",
+    "prestart": "npm run lint",
+    "predev": "npm run lint",
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "build": "electron-builder --config electron-builder.json",
+    "build:mac": "electron-builder --config electron-builder.json --mac",
+    "build:win": "electron-builder --config electron-builder.json --win",
+    "build:linux": "electron-builder --config electron-builder.json --linux",
+    "dev": "electron . --enable-logging"
+  },
+  "keywords": [
+    "ai",
+    "code-editor",
+    "electron",
+    "monaco",
+    "claude",
+    "copilot",
+    "developer-tools"
+  ],
+  "author": "Ibrahim Boona",
+  "license": "AGPL-3.0-or-later",
+  "homepage": "https://codeon.app",
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.7",
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@xterm/addon-fit": "^0.11.0",
+    "marked": "^17.0.1",
+    "monaco-editor": "^0.45.0",
+    "node-pty": "^1.1.0",
+    "pngjs": "^7.0.0",
+    "sql.js": "^1.10.2",
+    "xterm": "^5.3.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "electron": "^35.7.5",
+    "electron-builder": "^26.4.1",
+    "eslint": "^9.39.2",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "globals": "^16.5.0",
+    "typescript": "^5.9.3"
+  },
+  "build": {}
+}

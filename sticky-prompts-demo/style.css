@@ -1,0 +1,399 @@
+/* ===================================================================
+ * Base Chat Layout
+ * =================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.chat-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #cccccc;
+}
+
+.chat-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Default padding with breathing room */
+  padding: 14px 12px 10px;
+  /* Smooth transition when padding changes */
+  transition: padding-top 0.15s ease-out;
+}
+
+/* Remove top padding when scrolled (flush against top) */
+.chat-container.scrolled {
+  padding-top: 0;
+}
+
+.messages-blur-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 100%;
+}
+
+/* ===================================================================
+ * Demo Hint
+ * =================================================================== */
+
+.demo-hint {
+  padding: 20px;
+  background-color: #2d2d2d;
+  border: 1px solid #3e3e3e;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.demo-hint strong {
+  color: #e1e1e1;
+}
+
+/* ===================================================================
+ * Turn Container (Critical for Sticky Behavior)
+ * =================================================================== */
+
+.turn {
+  /* Position relative creates a containing block for sticky children */
+  position: relative;
+  /* Add some spacing between turns */
+  margin-bottom: 24px;
+}
+
+/* ===================================================================
+ * Sticky User Messages (THE MAGIC IS HERE)
+ * =================================================================== */
+
+.sticky-message {
+  /* THIS IS THE MAGIC: position sticky */
+  position: sticky;
+  /* Stick to the top of the scrolling container */
+  top: 0;
+  /* High z-index to stay above content (but below next sticky prompt) */
+  z-index: 1000;
+  /* Background to cover content scrolling underneath */
+  background-color: #1e1e1e;
+  /* Some vertical padding */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Pseudo-element to extend background slightly above (prevents gaps) */
+.sticky-message::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background-color: #1e1e1e;
+  /* Behind the actual content */
+  z-index: -1;
+}
+
+/* ===================================================================
+ * User Message Styling
+ * =================================================================== */
+
+.user-message {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.user-message .message-bubble {
+  background: linear-gradient(135deg, #2d2d2d 0%, #353535 100%);
+  border: 1px solid #3e3e3e;
+  border-radius: 12px;
+  padding: 12px 16px;
+  max-width: 85%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-message .message-bubble:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.user-message .message-content {
+  color: #e8e8e8;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* ===================================================================
+ * Assistant Message Styling
+ * =================================================================== */
+
+.assistant-message {
+  margin-bottom: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-left: 4px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: linear-gradient(135deg, #3e3e3e, #2d2d2d);
+  border-radius: 50%;
+  border: 1px solid #4e4e4e;
+}
+
+.username {
+  font-size: 13px;
+  font-weight: 500;
+  color: #999;
+  letter-spacing: 0.3px;
+}
+
+.assistant-message .message-content {
+  color: #d4d4d4;
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 8px 4px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* ===================================================================
+ * Typing Indicator
+ * =================================================================== */
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 4px;
+  margin-bottom: 10px;
+}
+
+.typing-indicator .avatar {
+  margin-right: 4px;
+}
+
+.typing-indicator .dots {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px;
+  background-color: #2d2d2d;
+  border-radius: 16px;
+}
+
+.typing-indicator .dot {
+  width: 8px;
+  height: 8px;
+  background-color: #666;
+  border-radius: 50%;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator .dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+/* ===================================================================
+ * Input Area (Fixed Bottom)
+ * =================================================================== */
+
+.chat-input-area {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 16px;
+  background-color: #252525;
+  border-top: 1px solid #3e3e3e;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#userInput {
+  flex: 1;
+  min-height: 44px;
+  max-height: 200px;
+  padding: 12px 14px;
+  background-color: #2d2d2d;
+  border: 1px solid #3e3e3e;
+  border-radius: 8px;
+  color: #e8e8e8;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  overflow-y: auto;
+}
+
+#userInput:focus {
+  border-color: #007acc;
+  background-color: #323232;
+}
+
+#userInput::placeholder {
+  color: #666;
+}
+
+#sendBtn {
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #007acc 0%, #005a9e 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  box-shadow: 0 2px 4px rgba(0, 122, 204, 0.3);
+}
+
+#sendBtn:hover {
+  background: linear-gradient(135deg, #005a9e 0%, #004578 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 122, 204, 0.4);
+}
+
+#sendBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 122, 204, 0.3);
+}
+
+#sendBtn:disabled {
+  background: linear-gradient(135deg, #3e3e3e 0%, #2d2d2d 100%);
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===================================================================
+ * Scrollbar Styling
+ * =================================================================== */
+
+.chat-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+  border-radius: 6px;
+  border: 2px solid #1e1e1e;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+  background: #4e4e4e;
+}
+
+#userInput::-webkit-scrollbar {
+  width: 8px;
+}
+
+#userInput::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#userInput::-webkit-scrollbar-thumb {
+  background: #3e3e3e;
+  border-radius: 4px;
+}
+
+#userInput::-webkit-scrollbar-thumb:hover {
+  background: #4e4e4e;
+}
+
+/* ===================================================================
+ * Responsive Design
+ * =================================================================== */
+
+@media (max-width: 768px) {
+  .chat-container {
+    padding: 10px 8px 8px;
+  }
+  
+  .messages-blur-wrapper {
+    max-width: 100%;
+  }
+  
+  .user-message .message-bubble {
+    max-width: 90%;
+  }
+  
+  .chat-input-area {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  #userInput {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+

@@ -1,0 +1,46 @@
+node_modules/
+dist/
+build/
+out/
+*.log
+.DS_Store
+
+# Runtime debug stream logs (regenerated per-session, can grow to GBs)
+debug-logs/
+.env
+.vscode/
+
+# AI Agent data (generated per-project, should not be in version control)
+.ai-agent/
+.ai-index.json
+.cursor/
+**/.ai-agent/
+**/.ai-index.json
+**/.cursor/
+
+# Local Netlify folder
+.netlify
+
+# Claude CLI native binaries (provided by @anthropic-ai/claude-agent-sdk at runtime; never commit)
+resources/claude-cli/
+
+# Secrets / credentials — never commit
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+
+# Third-party proprietary code (do NOT redistribute)
+# e.g. decompiled/disassembled vendor extensions or CLIs
+**/anthropic.claude-code-*/
+docs/research/
+
+# Local editor / build artifacts
+.cursorrules
+*.bak
+**/_backups/
+generated-images/

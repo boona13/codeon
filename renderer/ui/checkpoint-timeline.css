@@ -1,0 +1,76 @@
+/* Checkpoint Timeline Modal (lightweight, fits existing theme) */
+
+.checkpoint-modal {
+  max-width: 980px;
+  width: 92vw;
+}
+
+.checkpoint-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 14px;
+}
+
+.checkpoint-list {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  max-height: 60vh;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.checkpoint-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.checkpoint-item:last-child {
+  border-bottom: none;
+}
+
+.checkpoint-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.checkpoint-item.active {
+  background: rgba(34, 211, 238, 0.08);
+  border-left: 3px solid rgba(34, 211, 238, 0.9);
+}
+
+.checkpoint-hash {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.checkpoint-meta {
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 4px;
+}
+
+.checkpoint-detail {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  max-height: 60vh;
+  overflow: auto;
+  background: rgba(15, 23, 42, 0.25);
+}
+
+.checkpoint-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.checkpoint-pre {
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.35;
+  opacity: 0.92;
+}
+
+
